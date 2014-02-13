@@ -40,14 +40,18 @@ void CApp::OnRender() {
     r=r+0.01;
     if (r>1) r-=1;
         
-    glClearColor(r, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    static Entropy::GFX::Shape* g = new Entropy::GFX::Star(6, 0.25f);
-    g->Draw(Geometry::Vector2d<float>(0.0f,0.0f), 
-                    1, 
-                    r*360,
-                    Entropy::GFX::Colour(1,1,1));
+    static Entropy::GFX::Shape* g = new Entropy::GFX::Star(8, 0.6f);
+    for (int i=0;i!=16;++i)
+    {
+    	float t = r*Geometry::pi*2 + i/Geometry::pi*6;
+		g->Draw(Geometry::Vector2d<float>(i/8.0 * sinf(t)/2, i/8.0 * cosf(t)/2), 
+						0.15, 
+						r*360,
+						Entropy::GFX::Colour(sin(t),cos(t*4),sin(t*2)));
+	}
     
     // hack background  
     /*
