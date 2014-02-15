@@ -5,8 +5,10 @@
     #define _CAPP_H_
 
 #include <SDL.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
+#include <SDL/SDL_opengl.h>
+
+//#include <gl/gl.h>
+//#include <gl/glu.h>
 
 //==============================================================================
 class CApp {
@@ -16,6 +18,8 @@ class CApp {
         SDL_Surface*    Surf_Display;
 
 		int mWidth, mHeight;
+		
+		GLuint mProgramObject;
 		
     public:
         CApp();

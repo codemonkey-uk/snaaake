@@ -3,7 +3,7 @@ src = src/CApp.cpp src/CApp_OnCleanup.cpp src/CApp_OnEvent.cpp src/CApp_OnInit.c
 src += src/shape.cpp src/star.cpp src/colour.cpp
 	
 trees: $(src)
-	emcc -o trees.html $(src) -s LEGACY_GL_EMULATION=1 -I src/geometry/
+	emcc -o trees.html $(src) -I src/geometry/ -s FULL_ES2=1
 
 .PHONY : clean
 clean:
