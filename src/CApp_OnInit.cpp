@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// #include <GL/glfw.h>
 #include <emscripten/emscripten.h>
 
 #include "SDL/SDL_opengl.h"
@@ -49,8 +48,6 @@ GLuint LoadShader(const char *shaderSrc, GLenum type)
 
 int Init()
 {
-	// !!! UserData *userData = esContext->userData; 
-	
 	const char* vShaderStr =
 		"attribute vec4 vPosition;\n"
 		"void main()\n"
@@ -101,9 +98,6 @@ int Init()
       	return 0;
    }
 
-	// Store the program object 
-	// userData->programObject = programObject;
-	// glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
    return programObject;
 }
 
@@ -112,16 +106,6 @@ bool CApp::OnInit() {
 
 	mWidth=640;
 	mHeight=480;
-	/*
-    if (glfwInit() != GL_TRUE) {
-        printf("glfwInit() failed\n");
-        return GL_FALSE;
-    }
- 
-    if (glfwOpenWindow(mWidth, mHeight, 8, 8, 8, 8, 16, 0, GLFW_WINDOW) != GL_TRUE) {
-        printf("glfwOpenWindow() failed\n");
-        return GL_FALSE;
-    }*/
     
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
