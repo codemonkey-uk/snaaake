@@ -12,7 +12,9 @@
 #define SHAPE_H_INCLUDED
 
 // #include <OpenGLES/ES1/gl.h>
-#include <GL/glfw.h>
+// #include <GL/glfw.h>
+#include "SDL/SDL_opengl.h"
+
 
 #include "vectorn.h"
 #include "colour.h"
@@ -37,12 +39,16 @@ namespace Entropy {
             protected:
                 // shape is a base class for drawing procedural geometry,
                 // which is created in the constructor of derived classes
-                Shape(GLenum mode, int verts); 
+                Shape(GLuint program, GLenum mode, int verts); 
 
                 // all set up in the initialiser list of the Shape constructor
                 const GLenum mMode;
                 const GLint mVertCount;
                 GLfloat * const mVertArray;
+                
+                GLint mProgram;
+                int mScaleUniform;
+                int mTranslateUniform;
                 
         };
     }

@@ -7,9 +7,6 @@
 #include <SDL.h>
 #include <SDL/SDL_opengl.h>
 
-//#include <gl/gl.h>
-//#include <gl/glu.h>
-
 //==============================================================================
 class CApp {
     private:

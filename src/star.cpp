@@ -15,8 +15,8 @@ namespace Entropy {
 
     namespace GFX {
 
-        Star::Star(int points, float thickness)
-            : Shape(GL_TRIANGLES, points*3)
+        Star::Star(GLuint program, int points, float thickness)
+            : Shape(program, GL_TRIANGLES, points*3)
         {
             float outer_r = 1.0f;
             float inner_r = outer_r - thickness;

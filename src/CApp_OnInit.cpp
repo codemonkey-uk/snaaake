@@ -50,16 +50,19 @@ int Init()
 {
 	const char* vShaderStr =
 		"attribute vec4 vPosition;\n"
+		"uniform float scale;\n"
+		"uniform vec3 translation;\n"
 		"void main()\n"
 		"{\n"
-		" gl_Position = vPosition;\n"
+		"  vec4 t = vec4(translation.x,translation.y,translation.z,0);\n"
+		"  gl_Position = t+vPosition*vec4(scale,scale,scale,1);\n"
 		"}\n";
 
 	const char* fShaderStr =
 		"precision mediump float;\n"
 		"void main()"
 		"{"
-		" gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); " 
+		" gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0); " 
 		"}";
 		
 	GLuint vertexShader; 

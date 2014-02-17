@@ -19,7 +19,7 @@ namespace Entropy {
         class Star : public Shape
         {
             public:
-                Star(int points, float thickness);                
+                Star(GLuint program, int points, float thickness);                
         };
     }
 }
