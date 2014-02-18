@@ -49,6 +49,7 @@ namespace Entropy {
                 GLint mProgram;
                 int mScaleUniform;
                 int mTranslateUniform;
+                int mColourUniform;
                 
         };
     }

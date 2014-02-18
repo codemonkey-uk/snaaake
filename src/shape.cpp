@@ -26,6 +26,8 @@ namespace Entropy {
 			if (mScaleUniform==-1) printf("Scale Uniform not found.\n");
 			mTranslateUniform = glGetUniformLocation(mProgram, "translation");
 			if (mTranslateUniform==-1) printf("Translate Uniform not found.\n");
+			mColourUniform = glGetUniformLocation(mProgram, "colour");
+			if (mColourUniform==-1) printf("Colour Uniform not found.\n");
         }
         
         Shape::~Shape()
@@ -42,10 +44,10 @@ namespace Entropy {
         	// Use the program object 
 			glUseProgram(mProgram);
 			glUniform1f(mScaleUniform, size);
-			glUniform3f(mTranslateUniform, p.Get(1), p.Get(0), 0);
+			glUniform3f(mTranslateUniform, p.Get(0), p.Get(1), 0);
+			glUniform4f(mColourUniform, col.mR, col.mG, col.mB, 1.0f);
 			
             // glRotatef( spin, 0,0,1);
-            // col.Draw();
             
             glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, mVertArray); 
 			glEnableVertexAttribArray(0);
