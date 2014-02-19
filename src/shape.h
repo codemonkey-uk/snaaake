@@ -47,8 +47,7 @@ namespace Entropy {
                 GLfloat * const mVertArray;
                 
                 GLint mProgram;
-                int mScaleUniform;
-                int mTranslateUniform;
+                int mTransformUniform;
                 int mColourUniform;
                 
         };

@@ -22,10 +22,8 @@ namespace Entropy {
             , mVertCount( verts )
             , mVertArray( new GLfloat[ verts*2 ] )
         {
-        	mScaleUniform = glGetUniformLocation(mProgram, "scale");
-			if (mScaleUniform==-1) printf("Scale Uniform not found.\n");
-			mTranslateUniform = glGetUniformLocation(mProgram, "translation");
-			if (mTranslateUniform==-1) printf("Translate Uniform not found.\n");
+			mTransformUniform = glGetUniformLocation(mProgram, "transform");
+			if (mTransformUniform==-1) printf("Transform Uniform not found.\n");
 			mColourUniform = glGetUniformLocation(mProgram, "colour");
 			if (mColourUniform==-1) printf("Colour Uniform not found.\n");
         }
@@ -43,8 +41,14 @@ namespace Entropy {
         {
         	// Use the program object 
 			glUseProgram(mProgram);
-			glUniform1f(mScaleUniform, size);
-			glUniform3f(mTranslateUniform, p.Get(0), p.Get(1), 0);
+			
+			float mat[4*4] = {
+				size, 0, 0, 0,
+				0, size, 0, 0,
+				0, 0, size, 0,
+				p.Get(0), p.Get(1), 0, 1
+			};
+			glUniformMatrix4fv( mTransformUniform, 1, GL_FALSE, mat );			
 			glUniform4f(mColourUniform, col.mR, col.mG, col.mB, 1.0f);
 			
             // glRotatef( spin, 0,0,1);

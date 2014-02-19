@@ -50,15 +50,13 @@ int Init()
 {
 	const char* vShaderStr =
 		"attribute vec4 vPosition;\n"
-		"uniform float scale;\n"
-		"uniform vec3 translation;\n"
+		"uniform mat4 transform;\n"
 		"uniform mediump vec4 colour;\n"
 		"varying mediump vec4 colourOut;\n"
 		"void main()\n"
 		"{\n"
 		"  colourOut = colour;\n"
-		"  vec4 t = vec4(translation.x,translation.y,translation.z,0);\n"
-		"  gl_Position = t+vPosition*vec4(scale,scale,scale,1);\n"
+		"  gl_Position = transform*vPosition;\n"
 		"}\n";
 
 	const char* fShaderStr =
