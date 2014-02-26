@@ -44,32 +44,12 @@ namespace Entropy {
         	// Use the program object 
 			glUseProgram(mProgram);
 			
-			/*
-			Geometry::MatrixNM<float,4,4> matrix(Geometry::uninitialised);
-			matrix[0][0]=size;
-			matrix[0][1]=0;
-			matrix[0][2]=0;
-			matrix[0][3]=0;
-			matrix[1][0]=0;
-			matrix[1][1]=size;
-			matrix[1][2]=0;
-			matrix[1][3]=0;
-			matrix[2][0]=0;
-			matrix[2][1]=0;
-			matrix[2][2]=size;
-			matrix[2][3]=0;
-			matrix[3][0]=p.Get(0);
-			matrix[3][1]=p.Get(1);
-			matrix[3][2]=0;
-			matrix[3][3]=1;
-			*/
-			float data[4*4] = {
+			Geometry::MatrixNM<float,4,4> matrix({
 				size, 0, 0, 0,
 				0, size, 0, 0,
 				0, 0, size, 0,
 				p.Get(0), p.Get(1), 0, 1
-			};
-			Geometry::MatrixNM<float,4,4> matrix(data);
+			});
 			
 			glUniformMatrix4fv( mTransformUniform, 1, GL_FALSE, matrix[0] );			
 			glUniform4f(mColourUniform, col.mR, col.mG, col.mB, 1.0f);
