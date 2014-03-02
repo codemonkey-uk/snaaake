@@ -54,8 +54,15 @@ namespace Entropy {
 				0, 0, 1, 0,
 				p.Get(0), p.Get(1), 0, 1
 			});
+
+			Geometry::MatrixN<float,4> rotate({			
+				cos(spin),  -sin(spin),   0,   0,
+				sin(spin),   cos(spin),   0,   0,
+				0,        0,        1,   0,
+				0,        0,        0,   1			
+			});
 			
-			Geometry::MatrixN<float,4> matrix = scale * translate;
+			Geometry::MatrixN<float,4> matrix = scale * rotate * translate;
 			
 			glUniformMatrix4fv( mTransformUniform, 1, GL_FALSE, matrix[0] );			
 			glUniform4f(mColourUniform, col.mR, col.mG, col.mB, 1.0f);
