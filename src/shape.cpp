@@ -13,6 +13,7 @@
 #include <stdio.h>
  
 #include "matrixnm.h"
+#include "matrixn.h"
  
 namespace Entropy {
 
@@ -44,12 +45,17 @@ namespace Entropy {
         	// Use the program object 
 			glUseProgram(mProgram);
 			
-			Geometry::MatrixNM<float,4,4> matrix({
-				size, 0, 0, 0,
-				0, size, 0, 0,
-				0, 0, size, 0,
+			Geometry::MatrixN<float,4> scale(Geometry::uninitialised);
+			scale.Scale(size);
+			
+			Geometry::MatrixN<float,4> translate({
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
 				p.Get(0), p.Get(1), 0, 1
 			});
+			
+			Geometry::MatrixN<float,4> matrix = scale * translate;
 			
 			glUniformMatrix4fv( mTransformUniform, 1, GL_FALSE, matrix[0] );			
 			glUniform4f(mColourUniform, col.mR, col.mG, col.mB, 1.0f);
