@@ -46,14 +46,11 @@ namespace Entropy {
 			glUseProgram(mProgram);
 			
 			Geometry::MatrixN<float,4> scale(Geometry::uninitialised);
-			scale.Scale(size);
+			scale.BecomeScale(size);
 			
-			Geometry::MatrixN<float,4> translate({
-				1, 0, 0, 0,
-				0, 1, 0, 0,
-				0, 0, 1, 0,
-				p.Get(0), p.Get(1), 0, 1
-			});
+			Geometry::MatrixN<float,4> translate;
+			translate.BecomeTranslation( Geometry::VectorN<float, 3>(p,0) );
+			// Geometry::MatrixN<float,4>::Translation(p);
 
 			Geometry::MatrixN<float,4> rotate({			
 				cos(spin),  -sin(spin),   0,   0,
