@@ -14,6 +14,7 @@
  
 #include "matrixnm.h"
 #include "matrixn.h"
+#include "matrix4.h"
  
 namespace Entropy {
 
@@ -50,30 +51,24 @@ namespace Entropy {
 			
 			Geometry::MatrixN<float,4> translate;
 			translate.BecomeTranslation( Geometry::VectorN<float, 3>(p,0) );
-			// Geometry::MatrixN<float,4>::Translation(p);
 
-			Geometry::MatrixN<float,4> rotate({			
-				cos(spin),  -sin(spin),   0,   0,
-				sin(spin),   cos(spin),   0,   0,
-				0,        0,        1,   0,
-				0,        0,        0,   1			
-			});
+			//Geometry::Matrix4<float> rotate = 
+			//	Geometry::Matrix4<float>::RotationAroundY(spin)
+			//	* Geometry::Matrix4<float>::RotationAroundZ(spin*0.5f)
+			//	* Geometry::Matrix4<float>::RotationAroundX(spin*0.25f);
+			Geometry::Matrix4<float> rotate(Geometry::uninitialised);
+			
+			rotate.BecomeRotationFromEuler( Geometry::VectorN<float, 3>( { spin, 0, 0 } ) );
 			
 			Geometry::MatrixN<float,4> matrix = scale * rotate * translate;
 			
 			glUniformMatrix4fv( mTransformUniform, 1, GL_FALSE, matrix[0] );			
 			glUniform4f(mColourUniform, col.mR, col.mG, col.mB, 1.0f);
 			
-            // glRotatef( spin, 0,0,1);
-            
             glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, mVertArray); 
 			glEnableVertexAttribArray(0);
 	     
-            // glVertexPointer(2, GL_FLOAT, 0, mVertArray);
-            // glEnableClientState(GL_VERTEX_ARRAY);
             glDrawArrays(mMode, 0, mVertCount);
-            
-            // glPopMatrix();
         }
         
     }
