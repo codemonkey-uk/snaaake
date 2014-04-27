@@ -58,7 +58,11 @@ namespace Entropy {
 			//	* Geometry::Matrix4<float>::RotationAroundX(spin*0.25f);
 			Geometry::Matrix4<float> rotate(Geometry::uninitialised);
 			
-			rotate.BecomeRotationFromEuler( Geometry::VectorN<float, 3>( { spin, 0, 0 } ) );
+			//rotate.BecomeRotationFromEuler( Geometry::VectorN<float, 3>( { spin, 0, 0 } ) );
+			//rotate.BecomeRotationAround( Geometry::VectorN<float, 3>( { 0, 0, 1 } ), spin );
+			 Geometry::VectorN<float, 3> axis { 1, 1, 0 };
+			 axis.Normalise();
+			 rotate.BecomeRotationAround(axis, spin );
 			
 			Geometry::MatrixN<float,4> matrix = scale * rotate * translate;
 			
