@@ -15,23 +15,24 @@ void CApp::OnRender()
 	glViewport(0, 0, mWidth, mHeight);
 		
 	static float r=0;
-    r=r+0.01;
+    r=r+0.1;
     if (r>1) r-=1;
         
-    static Entropy::GFX::Shape* g[3] = {
-    	new Entropy::GFX::Star(mProgramObject,  8, 0.6f),
-		new Entropy::GFX::Ring(mProgramObject, 16, 0.4f),
-		new Entropy::GFX::Quad(mProgramObject, 1.f, 1.f),
-		 };
-		
-    for (int i=0;i!=16;++i)
+    static Entropy::GFX::Shape* g = 
+		new Entropy::GFX::Quad(mProgramObject, 0.75f, 0.75f);
+	
+	int s=84;
+	int hs=s/2;
+    for (int x=0;x!=s;x++)
     {
-    	float t = r*Geometry::pi*2 + i/Geometry::pi*6;
-    	
-		g[i%3]->Draw(Geometry::Vector2d<float>(i/8.0 * sinf(t)/2, i/8.0 * cosf(t)/2), 
-						0.15, 
-						r*Geometry::pi*2,
-						Entropy::GFX::Colour(sin(t),cos(t*4),sin(t*2)));
+	    for (int y=0;y!=48;y++)
+    	{
+			g->Draw(
+				Geometry::Vector2d<float>((x-hs)/float(hs), (18+y-hs)/float(hs)), 
+				1.f/s, 
+				x+r*Geometry::pi,
+				Entropy::GFX::Colour(sin(float(x)/s+r),1,sin(float(y)/s+r)));
+		}
 	}
 
 	SDL_GL_SwapBuffers();

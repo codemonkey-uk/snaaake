@@ -52,18 +52,8 @@ namespace Entropy {
 			Geometry::MatrixN<float,4> translate;
 			translate.BecomeTranslation( Geometry::VectorN<float, 3>(p,0) );
 
-			//Geometry::Matrix4<float> rotate = 
-			//	Geometry::Matrix4<float>::RotationAroundY(spin)
-			//	* Geometry::Matrix4<float>::RotationAroundZ(spin*0.5f)
-			//	* Geometry::Matrix4<float>::RotationAroundX(spin*0.25f);
-			Geometry::Matrix4<float> rotate(Geometry::uninitialised);
-			
-			//rotate.BecomeRotationFromEuler( Geometry::VectorN<float, 3>( { spin, 0, 0 } ) );
-			//rotate.BecomeRotationAround( Geometry::VectorN<float, 3>( { 0, 0, 1 } ), spin );
-			 Geometry::VectorN<float, 3> axis { 1, 1, 0 };
-			 axis.Normalise();
-			 rotate.BecomeRotationAround(axis, spin );
-			
+			Geometry::Matrix4<float> rotate = 
+				Geometry::Matrix4<float>::RotationAroundX(spin);
 			Geometry::MatrixN<float,4> matrix = scale * rotate * translate;
 			
 			glUniformMatrix4fv( mTransformUniform, 1, GL_FALSE, matrix[0] );			

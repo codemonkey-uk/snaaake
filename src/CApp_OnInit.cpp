@@ -109,8 +109,8 @@ int Init()
 //==============================================================================
 bool CApp::OnInit() {
 
-	mWidth=640;
-	mHeight=480;
+	mWidth=512;
+	mHeight=512;
     
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
