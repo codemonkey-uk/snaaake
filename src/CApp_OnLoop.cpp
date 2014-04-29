@@ -2,7 +2,19 @@
 #include "CApp.h"
 
 //==============================================================================
-void CApp::OnLoop() {
+void CApp::OnLoop() 
+{
+	static int i=0;
+	i = (i + 1)%mHorizontal;
+	
+    for (int x=0;x!=mHorizontal;x++)
+    {
+	    for (int y=0;y!=mVertical;y++)
+    	{
+    		int* p = (mPixels + x + y*mHorizontal);
+    		*p = ((x==i) || (y==i));
+    	}
+    }
 }
 
 //==============================================================================

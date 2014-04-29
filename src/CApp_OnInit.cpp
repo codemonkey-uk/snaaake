@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <algorithm>
 #include <emscripten/emscripten.h>
 
 #include "SDL/SDL_opengl.h"
@@ -108,10 +108,14 @@ int Init()
 
 //==============================================================================
 bool CApp::OnInit() {
-
-	mWidth=512;
-	mHeight=512;
-    
+ 
+	mHorizontal=84;
+	mVertical=48;
+	mPixels=new int[mHorizontal*mVertical];
+	
+	mWidth=6*mHorizontal;
+	mHeight=6*mVertical;
+    int s=std::max(mWidth,mHeight);
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
@@ -119,7 +123,7 @@ bool CApp::OnInit() {
     }
     
     //Create Window
-    if( SDL_SetVideoMode( mWidth, mHeight, 24, SDL_OPENGL ) == NULL )
+    if( SDL_SetVideoMode( s, s, 24, SDL_OPENGL ) == NULL )
     {
         return false;
     }
