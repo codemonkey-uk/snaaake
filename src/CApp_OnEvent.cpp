@@ -10,18 +10,22 @@ void CApp::OnEvent(SDL_Event* Event) {
     {
     	switch (Event->key.keysym.sym)
     	{
+    		case SDLK_a:
     		case SDLK_LEFT:
 				mDx = -1;
 				mDy = 0;
 				break;
+			case SDLK_d:
     		case SDLK_RIGHT:
 				mDx = 1;
 				mDy = 0;
 				break;
+			case SDLK_w:
     		case SDLK_UP:
 				mDx = 0;
 				mDy = 1;
 				break;
+			case SDLK_s:
     		case SDLK_DOWN:
 				mDx = 0;
 				mDy = -1;
