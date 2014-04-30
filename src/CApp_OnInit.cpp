@@ -113,6 +113,11 @@ bool CApp::OnInit() {
 	mVertical=48;
 	mPixels=new int[mHorizontal*mVertical];
 	
+	mX = mHorizontal/2;
+	mY = mVertical/2;
+	mDx = 0;
+	mDy = 0;
+	
 	mWidth=6*mHorizontal;
 	mHeight=6*mVertical;
     int s=std::max(mWidth,mHeight);

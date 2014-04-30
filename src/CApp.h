@@ -19,6 +19,9 @@ class CApp {
 		int mHorizontal, mVertical;
 		int* mPixels;
 		
+		int mX,mY;
+		int mDx,mDy;
+		
 		GLuint mProgramObject;
 		
     public:

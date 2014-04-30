@@ -4,15 +4,19 @@
 //==============================================================================
 void CApp::OnLoop() 
 {
-	static int i=0;
-	i = (i + 1)%mHorizontal;
+	mX+=mDx;
+	if (mX>mHorizontal) mX -= mHorizontal;
+	if (mX<0) mX += mHorizontal;
+	mY+=mDy;
+	if (mY>mVertical) mY -= mVertical;
+	if (mY<0) mX += mVertical;
 	
     for (int x=0;x!=mHorizontal;x++)
     {
 	    for (int y=0;y!=mVertical;y++)
     	{
     		int* p = (mPixels + x + y*mHorizontal);
-    		*p = ((x==i) || (y==i));
+    		*p = ((x==mX) || (y==mY));
     	}
     }
 }
