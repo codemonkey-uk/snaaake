@@ -112,9 +112,13 @@ bool CApp::OnInit() {
 	mHorizontal=84;
 	mVertical=48;
 	mPixels=new int[mHorizontal*mVertical];
-	
+
 	mX = mHorizontal/2;
 	mY = mVertical/2;
+
+	std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
+	*(mPixels + mX + mY*mHorizontal) = 1;
+		
 	mDx = 0;
 	mDy = 0;
 	
