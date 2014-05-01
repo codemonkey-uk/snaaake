@@ -8,6 +8,8 @@
 #include <SDL/SDL_opengl.h>
 #include "vector2d.h"
 
+#include <deque>
+
 //==============================================================================
 class CApp {
     private:
@@ -20,8 +22,9 @@ class CApp {
 		int mHorizontal, mVertical;
 		int* mPixels;
 		
-		Geometry::Vector2d< int > mPos;
+		// Geometry::Vector2d< int > mPos;
 		Geometry::Vector2d< int > mDir;
+		std::deque< Geometry::Vector2d<int> > mPos;
 		
 		GLuint mProgramObject;
 		

@@ -24,6 +24,12 @@ void CApp::OnRender()
     static Entropy::GFX::Shape* g = 
 		new Entropy::GFX::Quad(mProgramObject, 0.8f, 0.8f);
 	
+	Entropy::GFX::Colour colours[] = {
+		{0.5,0.75,0.5},
+		{0,0.25,0},
+		{0.75,1,0.75}
+	};
+	
 	int hs=mHorizontal/2;
 	float rx=0.6f/hs;
     for (int x=0;x!=mHorizontal;x++)
@@ -35,7 +41,7 @@ void CApp::OnRender()
 				Geometry::Vector2d<float>(rx+(x-hs)/float(hs), (18+y-hs)/float(hs)), 
 				1.f/mHorizontal, 
 				0,
-				Entropy::GFX::Colour(1-i,i,1-i)
+				colours[i]
 			);
 		}
 	}

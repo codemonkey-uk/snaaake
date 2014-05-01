@@ -9,8 +9,7 @@
 //==============================================================================
 CApp::CApp()
 	// set up in ::Init
-	: mPos( Geometry::uninitialised )
-	, mDir( Geometry::uninitialised )
+	: mDir( Geometry::uninitialised )
 {
     Surf_Display = NULL;
 

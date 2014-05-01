@@ -2,7 +2,7 @@
 #include "CApp.h"
 #include <algorithm>
 #include <cstdio>
-
+#include <cstdlib>
 typedef const char* glyph[6];
 
 glyph nums[10] = {
@@ -103,7 +103,7 @@ int Blit(const glyph& g, int x, int y, int* pixels, int w, int h)
 void CApp::OnLoop() 
 {
 	static int lastscore=0;
-	static int score=0;
+	int score=mPos.size();
 	
 	char buffer[8];
 	int l=sprintf(buffer,"%i",score>0 ? score : lastscore);
@@ -120,14 +120,15 @@ void CApp::OnLoop()
 			std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
 		}
 		
-		mPos += mDir;
-		if (mPos[0]>=mHorizontal) mPos[0] -= mHorizontal;
-		if (mPos[0]<0) mPos[0] += mHorizontal;
-		if (mPos[1]>=mVertical) mPos[1] -= mVertical;
-		if (mPos[1]<0) mPos[1] += mVertical;
-
-		int* p = GetPx(mPos);
-		if (*p)
+		Geometry::Vector2d<int> next( mPos.front() + mDir );
+		if (next[0]>=mHorizontal) next[0] -= mHorizontal;
+		if (next[0]<0) next[0] += mHorizontal;
+		if (next[1]>=mVertical) next[1] -= mVertical;
+		if (next[1]<0) next[1] += mVertical;
+		mPos.push_front( next );
+		
+		int* p = GetPx( mPos.front() );
+		if (*p==1)
 		{
 			lastscore = score;
 			score = 0;
@@ -135,20 +136,24 @@ void CApp::OnLoop()
 		}
 		else
 		{
+			if (*p==0)
+			{
+				*GetPx( mPos.back() ) = 0;
+				mPos.pop_back();
+			}
+			else
+			{
+				Geometry::Vector2d<int> prize( Geometry::uninitialised );
+				do{
+					prize = {rand()%mHorizontal, rand()%mVertical};
+				}while( *GetPx( prize ) );
+				*GetPx( prize ) = 2;
+			}
+			
 			*p = 1;
-			score ++;
 		}
 	}
-	
-	/*
-    for (int x=0;x!=mHorizontal;x++)
-    {
-	    for (int y=0;y!=mVertical;y++)
-    	{
-    		
-    	}
-    }
-    */
+
 }
 
 //==============================================================================

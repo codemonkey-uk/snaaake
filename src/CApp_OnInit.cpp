@@ -109,14 +109,18 @@ int Init()
 //==============================================================================
 bool CApp::OnInit() {
  
+ 	printf("Snake.\nControls: WASD or Arrow Keys.\n");
 	mHorizontal=84;
 	mVertical=48;
 	mPixels=new int[mHorizontal*mVertical];
 
-	mPos = { mHorizontal/2, mVertical/2 };
-
+	Geometry::Vector2d<int> pos = { mHorizontal/2, mVertical/2 };
+	mPos.push_back(pos);
+	
 	std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
-	*GetPx(mPos) = 1;
+	*GetPx(pos) = 1;
+	
+	*(GetPx(pos)+5) = 2;
 		
 	mDir[0] = 0;
 	mDir[1] = 0;
