@@ -8,75 +8,75 @@ typedef const char* glyph[6];
 glyph nums[10] = {
 {
 	" XX ",
-	"X  X",
-	"X  X",
-	"X  X",
-	"X  X",
-	" XX",
+	"X  X ",
+	"X  X ",
+	"X  X ",
+	"X  X ",
+	" XX ",
 },
 {
-	" X ",
-	"XX ",
-	" X ",
-	" X ",
-	" X ",
-	"XXX",
+	" X  ",
+	"XX  ",
+	" X  ",
+	" X  ",
+	" X  ",
+	"XXX ",
 }, {
 	" XX ",
-	"X  X",
-	"   X",
+	"X  X ",
+	"   X ",
 	" XX ",
 	"X   ",
-	"XXXX",
+	"XXXX ",
 }, {
 	"XXX ",
-	"   X",
+	"   X ",
 	"XXX ",
-	"   X",
-	"   X",
+	"   X ",
+	"   X ",
 	"XXX ",
 }, {
 	"X   ",
 	"X   ",
 	"X X ",
-	"XXXX",
+	"XXXX ",
 	"  X ",
 	"  X ",
 }, {
-	"XXXX",
-	"X  X",
+	"XXXX ",
+	"X  X ",
 	"X   ",
-	"XXXX",
-	"   X",
-	"XXXX",
+	"XXXX ",
+	"   X ",
+	"XXXX ",
 }, {
 	" XX ",
-	"X  X",
+	"X  X ",
 	"X   ",
 	"XXX ",
-	"X  X",
+	"X  X ",
 	" XX ",
 }, {
-	"XXXX",
-	"   X",
+	"XXXX ",
+	"   X ",
 	"  X ",
 	" X  ",
 	" X  ",
 	" X  ",
 }, {
 	" XX ",
-	"X  X",
-	"X  X",
+	"X  X ",
+	"X  X ",
 	" XX ",
-	"X  X",
+	"X  X ",
 	" XX ",
 }, {
-	"XXXX",
-	"X  X",
-	"XXXX",
-	"   X",
-	"   X",
-	"   X",
+	" XXX ",
+	"X  X ",
+	" XXX ",
+	"   X ",
+	"   X ",
+	"   X ",
 }};
 
 int Blit(const glyph& g, int x, int y, int* pixels, int w, int h) 
@@ -113,26 +113,25 @@ void CApp::OnLoop()
 		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
 	}
 	
-	if (mDx || mDy)
+	if (mDir.LengthSquare()>0)
 	{
 		if (score==0)
 		{
 			std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
 		}
 		
-		mX+=mDx;
-		if (mX>=mHorizontal) mX -= mHorizontal;
-		if (mX<0) mX += mHorizontal;
-		mY+=mDy;
-		if (mY>=mVertical) mY -= mVertical;
-		if (mY<0) mY += mVertical;
+		mPos += mDir;
+		if (mPos[0]>=mHorizontal) mPos[0] -= mHorizontal;
+		if (mPos[0]<0) mPos[0] += mHorizontal;
+		if (mPos[1]>=mVertical) mPos[1] -= mVertical;
+		if (mPos[1]<0) mPos[1] += mVertical;
 
-		int* p = (mPixels + mX + mY*mHorizontal);
+		int* p = GetPx(mPos);
 		if (*p)
 		{
 			lastscore = score;
 			score = 0;
-			mDx=0; mDy=0;
+			mDir = {0,0};
 		}
 		else
 		{

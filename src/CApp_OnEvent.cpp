@@ -12,23 +12,23 @@ void CApp::OnEvent(SDL_Event* Event) {
     	{
     		case SDLK_a:
     		case SDLK_LEFT:
-				mDx = -1;
-				mDy = 0;
+				mDir[0] = -1;
+				mDir[1] = 0;
 				break;
 			case SDLK_d:
     		case SDLK_RIGHT:
-				mDx = 1;
-				mDy = 0;
+				mDir[0] = 1;
+				mDir[1] = 0;
 				break;
 			case SDLK_w:
     		case SDLK_UP:
-				mDx = 0;
-				mDy = 1;
+				mDir[0] = 0;
+				mDir[1] = 1;
 				break;
 			case SDLK_s:
     		case SDLK_DOWN:
-				mDx = 0;
-				mDy = -1;
+				mDir[0] = 0;
+				mDir[1] = -1;
 				break;
 		}
     }

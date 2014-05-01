@@ -6,6 +6,7 @@
 
 #include <SDL.h>
 #include <SDL/SDL_opengl.h>
+#include "vector2d.h"
 
 //==============================================================================
 class CApp {
@@ -19,10 +20,14 @@ class CApp {
 		int mHorizontal, mVertical;
 		int* mPixels;
 		
-		int mX,mY;
-		int mDx,mDy;
+		Geometry::Vector2d< int > mPos;
+		Geometry::Vector2d< int > mDir;
 		
 		GLuint mProgramObject;
+		
+		int* GetPx( const Geometry::Vector2d< int >& p ) {
+			return (mPixels + p[0] + p[1]*mHorizontal);
+		}
 		
     public:
         CApp();
