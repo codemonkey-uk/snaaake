@@ -31,6 +31,10 @@ class CApp {
 		int* GetPx( const Geometry::Vector2d< int >& p ) {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
+		const int * GetPx( const Geometry::Vector2d< int >& p ) const {
+			return (mPixels + p[0] + p[1]*mHorizontal);
+		}
+		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude)const;
 		
     public:
         CApp();

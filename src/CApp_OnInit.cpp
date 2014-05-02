@@ -121,6 +121,9 @@ bool CApp::OnInit() {
 	*GetPx(pos) = 1;
 	
 	*(GetPx(pos)+5) = 2;
+	*(GetPx(pos)-5) = 2;
+	*(GetPx(pos)+(5*mHorizontal)) = 2;
+	*(GetPx(pos)-(5*mHorizontal)) = 2;
 		
 	mDir[0] = 0;
 	mDir[1] = 0;

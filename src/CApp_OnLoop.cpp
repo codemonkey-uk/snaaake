@@ -99,6 +99,15 @@ int Blit(const glyph& g, int x, int y, int* pixels, int w, int h)
 	return mw;
 }
 
+Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)const
+{
+	Geometry::Vector2d<int> result( Geometry::uninitialised );
+	do{
+		result = { rand()%mHorizontal, (rand()>>4)%mVertical };
+	}while( *GetPx( result ) || result.DistanceSquare(exclude)<4 );
+	return result;
+}
+
 //==============================================================================
 void CApp::OnLoop() 
 {
@@ -106,7 +115,7 @@ void CApp::OnLoop()
 	int score=mPos.size();
 	
 	char buffer[8];
-	int l=sprintf(buffer,"%i",score>0 ? score : lastscore);
+	int l=sprintf(buffer,"%i", mDir.LengthSquare() ? score : lastscore);
 	int x=1;
 	for (int i = 0 ; i!=l; ++i)
 	{
@@ -143,15 +152,17 @@ void CApp::OnLoop()
 			}
 			else
 			{
-				Geometry::Vector2d<int> prize( Geometry::uninitialised );
-				do{
-					prize = {rand()%mHorizontal, rand()%mVertical};
-				}while( *GetPx( prize ) );
-				*GetPx( prize ) = 2;
+				*GetPx( SpawnPoint(mPos.front()) ) = 1;
+				*GetPx( SpawnPoint(mPos.front()) ) = 2;
 			}
 			
 			*p = 1;
 		}
+	}
+	else if (mPos.size()>1)
+	{
+		*GetPx( mPos.back() ) = 0;
+		mPos.pop_back();
 	}
 
 }
