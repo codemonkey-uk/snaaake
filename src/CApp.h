@@ -35,6 +35,7 @@ class CApp {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
 		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude)const;
+		void Reset();
 		
     public:
         CApp();

@@ -112,6 +112,8 @@ Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)const
 void CApp::OnLoop() 
 {
 	static int lastscore=0;
+	static bool dead = false;
+	
 	int score=mPos.size();
 	
 	char buffer[8];
@@ -122,12 +124,11 @@ void CApp::OnLoop()
 		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
 	}
 	
-	if (mDir.LengthSquare()>0)
+	if (mDir.LengthSquare()>0 && !dead)
 	{
-		if (score==0)
-		{
-			std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
-		}
+		// constantly spawn bad spots
+		if (rand()%10 == 0)
+			*GetPx( SpawnPoint(mPos.front()) ) = 1;
 		
 		Geometry::Vector2d<int> next( mPos.front() + mDir );
 		if (next[0]>=mHorizontal) next[0] -= mHorizontal;
@@ -141,6 +142,7 @@ void CApp::OnLoop()
 		{
 			lastscore = score;
 			score = 0;
+			dead = true;
 			mDir = {0,0};
 		}
 		else
@@ -152,7 +154,7 @@ void CApp::OnLoop()
 			}
 			else
 			{
-				*GetPx( SpawnPoint(mPos.front()) ) = 1;
+				*GetPx( SpawnPoint(mPos.front()) ) = 2;
 				*GetPx( SpawnPoint(mPos.front()) ) = 2;
 			}
 			
@@ -163,6 +165,11 @@ void CApp::OnLoop()
 	{
 		*GetPx( mPos.back() ) = 0;
 		mPos.pop_back();
+	}
+	else if (dead)
+	{
+		Reset();
+		dead = false;
 	}
 
 }

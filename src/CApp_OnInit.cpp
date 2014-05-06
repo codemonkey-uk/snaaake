@@ -106,14 +106,9 @@ int Init()
    return programObject;
 }
 
-//==============================================================================
-bool CApp::OnInit() {
- 
- 	printf("Snake.\nControls: WASD or Arrow Keys.\n");
-	mHorizontal=84;
-	mVertical=48;
-	mPixels=new int[mHorizontal*mVertical];
-
+void CApp::Reset() 
+{
+	mPos.erase(mPos.begin(), mPos.end());
 	Geometry::Vector2d<int> pos = { mHorizontal/2, mVertical/2 };
 	mPos.push_back(pos);
 	
@@ -127,10 +122,22 @@ bool CApp::OnInit() {
 		
 	mDir[0] = 0;
 	mDir[1] = 0;
+}
+
+//==============================================================================
+bool CApp::OnInit() 
+{
+ 	printf("Snake.\nControls: WASD or Arrow Keys.\n");
+ 	
+	mHorizontal=84;
+	mVertical=48;
+	mPixels=new int[mHorizontal*mVertical];
+	Reset();
 	
 	mWidth=6*mHorizontal;
-	mHeight=6*mVertical;
+	mHeight=6*mVertical;	
     int s=std::max(mWidth,mHeight);
+    
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
