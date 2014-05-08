@@ -124,6 +124,12 @@ void CApp::OnLoop()
 		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
 	}
 	
+	if (!mEvents.empty()) 
+	{
+		mDir = mEvents.front();
+		mEvents.pop_front();
+	}
+	
 	if (mDir.LengthSquare()>0 && !dead)
 	{
 		// constantly spawn bad spots

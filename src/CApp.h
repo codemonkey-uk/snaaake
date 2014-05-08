@@ -24,6 +24,7 @@ class CApp {
 		
 		// Geometry::Vector2d< int > mPos;
 		Geometry::Vector2d< int > mDir;
+		std::deque< Geometry::Vector2d<int> > mEvents;
 		std::deque< Geometry::Vector2d<int> > mPos;
 		
 		GLuint mProgramObject;
