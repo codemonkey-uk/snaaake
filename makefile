@@ -7,3 +7,7 @@ trees: $(src)
 .PHONY : clean
 clean:
 	rm trees.*
+
+.PHONE : install
+install:
+	cp trees.* /Users/codemonkey_uk/Sites/thad.frogley.info/lols

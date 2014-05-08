@@ -99,41 +99,60 @@ int Blit(const glyph& g, int x, int y, int* pixels, int w, int h)
 	return mw;
 }
 
-Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)const
+Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)
 {
 	Geometry::Vector2d<int> result( Geometry::uninitialised );
 	do{
-		result = { rand()%mHorizontal, (rand()>>4)%mVertical };
-	}while( *GetPx( result ) || result.DistanceSquare(exclude)<4 );
+		result = { mRNG()%mHorizontal, mRNG()%(mVertical-8) };
+	}while( *GetPx( result ) || result.DistanceSquare(exclude)<6 );
 	return result;
 }
 
 //==============================================================================
 void CApp::OnLoop() 
 {
-	static int lastscore=0;
-	static bool dead = false;
+	static int lastscore=1;
+	static int deadFrame = 0;
+
+	mLoopCount++;
 	
 	int score=mPos.size();
 	
+	// clear score area
+	std::fill(mPixels+(mHorizontal*(mVertical-7)), mPixels+(mHorizontal*mVertical),0);
+	// score area horizontal
+	std::fill(mPixels+(mHorizontal*(mVertical-8)), mPixels+(mHorizontal*(mVertical-7)),1);
+	// bottom border horizontal
+	std::fill(mPixels, mPixels+mHorizontal,1);
+
 	char buffer[8];
-	int l=sprintf(buffer,"%i", mDir.LengthSquare() ? score : lastscore);
-	int x=1;
+	int l=sprintf(buffer,"%i", deadFrame==0 ? score : lastscore);
+	int x=1;	
 	for (int i = 0 ; i!=l; ++i)
 	{
 		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
 	}
-	
+
+	static int best = 0;
+	if (score>best) best=score;
+	l=sprintf(buffer,"%i", best);
+	x=mHorizontal - l*4;
+	for (int i = 0 ; i!=l; ++i)
+	{
+		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
+	}
+		
 	if (!mEvents.empty()) 
 	{
-		mDir = mEvents.front();
+		if (mEvents.front() != -mDir)
+			mDir = mEvents.front();
 		mEvents.pop_front();
 	}
 	
-	if (mDir.LengthSquare()>0 && !dead)
+	if (mDir.LengthSquare()>0 && !deadFrame)
 	{
 		// constantly spawn bad spots
-		if (rand()%10 == 0)
+		if (mRNG()%10 == 0)
 			*GetPx( SpawnPoint(mPos.front()) ) = 1;
 		
 		Geometry::Vector2d<int> next( mPos.front() + mDir );
@@ -148,7 +167,7 @@ void CApp::OnLoop()
 		{
 			lastscore = score;
 			score = 0;
-			dead = true;
+			deadFrame = mLoopCount;
 			mDir = {0,0};
 		}
 		else
@@ -160,6 +179,7 @@ void CApp::OnLoop()
 			}
 			else
 			{
+				// spawn two new good spots
 				*GetPx( SpawnPoint(mPos.front()) ) = 2;
 				*GetPx( SpawnPoint(mPos.front()) ) = 2;
 			}
@@ -167,17 +187,29 @@ void CApp::OnLoop()
 			*p = 1;
 		}
 	}
-	else if (mPos.size()>1)
+	else if (deadFrame) 
 	{
-		*GetPx( mPos.back() ) = 0;
-		mPos.pop_back();
+		if (mLoopCount >= deadFrame+16)
+		{
+			if (mPos.size()>1)
+			{
+				*GetPx( mPos.back() ) = 0;
+				if (mLoopCount%2) mPos.pop_back();
+				for (int i=0;i!=mPos.size();++i)
+					*GetPx( mPos[i] ) = 1;
+			}
+			else 
+			{
+				Reset();
+				deadFrame = 0;
+			}
+		}
+		else 
+		{
+			for (int i=0;i!=mPos.size();++i)
+				*GetPx( mPos[i] ) = mLoopCount%2;
+		}
 	}
-	else if (dead)
-	{
-		Reset();
-		dead = false;
-	}
-
 }
 
 //==============================================================================

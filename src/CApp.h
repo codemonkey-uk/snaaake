@@ -9,6 +9,7 @@
 #include "vector2d.h"
 
 #include <deque>
+#include <random>
 
 //==============================================================================
 class CApp {
@@ -18,14 +19,15 @@ class CApp {
         SDL_Surface*    Surf_Display;
 
 		int mWidth, mHeight;
-		
 		int mHorizontal, mVertical;
-		int* mPixels;
 		
-		// Geometry::Vector2d< int > mPos;
+		int* mPixels;
+		int mLoopCount;
+		
 		Geometry::Vector2d< int > mDir;
 		std::deque< Geometry::Vector2d<int> > mEvents;
 		std::deque< Geometry::Vector2d<int> > mPos;
+		std::mt19937 mRNG;
 		
 		GLuint mProgramObject;
 		
@@ -35,7 +37,7 @@ class CApp {
 		const int * GetPx( const Geometry::Vector2d< int >& p ) const {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
-		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude)const;
+		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude);
 		void Reset();
 		
     public:
