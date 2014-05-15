@@ -172,16 +172,22 @@ void CApp::OnLoop()
 		}
 		else
 		{
-			if (*p==0)
+			if (mPendingGrowth>0)
+			{
+				mPendingGrowth--;
+			}
+			else
 			{
 				*GetPx( mPos.back() ) = 0;
 				mPos.pop_back();
 			}
-			else
+			
+			if (*p==2)
 			{
 				// spawn two new good spots
 				*GetPx( SpawnPoint(mPos.front()) ) = 2;
 				*GetPx( SpawnPoint(mPos.front()) ) = 2;
+				mPendingGrowth+=8;
 			}
 			
 			*p = 1;
