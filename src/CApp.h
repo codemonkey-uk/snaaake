@@ -32,12 +32,14 @@ class CApp {
 		
 		GLuint mProgramObject;
 		
-		int* GetPx( const Geometry::Vector2d< int >& p ) {
+		int* GetPx( const Geometry::Vector2d< int >::BaseType& p ) {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
-		const int * GetPx( const Geometry::Vector2d< int >& p ) const {
+		const int * GetPx( const Geometry::Vector2d< int >::BaseType& p ) const {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
+		void PrintNumber( int num, int h, int v, bool ralign);
+		
 		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude);
 		void Reset();
 		

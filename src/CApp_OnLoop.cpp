@@ -108,6 +108,25 @@ Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)
 	return result;
 }
 
+Geometry::Vector2d<int> Above( const Geometry::Vector2d<int>& first, Geometry::Vector2d<int> next )
+{
+	auto d = next - first;
+	next += Geometry::Vector2d<int>(d[1], d[0]);
+	return next;
+}
+
+void CApp::PrintNumber( int num, int h, int v, bool ralign)	
+{
+	char buffer[8];
+	int l=sprintf(buffer,"%i", num);
+	int x = 1;
+	if (ralign) x = h - l*4;
+	for (int i = 0 ; i!=l; ++i)
+	{
+		x+=Blit(nums[buffer[i]-'0'], x, v, mPixels, mHorizontal, mVertical);
+	}
+}
+
 //==============================================================================
 void CApp::OnLoop() 
 {
@@ -125,23 +144,12 @@ void CApp::OnLoop()
 	// bottom border horizontal
 	std::fill(mPixels, mPixels+mHorizontal,1);
 
-	char buffer[8];
-	int l=sprintf(buffer,"%i", deadFrame==0 ? score : lastscore);
-	int x=1;	
-	for (int i = 0 ; i!=l; ++i)
-	{
-		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
-	}
-
 	static int best = 0;
 	if (score>best) best=score;
-	l=sprintf(buffer,"%i", best);
-	x=mHorizontal - l*4;
-	for (int i = 0 ; i!=l; ++i)
-	{
-		x+=Blit(nums[buffer[i]-'0'], x, mVertical-2, mPixels, mHorizontal, mVertical);
-	}
-		
+
+	PrintNumber( deadFrame==0 ? score : lastscore, 1, mVertical-2, false );
+	PrintNumber( best, mHorizontal, mVertical-2, true );
+
 	if (!mEvents.empty()) 
 	{
 		if (mEvents.front() != -mDir)
@@ -178,7 +186,8 @@ void CApp::OnLoop()
 			}
 			else
 			{
-				*GetPx( mPos.back() ) = 0;
+				auto b = mPos.back();
+				*GetPx( b ) = 0;
 				mPos.pop_back();
 			}
 			
