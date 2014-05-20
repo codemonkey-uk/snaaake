@@ -127,6 +127,34 @@ void CApp::PrintNumber( int num, int h, int v, bool ralign)
 	}
 }
 
+// returns true if the snake lives on, false is death
+bool CApp::Occupy( Geometry::Vector2d<int> pos )
+{
+	int* p = GetPx( pos );
+	if (*p==1)
+	{
+		return false;
+	}
+	else
+	{
+		if (*p==2)
+		{
+			// spawn two new good spots
+			*GetPx( SpawnPoint(mPos.front()) ) = 2;
+			*GetPx( SpawnPoint(mPos.front()) ) = 2;
+			mPendingGrowth+=8;
+		}
+		
+		*p = 1;
+		
+		return true;
+	}
+}
+
+// 0000
+// 0Xx0
+// 0000
+
 //==============================================================================
 void CApp::OnLoop() 
 {
@@ -152,8 +180,15 @@ void CApp::OnLoop()
 
 	if (!mEvents.empty()) 
 	{
-		if (mEvents.front() != -mDir)
+		// a change in direction, not reversing direction
+		if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
+		{
+			auto oldDir = mDir;
 			mDir = mEvents.front();
+			// step over thickness
+			if (mDir[1]==1 || mDir[0]==1) mPos.front() += mDir;
+			if (oldDir[1]==1 || oldDir[0]==1) mPos.front() -= oldDir;
+		}
 		mEvents.pop_front();
 	}
 	
@@ -170,50 +205,59 @@ void CApp::OnLoop()
 		if (next[1]<0) next[1] += mVertical;
 		mPos.push_front( next );
 		
-		int* p = GetPx( mPos.front() );
-		if (*p==1)
+		Geometry::Vector2d<int> other = next;
+		if (mDir[1]==0) other[1]++;
+		else other[0]++;
+		
+		if (mOther.empty() || other!=mOther.front())
+			mOther.push_front( other );
+		
+		if (!Occupy(next) || !Occupy(other))
 		{
 			lastscore = score;
 			score = 0;
 			deadFrame = mLoopCount;
 			mDir = {0,0};
 		}
+
+
+		// grow if growing		
+		if (mPendingGrowth>0)
+		{
+			mPendingGrowth--;
+		}
 		else
 		{
-			if (mPendingGrowth>0)
+			// clear up tail
+			*GetPx( mPos.back() ) = 0;
+			mPos.pop_back();
+			if (mOther.empty()==false)
 			{
-				mPendingGrowth--;
+				*GetPx( mOther.back() ) = 0;
+				mOther.pop_back();
 			}
-			else
-			{
-				auto b = mPos.back();
-				*GetPx( b ) = 0;
-				mPos.pop_back();
-			}
-			
-			if (*p==2)
-			{
-				// spawn two new good spots
-				*GetPx( SpawnPoint(mPos.front()) ) = 2;
-				*GetPx( SpawnPoint(mPos.front()) ) = 2;
-				mPendingGrowth+=8;
-			}
-			
-			*p = 1;
-		}
+		}		
 	}
 	else if (deadFrame) 
 	{
 		if (mLoopCount >= deadFrame+16)
 		{
-			if (mPos.size()>1)
+			if (mPos.size()>0)
 			{
 				*GetPx( mPos.back() ) = 0;
 				if (mLoopCount%2) mPos.pop_back();
 				for (int i=0;i!=mPos.size();++i)
 					*GetPx( mPos[i] ) = 1;
 			}
-			else 
+			if (mOther.size()>0)
+			{
+				*GetPx( mOther.back() ) = 0;
+				if (mLoopCount%2) mOther.pop_back();
+				for (int i=0;i!=mOther.size();++i)
+					*GetPx( mOther[i] ) = 1;
+			}
+			
+			if (mPos.empty() && mOther.empty())
 			{
 				Reset();
 				deadFrame = 0;
@@ -223,6 +267,8 @@ void CApp::OnLoop()
 		{
 			for (int i=0;i!=mPos.size();++i)
 				*GetPx( mPos[i] ) = mLoopCount%2;
+			for (int i=0;i!=mOther.size();++i)
+				*GetPx( mOther[i] ) = mLoopCount%2;
 		}
 	}
 }

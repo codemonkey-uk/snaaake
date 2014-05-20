@@ -28,6 +28,7 @@ class CApp {
 		Geometry::Vector2d< int > mDir;
 		std::deque< Geometry::Vector2d<int> > mEvents;
 		std::deque< Geometry::Vector2d<int> > mPos;
+		std::deque< Geometry::Vector2d<int> > mOther;
 		std::mt19937 mRNG;
 		
 		GLuint mProgramObject;
@@ -42,6 +43,8 @@ class CApp {
 		
 		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude);
 		void Reset();
+		// returns true if the snake lives on, false is death
+		bool Occupy( Geometry::Vector2d<int> pos );
 		
     public:
         CApp();
