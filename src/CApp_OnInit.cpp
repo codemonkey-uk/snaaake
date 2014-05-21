@@ -110,6 +110,7 @@ void CApp::Reset()
 {
 	mPos.erase(mPos.begin(), mPos.end());
 	mOther.erase(mOther.begin(), mOther.end());
+	
 	Geometry::Vector2d<int> pos = { mHorizontal/2, mVertical/2 };
 	mPos.push_back(pos);
 	

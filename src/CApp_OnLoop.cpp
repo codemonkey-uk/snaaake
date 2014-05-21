@@ -151,9 +151,15 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 	}
 }
 
-// 0000
-// 0Xx0
-// 0000
+Geometry::Vector2d<int> Other(Geometry::Vector2d<int> pos, Geometry::Vector2d<int> dir)
+{
+	Geometry::Vector2d<int> other = pos;
+	
+	if (dir[1]==0) other[1]++;
+	else other[0]++;
+	
+	return other;
+}
 
 //==============================================================================
 void CApp::OnLoop() 
@@ -178,7 +184,10 @@ void CApp::OnLoop()
 	PrintNumber( deadFrame==0 ? score : lastscore, 1, mVertical-2, false );
 	PrintNumber( best, mHorizontal, mVertical-2, true );
 
-	if (!mEvents.empty()) 
+	static Geometry::VectorN<int,2> latchDir {0,0};
+	static int latch = 0;
+	if (latch) latch--;
+	if (!mEvents.empty() && (latch==0 || mEvents.front()!=latchDir)) 
 	{
 		// a change in direction, not reversing direction
 		if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
@@ -186,8 +195,24 @@ void CApp::OnLoop()
 			auto oldDir = mDir;
 			mDir = mEvents.front();
 			// step over thickness
-			if (mDir[1]==1 || mDir[0]==1) mPos.front() += mDir;
-			if (oldDir[1]==1 || oldDir[0]==1) mPos.front() -= oldDir;
+			if (mDir[1]==1 || mDir[0]==1) 
+			{
+				mPos.push_front( Geometry::Vector2d<int>(mPos.front() + mDir) );
+				
+				Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
+				if (mOther.empty() || other!=mOther.front())
+					mOther.push_front( other );
+			}
+			if (oldDir[1]==1 || oldDir[0]==1) 
+			{
+				mPos.push_front( Geometry::Vector2d<int>(mPos.front() - oldDir) );
+				
+				Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
+				if (mOther.empty() || other!=mOther.front())
+					mOther.push_front( other );				
+			}
+			latchDir=-oldDir;
+			latch=2;
 		}
 		mEvents.pop_front();
 	}
@@ -205,9 +230,7 @@ void CApp::OnLoop()
 		if (next[1]<0) next[1] += mVertical;
 		mPos.push_front( next );
 		
-		Geometry::Vector2d<int> other = next;
-		if (mDir[1]==0) other[1]++;
-		else other[0]++;
+		Geometry::Vector2d<int> other = Other(next,mDir);
 		
 		if (mOther.empty() || other!=mOther.front())
 			mOther.push_front( other );

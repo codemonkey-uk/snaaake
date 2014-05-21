@@ -27,8 +27,10 @@ class CApp {
 		int mPendingGrowth;
 		Geometry::Vector2d< int > mDir;
 		std::deque< Geometry::Vector2d<int> > mEvents;
+
 		std::deque< Geometry::Vector2d<int> > mPos;
 		std::deque< Geometry::Vector2d<int> > mOther;
+		
 		std::mt19937 mRNG;
 		
 		GLuint mProgramObject;
