@@ -99,13 +99,38 @@ int Blit(const glyph& g, int x, int y, int* pixels, int w, int h)
 	return mw;
 }
 
+bool CApp::FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s)
+{
+	Geometry::Vector2d<int> d(Geometry::uninitialised);
+	for (d[0]=0;d[0]!=s[0];++d[0])
+	{
+		for (d[1]=0;d[1]!=s[1];++d[1])
+		{
+			if (*GetPx(p+d))
+				return false;
+		}
+	}
+	return true;
+}
+
 Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)
 {
+	const int s=3;
 	Geometry::Vector2d<int> result( Geometry::uninitialised );
 	do{
-		result = { mRNG()%mHorizontal, mRNG()%(mVertical-8) };
-	}while( *GetPx( result ) || result.DistanceSquare(exclude)<6 );
+		result = { mRNG()%(mHorizontal-s), 1 + mRNG()%(mVertical-(s+8)) };
+	}while( !FreeRect( result, {s,s} ) || result.DistanceSquare(exclude)<=(8+s) );
 	return result;
+}
+
+void CApp::Spawn(Geometry::Vector2d<int> e, int i)
+{
+	Geometry::Vector2d<int> p = SpawnPoint(e);
+	*GetPx(p+Geometry::Vector2d<int>(1,0))=i;
+	*GetPx(p+Geometry::Vector2d<int>(0,1))=i;	
+	*GetPx(p+Geometry::Vector2d<int>(1,1))=i;
+	*GetPx(p+Geometry::Vector2d<int>(2,1))=i;
+	*GetPx(p+Geometry::Vector2d<int>(1,2))=i;	
 }
 
 Geometry::Vector2d<int> Above( const Geometry::Vector2d<int>& first, Geometry::Vector2d<int> next )
@@ -127,6 +152,22 @@ void CApp::PrintNumber( int num, int h, int v, bool ralign)
 	}
 }
 
+int CApp::Consume( Geometry::Vector2d<int>::BaseType pos )
+{
+	int result = 0;
+	int* p = GetPx( pos );
+	if (*p==2)
+	{
+		*p=0;
+		result ++;
+		result += Consume( pos + Geometry::Vector2d<int>(1,0) );
+		result += Consume( pos + Geometry::Vector2d<int>(0,1) );
+		result += Consume( pos + Geometry::Vector2d<int>(-1,0) );
+		result += Consume( pos + Geometry::Vector2d<int>(0,-1) );
+	}
+	return result;
+}
+
 // returns true if the snake lives on, false is death
 bool CApp::Occupy( Geometry::Vector2d<int> pos )
 {
@@ -139,10 +180,8 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 	{
 		if (*p==2)
 		{
-			// spawn two new good spots
-			*GetPx( SpawnPoint(mPos.front()) ) = 2;
-			*GetPx( SpawnPoint(mPos.front()) ) = 2;
-			mPendingGrowth+=8;
+			Spawn(mPos.front(),2);
+			mPendingGrowth += Consume(pos) * 2;
 		}
 		
 		*p = 1;
@@ -220,8 +259,15 @@ void CApp::OnLoop()
 	if (mDir.LengthSquare()>0 && !deadFrame)
 	{
 		// constantly spawn bad spots
-		if (mRNG()%10 == 0)
-			*GetPx( SpawnPoint(mPos.front()) ) = 1;
+		if (mSpawnCooldown>0)
+		{
+			mSpawnCooldown--;
+		}
+		else if (mRNG()%12 == 0)
+		{
+			Spawn(mPos.front(),1);
+			mSpawnCooldown = 12;
+		}
 		
 		Geometry::Vector2d<int> next( mPos.front() + mDir );
 		if (next[0]>=mHorizontal) next[0] -= mHorizontal;

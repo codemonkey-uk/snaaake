@@ -116,16 +116,12 @@ void CApp::Reset()
 	
 	std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
 	*GetPx(pos) = 1;
-	
-	for (int n=1;n!=3;++n)
-	{
-		*(GetPx(pos)+5*n) = 2;
-		*(GetPx(pos)-5*n) = 2;
-		*(GetPx(pos)+(n*5*mHorizontal)) = 2;
-		*(GetPx(pos)-(n*5*mHorizontal)) = 2;
-	}
-	
+
+	Spawn(pos,2);
+	Spawn(pos,2);
+		
 	mPendingGrowth = 1;
+	mSpawnCooldown = 12;
 	mDir[0] = 0;
 	mDir[1] = 0;
 }

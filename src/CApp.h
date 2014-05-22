@@ -25,6 +25,7 @@ class CApp {
 		int mLoopCount;
 		
 		int mPendingGrowth;
+		int mSpawnCooldown;
 		Geometry::Vector2d< int > mDir;
 		std::deque< Geometry::Vector2d<int> > mEvents;
 
@@ -43,7 +44,10 @@ class CApp {
 		}
 		void PrintNumber( int num, int h, int v, bool ralign);
 		
+		bool FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s);
 		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude);
+		void Spawn(Geometry::Vector2d<int> e, int i);
+		int Consume( Geometry::Vector2d<int>::BaseType pos );
 		void Reset();
 		// returns true if the snake lives on, false is death
 		bool Occupy( Geometry::Vector2d<int> pos );
