@@ -126,11 +126,22 @@ Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)
 void CApp::Spawn(Geometry::Vector2d<int> e, int i)
 {
 	Geometry::Vector2d<int> p = SpawnPoint(e);
-	*GetPx(p+Geometry::Vector2d<int>(1,0))=i;
-	*GetPx(p+Geometry::Vector2d<int>(0,1))=i;	
-	*GetPx(p+Geometry::Vector2d<int>(1,1))=i;
-	*GetPx(p+Geometry::Vector2d<int>(2,1))=i;
-	*GetPx(p+Geometry::Vector2d<int>(1,2))=i;	
+	if (i==2)
+	{
+		*GetPx(p+Geometry::Vector2d<int>(1,0))=i;
+		*GetPx(p+Geometry::Vector2d<int>(0,1))=i;	
+		*GetPx(p+Geometry::Vector2d<int>(1,1))=i;
+		*GetPx(p+Geometry::Vector2d<int>(2,1))=i;
+		*GetPx(p+Geometry::Vector2d<int>(1,2))=i;	
+	}
+	else
+	{
+		*GetPx(p+Geometry::Vector2d<int>(0,0))=i;
+		*GetPx(p+Geometry::Vector2d<int>(0,2))=i;
+		*GetPx(p+Geometry::Vector2d<int>(1,1))=i;
+		*GetPx(p+Geometry::Vector2d<int>(2,0))=i;
+		*GetPx(p+Geometry::Vector2d<int>(2,2))=i;
+	}
 }
 
 Geometry::Vector2d<int> Above( const Geometry::Vector2d<int>& first, Geometry::Vector2d<int> next )
@@ -200,6 +211,17 @@ Geometry::Vector2d<int> Other(Geometry::Vector2d<int> pos, Geometry::Vector2d<in
 	return other;
 }
 
+void CApp::AdvanceTail()
+{
+	*GetPx( mPos.back() ) = 0;
+	mPos.pop_back();
+	if (mOther.empty()==false)
+	{
+		*GetPx( mOther.back() ) = 0;
+		mOther.pop_back();
+	}
+}
+
 //==============================================================================
 void CApp::OnLoop() 
 {
@@ -233,6 +255,7 @@ void CApp::OnLoop()
 		{
 			auto oldDir = mDir;
 			mDir = mEvents.front();
+			
 			// step over thickness
 			if (mDir[1]==1 || mDir[0]==1) 
 			{
@@ -241,6 +264,8 @@ void CApp::OnLoop()
 				Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
 				if (mOther.empty() || other!=mOther.front())
 					mOther.push_front( other );
+				
+				AdvanceTail();
 			}
 			if (oldDir[1]==1 || oldDir[0]==1) 
 			{
@@ -248,7 +273,9 @@ void CApp::OnLoop()
 				
 				Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
 				if (mOther.empty() || other!=mOther.front())
-					mOther.push_front( other );				
+					mOther.push_front( other );
+					
+				AdvanceTail();
 			}
 			latchDir=-oldDir;
 			latch=2;
@@ -298,19 +325,14 @@ void CApp::OnLoop()
 		else
 		{
 			// clear up tail
-			*GetPx( mPos.back() ) = 0;
-			mPos.pop_back();
-			if (mOther.empty()==false)
-			{
-				*GetPx( mOther.back() ) = 0;
-				mOther.pop_back();
-			}
+			AdvanceTail();
 		}		
 	}
 	else if (deadFrame) 
 	{
 		if (mLoopCount >= deadFrame+16)
 		{
+			/*
 			if (mPos.size()>0)
 			{
 				*GetPx( mPos.back() ) = 0;
@@ -325,8 +347,9 @@ void CApp::OnLoop()
 				for (int i=0;i!=mOther.size();++i)
 					*GetPx( mOther[i] ) = 1;
 			}
+			*/
 			
-			if (mPos.empty() && mOther.empty())
+			//if (mPos.empty() && mOther.empty())
 			{
 				Reset();
 				deadFrame = 0;

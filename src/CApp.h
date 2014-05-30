@@ -51,7 +51,7 @@ class CApp {
 		void Reset();
 		// returns true if the snake lives on, false is death
 		bool Occupy( Geometry::Vector2d<int> pos );
-		
+		void AdvanceTail();
     public:
         CApp();
 
