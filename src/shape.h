@@ -15,7 +15,7 @@
 // #include <GL/glfw.h>
 #include "SDL/SDL_opengl.h"
 
-
+#include "matrixn.h"
 #include "vectorn.h"
 #include "colour.h"
 #include "aabb2d.h"
@@ -29,13 +29,19 @@ namespace Entropy {
         class Shape
         {
             public:
-                virtual void Draw(
+                void Draw(const Colour& col) const;
+                void Draw(const Geometry::MatrixN<float,4>& t, const Colour& col) const;
+                void Draw(
                     const Geometry::VectorN<float, 2>& p, 
                     float size, 
                     float rotation,
                     const Colour& col) const;
                 virtual ~Shape();
-                
+                void Pretransform(
+					const Geometry::VectorN<float, 2>& p, 
+					float size, 
+					float spin );
+					
             protected:
                 // shape is a base class for drawing procedural geometry,
                 // which is created in the constructor of derived classes

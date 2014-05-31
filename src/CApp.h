@@ -6,7 +6,9 @@
 
 #include <SDL.h>
 #include <SDL/SDL_opengl.h>
+
 #include "vector2d.h"
+#include "quad.h"
 
 #include <deque>
 #include <random>
@@ -22,6 +24,8 @@ class CApp {
 		int mHorizontal, mVertical;
 		
 		int* mPixels;
+		Entropy::GFX::Quad* mQuads;
+		
 		int mLoopCount;
 		
 		int mPendingGrowth;
@@ -42,6 +46,10 @@ class CApp {
 		const int * GetPx( const Geometry::Vector2d< int >::BaseType& p ) const {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
+		Entropy::GFX::Quad* GetQx( const Geometry::Vector2d< int >::BaseType& p ) {
+			return (mQuads + p[0] + p[1]*mHorizontal);
+		}
+		
 		void PrintNumber( int num, int h, int v, bool ralign);
 		
 		bool FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s);

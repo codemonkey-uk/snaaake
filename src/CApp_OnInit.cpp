@@ -134,6 +134,7 @@ bool CApp::OnInit()
 	mHorizontal=84;
 	mVertical=48;
 	mPixels=new int[mHorizontal*mVertical];
+	
 	Reset();
 	
 	mWidth=6*mHorizontal;
@@ -153,6 +154,22 @@ bool CApp::OnInit()
     }
 
 	mProgramObject = Init();
+
+	const int hs=mHorizontal/2;
+	const float rx=0.6f/hs;
+	mQuads = (Entropy::GFX::Quad*)malloc( sizeof(Entropy::GFX::Quad)*mHorizontal*mVertical );
+	for (int x=0;x!=mHorizontal;x++)
+    {
+	    for (int y=0;y!=mVertical;y++)
+    	{
+			Entropy::GFX::Quad* pQ = GetQx( {x,y} );
+			new(pQ) Entropy::GFX::Quad(mProgramObject, 0.8f, 0.8f);
+			pQ->Pretransform( 
+				Geometry::Vector2d<float>(rx+(x-hs)/float(hs), (18+y-hs)/float(hs)), 
+				1.f/mHorizontal, 
+				0 );
+    	}
+	}
 	
     return true;
 }

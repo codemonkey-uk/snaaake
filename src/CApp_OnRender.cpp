@@ -1,9 +1,7 @@
 //==============================================================================
 #include "CApp.h"
 
-#include "star.h"
-#include "ring.h"
-#include "quad.h"
+#include "shape.h"
 #include "geometry_constants.h"
 
 #include <algorithm>
@@ -21,8 +19,8 @@ void CApp::OnRender()
     r=r+0.1;
     if (r>1) r-=1;
         
-    static Entropy::GFX::Shape* g = 
-		new Entropy::GFX::Quad(mProgramObject, 0.8f, 0.8f);
+    //static Entropy::GFX::Shape* g = 
+	//	new Entropy::GFX::Quad(mProgramObject, 0.8f, 0.8f);
 	
 	Entropy::GFX::Colour colours[] = {
 		{0.5,0.75,0.5},
@@ -30,19 +28,14 @@ void CApp::OnRender()
 		{0.75,1,0.75}
 	};
 	
-	int hs=mHorizontal/2;
-	float rx=0.6f/hs;
+	// int hs=mHorizontal/2;
+	// float rx=0.6f/hs;
     for (int x=0;x!=mHorizontal;x++)
     {
-	    for (int y=0;y!=48;y++)
+	    for (int y=0;y!=mVertical;y++)
     	{
-    		int i = *(mPixels + x + y*mHorizontal);
-			g->Draw(
-				Geometry::Vector2d<float>(rx+(x-hs)/float(hs), (18+y-hs)/float(hs)), 
-				1.f/mHorizontal, 
-				0,
-				colours[i]
-			);
+    		int i = *GetPx( {x,y} );
+			GetQx( {x,y} )->Draw( colours[i] );
 		}
 	}
 
