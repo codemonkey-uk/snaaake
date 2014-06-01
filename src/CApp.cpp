@@ -37,8 +37,8 @@ int CApp::OnExecute() {
 	emApp = this;
 	
 #ifdef EMSCRIPTEN
-	// void emscripten_set_main_loop(void (*func)(), int fps, int simulate_infinite_loop);
-	emscripten_set_main_loop(one_iter, 24, 1);
+	int fps=24;
+	emscripten_set_main_loop(one_iter, fps, 1);
 #else
     while(Running) {
 		one_iter();

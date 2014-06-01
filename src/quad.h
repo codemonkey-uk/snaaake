@@ -17,7 +17,10 @@ namespace Entropy {
         class Quad : public Shape
         {
             public:
-                Quad(GLuint program, float w, float h);                
+                Quad(GLuint program, float w, float h); 
+                const GLfloat* GetVerts() const {
+                	return mVertArray;
+                }
         };
     }
 }
