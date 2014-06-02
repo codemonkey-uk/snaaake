@@ -95,6 +95,7 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 		{
 			Spawn(mPos.front(),2);
 			mPendingGrowth += Consume(pos) * 2;
+			mSpawnCooldown = 12;
 		}
 		
 		*p = 1;
@@ -122,6 +123,35 @@ void CApp::AdvanceTail()
 		*GetPx( mOther.back() ) = 0;
 		mOther.pop_back();
 	}
+}
+
+void CApp::RemoveSpawn(int c)
+{
+	Geometry::Vector2d<int> p(0,0), best(0,0);
+	bool first = true;
+	
+    for (p[0]=0;p[0]!=mHorizontal;p[0]++)
+    {
+	    for (p[1]=1;p[1]!=mVertical-8;p[1]++)
+    	{
+    		int i = *GetPx( p );
+    		if (i==c)
+    		{
+    			if (std::find(mPos.begin(), mPos.end(), p)==mPos.end())
+    			{
+					if (std::find(mOther.begin(), mOther.end(), p)==mOther.end())
+					{
+						if (first || mPos.front().Distance(p)<mPos.front().Distance(best))
+						{
+							best=p;
+							first=false;
+						}
+					}
+    			}
+    		}
+    	}
+    }
+    *GetPx( best ) = 0;
 }
 
 //==============================================================================
@@ -223,6 +253,7 @@ void CApp::OnLoop()
 		if (mPendingGrowth>0)
 		{
 			mPendingGrowth--;
+			RemoveSpawn(1);
 		}
 		else
 		{
