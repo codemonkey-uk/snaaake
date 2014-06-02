@@ -3,101 +3,8 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
-typedef const char* glyph[6];
 
-glyph nums[10] = {
-{
-	"XXX ",
-	"X X ",
-	"X X ",
-	"X X ",
-	"XXX ",
-	"    ",
-},
-{
-	" X  ",
-	"XX  ",
-	" X  ",
-	" X  ",
-	"XXX ",
-	"    ",
-}, {
-	"XXX ",
-	"  X ",
-	"XXX ",
-	"X   ",
-	"XXX ",
-	"    ",
-}, {
-	"XXX ",
-	"  X ",
-	"XXX ",
-	"  X ",
-	"XXX ",
-	"    ",
-}, {
-	"X X ",
-	"X X ",
-	"XXX ",
-	"  X ",
-	"  X ",
-	"    ",
-}, {
-	"XXX ",
-	"X   ",
-	"XXX ",
-	"  X ",
-	"XXX ",
-	"    ",
-}, {
-	"XXX ",
-	"X   ",
-	"XXX ",
-	"X X ",
-	"XXX ",
-	"    ",
-}, {
-	"XXX ",
-	"  X ",
-	"  X ",
-	"  X ",
-	"  X ",
-	"    ",
-}, {
-	"XXX ",
-	"X X ",
-	"XXX ",
-	"X X ",
-	"XXX ",
-	"    ",
-}, {
-	"XXX ",
-	"X X ",
-	"XXX ",
-	"  X ",
-	"  X ",
-	"    ",
-}};
-
-int Blit(const glyph& g, int x, int y, int* pixels, int w, int h) 
-{
-	int mw=0;
-	for (int l=0;l!=6;++l)
-	{
-		int* p = (pixels + x + (y-l)*w);
-		const char* c = g[l];
-		int w = 0;
-		while(*c) 
-		{
-			*p = *c == ' ' ? 0 : 1;
-			c++;
-			p++;
-			w++;
-		}
-		if (w>mw) mw=w;
-	}
-	return mw;
-}
+#include "font.h"
 
 bool CApp::FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s)
 {
@@ -144,22 +51,17 @@ void CApp::Spawn(Geometry::Vector2d<int> e, int i)
 	}
 }
 
-Geometry::Vector2d<int> Above( const Geometry::Vector2d<int>& first, Geometry::Vector2d<int> next )
-{
-	auto d = next - first;
-	next += Geometry::Vector2d<int>(d[1], d[0]);
-	return next;
-}
-
 void CApp::PrintNumber( int num, int h, int v, bool ralign)	
 {
+	using namespace Font;
+	
 	char buffer[8];
 	int l=sprintf(buffer,"%i", num);
 	int x = 1;
 	if (ralign) x = h - l*4;
 	for (int i = 0 ; i!=l; ++i)
 	{
-		x+=Blit(nums[buffer[i]-'0'], x, v, mPixels, mHorizontal, mVertical);
+		x+=Blit(GetDigit(buffer[i]-'0'), x, v, mPixels, mHorizontal, mVertical);
 	}
 }
 
@@ -332,28 +234,8 @@ void CApp::OnLoop()
 	{
 		if (mLoopCount >= deadFrame+16)
 		{
-			/*
-			if (mPos.size()>0)
-			{
-				*GetPx( mPos.back() ) = 0;
-				if (mLoopCount%2) mPos.pop_back();
-				for (int i=0;i!=mPos.size();++i)
-					*GetPx( mPos[i] ) = 1;
-			}
-			if (mOther.size()>0)
-			{
-				*GetPx( mOther.back() ) = 0;
-				if (mLoopCount%2) mOther.pop_back();
-				for (int i=0;i!=mOther.size();++i)
-					*GetPx( mOther[i] ) = 1;
-			}
-			*/
-			
-			//if (mPos.empty() && mOther.empty())
-			{
-				Reset();
-				deadFrame = 0;
-			}
+			Reset();
+			deadFrame = 0;
 		}
 		else 
 		{
