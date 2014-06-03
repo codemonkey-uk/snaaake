@@ -28,6 +28,7 @@ class CApp {
 		
 		int mLoopCount;
 		
+		int mPaused;
 		int mPendingGrowth;
 		int mSpawnCooldown;
 		Geometry::Vector2d< int > mDir;
@@ -50,7 +51,9 @@ class CApp {
 			return (mQuads + p[0] + p[1]*mHorizontal);
 		}
 		
-		void PrintNumber( int num, int h, int v, bool ralign);
+		enum HAlign { Left, Center, Right };
+		void PrintString( const char* buffer, int h, int v, HAlign align);
+		void PrintNumber( int num, int h, int v, HAlign align);
 		
 		bool FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s);
 		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude);

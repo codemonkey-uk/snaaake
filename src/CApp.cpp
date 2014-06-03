@@ -10,6 +10,7 @@
 CApp::CApp()
 	// set up in ::Init
 	: mDir( Geometry::uninitialised )
+	, mPaused(false)
 {
     Surf_Display = NULL;
 

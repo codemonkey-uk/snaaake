@@ -51,18 +51,25 @@ void CApp::Spawn(Geometry::Vector2d<int> e, int i)
 	}
 }
 
-void CApp::PrintNumber( int num, int h, int v, bool ralign)	
+void CApp::PrintString( const char* buffer, int h, int v, HAlign align)	
 {
 	using namespace Font;
 	
-	char buffer[8];
-	int l=sprintf(buffer,"%i", num);
-	int x = 1;
-	if (ralign) x = h - l*4;
+	int l=strlen(buffer);
+	int x = h;
+	if (align==Right) x = h - l*4;
+	else if (align==Center) x = h - (l*4)/2;
 	for (int i = 0 ; i!=l; ++i)
 	{
-		x+=Blit(GetDigit(buffer[i]-'0'), x, v, mPixels, mHorizontal, mVertical);
+		x+=Blit(GetGlyph(buffer[i]), x, v, mPixels, mHorizontal, mVertical);
 	}
+}
+
+void CApp::PrintNumber( int num, int h, int v, HAlign align)	
+{
+	char buffer[8];
+	sprintf(buffer,"%i", num);
+	PrintString(buffer, h, v, align);
 }
 
 int CApp::Consume( Geometry::Vector2d<int>::BaseType pos )
@@ -174,106 +181,116 @@ void CApp::OnLoop()
 	static int best = 0;
 	if (score>best) best=score;
 
-	PrintNumber( deadFrame==0 ? score : lastscore, 1, mVertical-2, false );
-	PrintNumber( best, mHorizontal, mVertical-2, true );
-
-	static Geometry::VectorN<int,2> latchDir {0,0};
-	static int latch = 0;
-	if (latch) latch--;
-	if (!mEvents.empty() && (latch==0 || mEvents.front()!=latchDir)) 
-	{
-		// a change in direction, not reversing direction
-		if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
-		{
-			auto oldDir = mDir;
-			mDir = mEvents.front();
-			
-			// step over thickness
-			if (mDir[1]==1 || mDir[0]==1) 
-			{
-				mPos.push_front( Geometry::Vector2d<int>(mPos.front() + mDir) );
-				
-				Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
-				if (mOther.empty() || other!=mOther.front())
-					mOther.push_front( other );
-				
-				AdvanceTail();
-			}
-			if (oldDir[1]==1 || oldDir[0]==1) 
-			{
-				mPos.push_front( Geometry::Vector2d<int>(mPos.front() - oldDir) );
-				
-				Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
-				if (mOther.empty() || other!=mOther.front())
-					mOther.push_front( other );
-					
-				AdvanceTail();
-			}
-			latchDir=-oldDir;
-			latch=2;
-		}
-		mEvents.pop_front();
-	}
+	PrintNumber( deadFrame==0 ? score : lastscore, 1, mVertical-2, Left );
+	PrintNumber( best, mHorizontal, mVertical-2, Right );
 	
-	if (mDir.LengthSquare()>0 && !deadFrame)
+	if (mPaused)
 	{
-		// constantly spawn bad spots
-		if (mSpawnCooldown>0)
-		{
-			mSpawnCooldown--;
-		}
-		else if (mRNG()%12 == 0)
-		{
-			Spawn(mPos.front(),1);
-			mSpawnCooldown = 12;
-		}
-		
-		Geometry::Vector2d<int> next( mPos.front() + mDir );
-		if (next[0]>=mHorizontal) next[0] -= mHorizontal;
-		if (next[0]<0) next[0] += mHorizontal;
-		if (next[1]>=mVertical) next[1] -= mVertical;
-		if (next[1]<0) next[1] += mVertical;
-		mPos.push_front( next );
-		
-		Geometry::Vector2d<int> other = Other(next,mDir);
-		
-		if (mOther.empty() || other!=mOther.front())
-			mOther.push_front( other );
-		
-		if (!Occupy(next) || !Occupy(other))
-		{
-			lastscore = score;
-			score = 0;
-			deadFrame = mLoopCount;
-			mDir = {0,0};
-		}
-
-
-		// grow if growing		
-		if (mPendingGrowth>0)
-		{
-			mPendingGrowth--;
-			RemoveSpawn(1);
-		}
-		else
-		{
-			// clear up tail
-			AdvanceTail();
-		}		
+		// all game input events are dropped while paused
+		if (!mEvents.empty()) mEvents.pop_front();
+		// on screen message during pause
+		PrintString( "PAUSED", mHorizontal/2, mVertical-2, Center );		
 	}
-	else if (deadFrame) 
+	else
 	{
-		if (mLoopCount >= deadFrame+16)
+		static Geometry::VectorN<int,2> latchDir {0,0};
+		static int latch = 0;
+		if (latch) latch--;
+		if (!mEvents.empty() && (latch==0 || mEvents.front()!=latchDir)) 
 		{
-			Reset();
-			deadFrame = 0;
+			// a change in direction, not reversing direction
+			if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
+			{
+				auto oldDir = mDir;
+				mDir = mEvents.front();
+			
+				// step over thickness
+				if (mDir[1]==1 || mDir[0]==1) 
+				{
+					mPos.push_front( Geometry::Vector2d<int>(mPos.front() + mDir) );
+				
+					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
+					if (mOther.empty() || other!=mOther.front())
+						mOther.push_front( other );
+				
+					AdvanceTail();
+				}
+				if (oldDir[1]==1 || oldDir[0]==1) 
+				{
+					mPos.push_front( Geometry::Vector2d<int>(mPos.front() - oldDir) );
+				
+					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
+					if (mOther.empty() || other!=mOther.front())
+						mOther.push_front( other );
+					
+					AdvanceTail();
+				}
+				latchDir=-oldDir;
+				latch=2;
+			}
+			mEvents.pop_front();
 		}
-		else 
+	
+		if (mDir.LengthSquare()>0 && !deadFrame)
 		{
-			for (int i=0;i!=mPos.size();++i)
-				*GetPx( mPos[i] ) = mLoopCount%2;
-			for (int i=0;i!=mOther.size();++i)
-				*GetPx( mOther[i] ) = mLoopCount%2;
+			// constantly spawn bad spots
+			if (mSpawnCooldown>0)
+			{
+				mSpawnCooldown--;
+			}
+			else if (mRNG()%12 == 0)
+			{
+				Spawn(mPos.front(),1);
+				mSpawnCooldown = 12;
+			}
+		
+			Geometry::Vector2d<int> next( mPos.front() + mDir );
+			if (next[0]>=mHorizontal) next[0] -= mHorizontal;
+			if (next[0]<0) next[0] += mHorizontal;
+			if (next[1]>=mVertical) next[1] -= mVertical;
+			if (next[1]<0) next[1] += mVertical;
+			mPos.push_front( next );
+		
+			Geometry::Vector2d<int> other = Other(next,mDir);
+		
+			if (mOther.empty() || other!=mOther.front())
+				mOther.push_front( other );
+		
+			if (!Occupy(next) || !Occupy(other))
+			{
+				lastscore = score;
+				score = 0;
+				deadFrame = mLoopCount;
+				mDir = {0,0};
+			}
+
+
+			// grow if growing		
+			if (mPendingGrowth>0)
+			{
+				mPendingGrowth--;
+				RemoveSpawn(1);
+			}
+			else
+			{
+				// clear up tail
+				AdvanceTail();
+			}		
+		}
+		else if (deadFrame) 
+		{
+			if (mLoopCount >= deadFrame+16)
+			{
+				Reset();
+				deadFrame = 0;
+			}
+			else 
+			{
+				for (int i=0;i!=mPos.size();++i)
+					*GetPx( mPos[i] ) = mLoopCount%2;
+				for (int i=0;i!=mOther.size();++i)
+					*GetPx( mOther[i] ) = mLoopCount%2;
+			}
 		}
 	}
 }

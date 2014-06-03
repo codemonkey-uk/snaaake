@@ -26,6 +26,9 @@ void CApp::OnEvent(SDL_Event* Event) {
     		case SDLK_DOWN:
 		    	mEvents.push_back({0,-1});
 				break;
+			case SDLK_SPACE:
+				mPaused = !mPaused;
+				break;
 		}
     }
 }

@@ -129,7 +129,7 @@ void CApp::Reset()
 //==============================================================================
 bool CApp::OnInit() 
 {
- 	printf("Snake.\nControls: WASD or Arrow Keys.\n");
+ 	printf("Snake.\nControls: WASD or Arrow Keys.\nSpace to Pause.\n");
  	
 	mHorizontal=84;
 	mVertical=48;
