@@ -36,7 +36,7 @@ class CApp {
 
 		std::deque< Geometry::Vector2d<int> > mPos;
 		std::deque< Geometry::Vector2d<int> > mOther;
-		
+		Geometry::Vector2d<int> mPendingRemove;
 		std::mt19937 mRNG;
 		
 		GLuint mProgramObject;
@@ -63,7 +63,7 @@ class CApp {
 		// returns true if the snake lives on, false is death
 		bool Occupy( Geometry::Vector2d<int> pos );
 		void AdvanceTail();
-		void RemoveSpawn(int c);
+		Geometry::Vector2d<int> RemoveSpawn(int c, Geometry::Vector2d<int> near);
 		
     public:
         CApp();

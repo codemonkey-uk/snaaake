@@ -103,6 +103,7 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 			Spawn(mPos.front(),2);
 			mPendingGrowth += Consume(pos) * 2;
 			mSpawnCooldown = 12;
+			mPendingRemove = mPos.front();
 		}
 		
 		*p = 1;
@@ -132,7 +133,7 @@ void CApp::AdvanceTail()
 	}
 }
 
-void CApp::RemoveSpawn(int c)
+Geometry::Vector2d<int> CApp::RemoveSpawn(int c, Geometry::Vector2d<int> near)
 {
 	Geometry::Vector2d<int> p(0,0), best(0,0);
 	bool first = true;
@@ -148,7 +149,7 @@ void CApp::RemoveSpawn(int c)
     			{
 					if (std::find(mOther.begin(), mOther.end(), p)==mOther.end())
 					{
-						if (first || mPos.front().Distance(p)<mPos.front().Distance(best))
+						if (first || near.Distance(p)<near.Distance(best))
 						{
 							best=p;
 							first=false;
@@ -159,6 +160,7 @@ void CApp::RemoveSpawn(int c)
     	}
     }
     *GetPx( best ) = 0;
+    return best;
 }
 
 //==============================================================================
@@ -222,7 +224,17 @@ void CApp::OnLoop()
 				
 					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
 					if (mOther.empty() || other!=mOther.front())
+					{
+						if (mOther.empty()==false)
+						{
+							if (*GetPx(mOther.front())==0)
+							{
+								mOther.pop_front();
+								mOther.push_front( other );
+							}
+						}
 						mOther.push_front( other );
+					}
 					
 					AdvanceTail();
 				}
@@ -270,7 +282,7 @@ void CApp::OnLoop()
 			if (mPendingGrowth>0)
 			{
 				mPendingGrowth--;
-				RemoveSpawn(1);
+				mPendingRemove = RemoveSpawn(1, mPendingRemove);
 			}
 			else
 			{
