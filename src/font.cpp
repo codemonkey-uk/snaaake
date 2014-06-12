@@ -126,6 +126,25 @@ namespace Font
 			"XX  ",
 			"    ",
 		};		
+
+		Glyph n = {
+			"XXX ",
+			"X X ",
+			"X X ",
+			"X X ",
+			"X X ",
+			"    ",
+		};	
+
+		Glyph k = {
+			"X X ",
+			"XX  ",
+			"X   ",
+			"XX  ",
+			"X X ",
+			"    ",
+		};	
+				
 		// paused
 		std::map< int, Glyph* > fontMap = {
 			{ 'P', &p },
@@ -135,6 +154,9 @@ namespace Font
 			{ 'E', &e },
 			{ 'D', &d },
 			
+			{ 'N', &n },
+			{ 'K', &k },
+						
 			{ '0', &GlyphData::nums[0] },
 			{ '1', &GlyphData::nums[1] },
 			{ '2', &GlyphData::nums[2] },
