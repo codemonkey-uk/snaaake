@@ -38,6 +38,8 @@ class CApp {
 		std::deque< Geometry::Vector2d<int> > mOther;
 		Geometry::Vector2d<int> mPendingRemove;
 		std::mt19937 mRNG;
+		int mScore;
+		int mHighScore;
 		
 		GLuint mProgramObject;
 		

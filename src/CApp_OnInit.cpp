@@ -124,6 +124,8 @@ void CApp::Reset()
 	mSpawnCooldown = 12;
 	mDir[0] = 0;
 	mDir[1] = 0;
+	
+	mScore = 0;
 }
 
 //==============================================================================
@@ -141,6 +143,7 @@ bool CApp::OnInit()
 	mHeight=6*mVertical;	
     int s=std::max(mWidth,mHeight);
     
+    mHighScore=0;
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {

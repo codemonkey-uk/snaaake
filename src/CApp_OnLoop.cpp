@@ -166,12 +166,11 @@ Geometry::Vector2d<int> CApp::RemoveSpawn(int c, Geometry::Vector2d<int> near)
 //==============================================================================
 void CApp::OnLoop() 
 {
-	static int lastscore=1;
 	static int deadFrame = 0;
 
 	mLoopCount++;
 	
-	int score=mPos.size();
+	mScore=std::max(static_cast<int>(mPos.size())-1,mScore);
 	
 	// clear score area
 	std::fill(mPixels+(mHorizontal*(mVertical-7)), mPixels+(mHorizontal*mVertical),0);
@@ -180,11 +179,10 @@ void CApp::OnLoop()
 	// bottom border horizontal
 	std::fill(mPixels, mPixels+mHorizontal,1);
 
-	static int best = 0;
-	if (score>best) best=score;
+	mHighScore=std::max(mScore, mHighScore);
 
-	PrintNumber( deadFrame==0 ? score : lastscore, 1, mVertical-2, Left );
-	PrintNumber( best, mHorizontal, mVertical-2, Right );
+	PrintNumber( mScore, 1, mVertical-2, Left );
+	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );
 	
 	if (mPaused)
 	{
@@ -271,8 +269,6 @@ void CApp::OnLoop()
 		
 			if (!Occupy(next) || !Occupy(other))
 			{
-				lastscore = score;
-				score = 0;
 				deadFrame = mLoopCount;
 				mDir = {0,0};
 			}
