@@ -193,7 +193,7 @@ void CApp::OnLoop()
 	}
 	else
 	{
-		PrintString( "SNAKE", mHorizontal/2, mVertical-2, Center );		
+		PrintString( "SNAAAKE", mHorizontal/2, mVertical-2, Center );		
 		static Geometry::VectorN<int,2> latchDir {0,0};
 		static int latch = 0;
 		if (latch) latch--;
