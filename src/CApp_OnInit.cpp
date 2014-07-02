@@ -141,7 +141,7 @@ bool CApp::OnInit()
 	
 	mWidth=6*mHorizontal;
 	mHeight=6*mVertical;	
-    int s=std::max(mWidth,mHeight);
+    //int s=std::max(mWidth,mHeight);
     
     mHighScore=0;
     //Initialize SDL
@@ -151,7 +151,7 @@ bool CApp::OnInit()
     }
     
     //Create Window
-    if( SDL_SetVideoMode( s, s, 24, SDL_OPENGL ) == NULL )
+    if( SDL_SetVideoMode( mWidth, mHeight, 24, SDL_OPENGL ) == NULL )
     {
         return false;
     }
@@ -159,7 +159,7 @@ bool CApp::OnInit()
 	mProgramObject = Init();
 
 	const int hs=mHorizontal/2;
-	const float rx=0.6f/hs;
+	const float rx=0.75f/hs;
 	mQuads = (Entropy::GFX::Quad*)malloc( sizeof(Entropy::GFX::Quad)*mHorizontal*mVertical );
 	for (int x=0;x!=mHorizontal;x++)
     {
@@ -168,7 +168,7 @@ bool CApp::OnInit()
 			Entropy::GFX::Quad* pQ = GetQx( {x,y} );
 			new(pQ) Entropy::GFX::Quad(mProgramObject, 0.8f, 0.8f);
 			pQ->Pretransform( 
-				Geometry::Vector2d<float>(rx+(x-hs)/float(hs), (18+y-hs)/float(hs)), 
+				Geometry::Vector2d<float>(rx+(x-hs)/float(hs), rx+(y-hs)/float(hs)), 
 				1.f/mHorizontal, 
 				0 );
     	}
