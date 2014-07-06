@@ -112,14 +112,14 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 	}
 }
 
-Geometry::Vector2d<int> Other(Geometry::Vector2d<int> pos, Geometry::Vector2d<int> dir)
+Geometry::Vector2d<int> CApp::Other(Geometry::Vector2d<int> pos, Geometry::Vector2d<int> dir)
 {
 	Geometry::Vector2d<int> other = pos;
 	
 	if (dir[1]==0) other[1]++;
 	else other[0]++;
 	
-	return other;
+	return Wrap(other);
 }
 
 void CApp::AdvanceTail()
@@ -161,6 +161,24 @@ Geometry::Vector2d<int> CApp::RemoveSpawn(int c, Geometry::Vector2d<int> near)
     }
     *GetPx( best ) = 0;
     return best;
+}
+
+Geometry::Vector2d<int> CApp::Wrap(const Geometry::Vector2d<int>::BaseType& _p)const
+{
+	Geometry::Vector2d<int> p(_p);
+	if (p[0]>=mHorizontal) p[0] -= mHorizontal;
+	if (p[0]<0) p[0] += mHorizontal;
+	if (p[1]>=mVertical) p[1] -= mVertical;
+	if (p[1]<0) p[1] += mVertical;
+	return p;
+}
+
+Geometry::Vector2d<int> CApp::Advance(
+	const Geometry::Vector2d<int>& p,
+	const Geometry::Vector2d<int>::BaseType& d)
+{
+	Geometry::Vector2d<int> next( p + d );
+	return Wrap(next);
 }
 
 //==============================================================================
@@ -208,7 +226,7 @@ void CApp::OnLoop()
 				// step over thickness
 				if (mDir[1]==1 || mDir[0]==1) 
 				{
-					mPos.push_front( Geometry::Vector2d<int>(mPos.front() + mDir) );
+					mPos.push_front( Advance( mPos.front(), mDir ) );
 				
 					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
 					if (mOther.empty() || other!=mOther.front())
@@ -218,7 +236,7 @@ void CApp::OnLoop()
 				}
 				if (oldDir[1]==1 || oldDir[0]==1) 
 				{
-					mPos.push_front( Geometry::Vector2d<int>(mPos.front() - oldDir) );
+					mPos.push_front( Advance( mPos.front(), -oldDir ) );
 				
 					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
 					if (mOther.empty() || other!=mOther.front())
@@ -255,11 +273,7 @@ void CApp::OnLoop()
 				mSpawnCooldown = 12;
 			}
 		
-			Geometry::Vector2d<int> next( mPos.front() + mDir );
-			if (next[0]>=mHorizontal) next[0] -= mHorizontal;
-			if (next[0]<0) next[0] += mHorizontal;
-			if (next[1]>=mVertical) next[1] -= mVertical;
-			if (next[1]<0) next[1] += mVertical;
+			Geometry::Vector2d<int> next = Advance( mPos.front(), mDir );
 			mPos.push_front( next );
 		
 			Geometry::Vector2d<int> other = Other(next,mDir);

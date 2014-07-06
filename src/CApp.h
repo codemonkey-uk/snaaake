@@ -64,9 +64,15 @@ class CApp {
 		void Reset();
 		// returns true if the snake lives on, false is death
 		bool Occupy( Geometry::Vector2d<int> pos );
+		Geometry::Vector2d<int> Other(
+			Geometry::Vector2d<int> pos, 
+			Geometry::Vector2d<int> dir);
 		void AdvanceTail();
 		Geometry::Vector2d<int> RemoveSpawn(int c, Geometry::Vector2d<int> near);
-		
+		Geometry::Vector2d<int> Wrap(const Geometry::Vector2d<int>::BaseType& p)const;
+		Geometry::Vector2d<int> Advance(
+			const Geometry::Vector2d<int>& p,
+			const Geometry::Vector2d<int>::BaseType& d);
     public:
         CApp();
 
