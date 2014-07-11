@@ -16,18 +16,39 @@
 		
 //==============================================================================
 class CApp {
+	public:
+		typedef Geometry::Vector2d< int > Point;
+		
+		inline int* GetPx( const Point::BaseType& p ) {
+			return (mPixels + p[0] + p[1]*mHorizontal);
+		}
+		inline const int * GetPx( const Point::BaseType& p ) const {
+			return (mPixels + p[0] + p[1]*mHorizontal);
+		}
+		inline Entropy::GFX::Quad* GetQx( const Point::BaseType& p ) {
+			return (mQuads + p[0] + p[1]*mHorizontal);
+		}
+
+		enum HAlign { Left, Center, Right };
+		void PrintString( const char* buffer, int h, int v, HAlign align);
+		void PrintNumber( int num, int h, int v, HAlign align);
+
     private:
         bool            Running;
 
+		// rendering / pixel access
+		
         SDL_Surface*    Surf_Display;
-
+		GLuint mProgramObject;
+		
 		int mWidth, mHeight;
 		int mHorizontal, mVertical;
 		
 		int* mPixels;
 		Entropy::GFX::Quad* mQuads;
-		
+				
 		// gameplay
+		
 		int mLoopCount;
 		int mDiedOnFrame;
 
@@ -36,63 +57,44 @@ class CApp {
 		int mPaused;
 		int mPendingGrowth;
 		int mSpawnCooldown;
-		Geometry::Vector2d< int > mDir;
-		std::deque< Geometry::Vector2d<int> > mEvents;
+		Point mDir;
+		std::deque< Point > mEvents;
 
-		std::deque< Geometry::Vector2d<int> > mPos;
-		std::deque< Geometry::Vector2d<int> > mOther;
-		Geometry::Vector2d<int> mPendingRemove;
+		std::deque< Point > mPos;
+		std::deque< Point > mOther;
+		Point mPendingRemove;
 		std::mt19937 mRNG;
 		int mScore;
 		int mHighScore;
-		
-		GLuint mProgramObject;
-		
-		int* GetPx( const Geometry::Vector2d< int >::BaseType& p ) {
-			return (mPixels + p[0] + p[1]*mHorizontal);
-		}
-		const int * GetPx( const Geometry::Vector2d< int >::BaseType& p ) const {
-			return (mPixels + p[0] + p[1]*mHorizontal);
-		}
-		Entropy::GFX::Quad* GetQx( const Geometry::Vector2d< int >::BaseType& p ) {
-			return (mQuads + p[0] + p[1]*mHorizontal);
-		}
-		
-		enum HAlign { Left, Center, Right };
-		void PrintString( const char* buffer, int h, int v, HAlign align);
-		void PrintNumber( int num, int h, int v, HAlign align);
-		
-		bool FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s);
-		Geometry::Vector2d<int> SpawnPoint(Geometry::Vector2d<int> exclude);
-		void Spawn(Geometry::Vector2d<int> e, int i);
-		int Consume( Geometry::Vector2d<int>::BaseType pos );
+				
+		bool FreeRect(Point p, Point s);
+		Point SpawnPoint(Point exclude);
+		void Spawn(Point e, int i);
+		int Consume( Point::BaseType pos );
 		void Reset();
 		// returns true if the snake lives on, false is death
-		bool Occupy( Geometry::Vector2d<int> pos );
-		Geometry::Vector2d<int> Other(
-			Geometry::Vector2d<int> pos, 
-			Geometry::Vector2d<int> dir);
+		bool Occupy( Point pos );
+		Point Other( Point pos, Point dir);
 		void AdvanceTail();
-		Geometry::Vector2d<int> RemoveSpawn(int c, Geometry::Vector2d<int> near);
-		Geometry::Vector2d<int> Wrap(const Geometry::Vector2d<int>::BaseType& p)const;
-		Geometry::Vector2d<int> Advance(
-			const Geometry::Vector2d<int>& p,
-			const Geometry::Vector2d<int>::BaseType& d);
+		Point RemoveSpawn(int c, Point near);
+		Point Wrap(const Point::BaseType& p)const;
+		Point Advance(
+			const Point& p,
+			const Point::BaseType& d);
+			
+	public:
+        void OnRender();
+        void OnCleanup();
+
     public:
         CApp();
-
-        int OnExecute();
+        int OnExecute(int fps);
 
     public:
-        bool OnInit();
+        virtual bool OnInit();
+        virtual void OnEvent(SDL_Event* Event);
+        virtual void OnLoop();
 
-        void OnEvent(SDL_Event* Event);
-
-        void OnLoop();
-
-        void OnRender();
-
-        void OnCleanup();
 };
 
 //==============================================================================

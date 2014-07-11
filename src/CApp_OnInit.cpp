@@ -136,13 +136,13 @@ bool CApp::OnInit()
  	
 	mHorizontal=84;
 	mVertical=48;
-	mPixels=new int[mHorizontal*mVertical];
-	
-	Reset();
-	
+
 	mWidth=6*mHorizontal;
-	mHeight=6*mVertical;	
-    //int s=std::max(mWidth,mHeight);
+	mHeight=6*mVertical;
+
+	mPixels=new int[mHorizontal*mVertical];
+		
+	Reset();
     
     mHighScore=0;
     //Initialize SDL

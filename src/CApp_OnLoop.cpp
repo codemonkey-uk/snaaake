@@ -4,11 +4,9 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "font.h"
-
-bool CApp::FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s)
+bool CApp::FreeRect(Point p, Point s)
 {
-	Geometry::Vector2d<int> d(Geometry::uninitialised);
+	Point d(Geometry::uninitialised);
 	for (d[0]=0;d[0]!=s[0];++d[0])
 	{
 		for (d[1]=0;d[1]!=s[1];++d[1])
@@ -20,59 +18,38 @@ bool CApp::FreeRect(Geometry::Vector2d<int> p, Geometry::Vector2d<int> s)
 	return true;
 }
 
-Geometry::Vector2d<int> CApp::SpawnPoint(Geometry::Vector2d<int> exclude)
+CApp::Point CApp::SpawnPoint(Point exclude)
 {
 	const int s=3;
-	Geometry::Vector2d<int> result( Geometry::uninitialised );
+	Point result( Geometry::uninitialised );
 	do{
 		result = { mRNG()%(mHorizontal-s), 1 + mRNG()%(mVertical-(s+8)) };
 	}while( !FreeRect( result, {s,s} ) || result.DistanceSquare(exclude)<=(8+s) );
 	return result;
 }
 
-void CApp::Spawn(Geometry::Vector2d<int> e, int i)
+void CApp::Spawn(Point e, int i)
 {
-	Geometry::Vector2d<int> p = SpawnPoint(e);
+	Point p = SpawnPoint(e);
 	if (i==2)
 	{
-		*GetPx(p+Geometry::Vector2d<int>(1,0))=i;
-		*GetPx(p+Geometry::Vector2d<int>(0,1))=i;	
-		*GetPx(p+Geometry::Vector2d<int>(1,1))=i;
-		*GetPx(p+Geometry::Vector2d<int>(2,1))=i;
-		*GetPx(p+Geometry::Vector2d<int>(1,2))=i;	
+		*GetPx(p+Point(1,0))=i;
+		*GetPx(p+Point(0,1))=i;	
+		*GetPx(p+Point(1,1))=i;
+		*GetPx(p+Point(2,1))=i;
+		*GetPx(p+Point(1,2))=i;	
 	}
 	else
 	{
-		*GetPx(p+Geometry::Vector2d<int>(0,0))=i;
-		*GetPx(p+Geometry::Vector2d<int>(0,2))=i;
-		*GetPx(p+Geometry::Vector2d<int>(1,1))=i;
-		*GetPx(p+Geometry::Vector2d<int>(2,0))=i;
-		*GetPx(p+Geometry::Vector2d<int>(2,2))=i;
+		*GetPx(p+Point(0,0))=i;
+		*GetPx(p+Point(0,2))=i;
+		*GetPx(p+Point(1,1))=i;
+		*GetPx(p+Point(2,0))=i;
+		*GetPx(p+Point(2,2))=i;
 	}
 }
 
-void CApp::PrintString( const char* buffer, int h, int v, HAlign align)	
-{
-	using namespace Font;
-	
-	int l=strlen(buffer);
-	int x = h;
-	if (align==Right) x = h - l*4;
-	else if (align==Center) x = h - (l*4)/2;
-	for (int i = 0 ; i!=l; ++i)
-	{
-		x+=Blit(GetGlyph(buffer[i]), x, v, mPixels, mHorizontal, mVertical);
-	}
-}
-
-void CApp::PrintNumber( int num, int h, int v, HAlign align)	
-{
-	char buffer[8];
-	sprintf(buffer,"%i", num);
-	PrintString(buffer, h, v, align);
-}
-
-int CApp::Consume( Geometry::Vector2d<int>::BaseType pos )
+int CApp::Consume( Point::BaseType pos )
 {
 	int result = 0;
 	int* p = GetPx( pos );
@@ -80,16 +57,16 @@ int CApp::Consume( Geometry::Vector2d<int>::BaseType pos )
 	{
 		*p=0;
 		result ++;
-		result += Consume( pos + Geometry::Vector2d<int>(1,0) );
-		result += Consume( pos + Geometry::Vector2d<int>(0,1) );
-		result += Consume( pos + Geometry::Vector2d<int>(-1,0) );
-		result += Consume( pos + Geometry::Vector2d<int>(0,-1) );
+		result += Consume( pos + Point(1,0) );
+		result += Consume( pos + Point(0,1) );
+		result += Consume( pos + Point(-1,0) );
+		result += Consume( pos + Point(0,-1) );
 	}
 	return result;
 }
 
 // returns true if the snake lives on, false is death
-bool CApp::Occupy( Geometry::Vector2d<int> pos )
+bool CApp::Occupy( Point pos )
 {
 	int* p = GetPx( pos );
 	if (*p==1)
@@ -112,12 +89,12 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 	}
 }
 
-Geometry::Vector2d<int> CApp::Other(
-	Geometry::Vector2d<int> pos, 
-	Geometry::Vector2d<int> dir
+CApp::Point CApp::Other(
+	Point pos, 
+	Point dir
 )
 {
-	Geometry::Vector2d<int> other = pos;
+	Point other = pos;
 	
 	if (dir[1]==0) other[1]++;
 	else other[0]++;
@@ -136,9 +113,9 @@ void CApp::AdvanceTail()
 	}
 }
 
-Geometry::Vector2d<int> CApp::RemoveSpawn(int c, Geometry::Vector2d<int> near)
+CApp::Point CApp::RemoveSpawn(int c, Point near)
 {
-	Geometry::Vector2d<int> p(0,0), best(0,0);
+	Point p(0,0), best(0,0);
 	bool first = true;
 	
     for (p[0]=0;p[0]!=mHorizontal;p[0]++)
@@ -166,9 +143,9 @@ Geometry::Vector2d<int> CApp::RemoveSpawn(int c, Geometry::Vector2d<int> near)
     return best;
 }
 
-Geometry::Vector2d<int> CApp::Wrap(const Geometry::Vector2d<int>::BaseType& _p)const
+CApp::Point CApp::Wrap(const Point::BaseType& _p)const
 {
-	Geometry::Vector2d<int> p(_p);
+	Point p(_p);
 	if (p[0]>=mHorizontal) p[0] -= mHorizontal;
 	if (p[0]<0) p[0] += mHorizontal;
 	if (p[1]>=mVertical) p[1] -= mVertical;
@@ -176,11 +153,11 @@ Geometry::Vector2d<int> CApp::Wrap(const Geometry::Vector2d<int>::BaseType& _p)c
 	return p;
 }
 
-Geometry::Vector2d<int> CApp::Advance(
-	const Geometry::Vector2d<int>& p,
-	const Geometry::Vector2d<int>::BaseType& d)
+CApp::Point CApp::Advance(
+	const Point& p,
+	const Point::BaseType& d)
 {
-	Geometry::Vector2d<int> next( p + d );
+	Point next( p + d );
 	return Wrap(next);
 }
 
@@ -227,7 +204,7 @@ void CApp::OnLoop()
 				{
 					mPos.push_front( Advance( mPos.front(), mDir ) );
 				
-					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
+					Point other = Other(mPos.front(), mDir);
 					if (mOther.empty() || other!=mOther.front())
 						mOther.push_front( other );
 				
@@ -237,7 +214,7 @@ void CApp::OnLoop()
 				{
 					mPos.push_front( Advance( mPos.front(), -oldDir ) );
 				
-					Geometry::Vector2d<int> other = Other(mPos.front(), mDir);
+					Point other = Other(mPos.front(), mDir);
 					if (mOther.empty() || other!=mOther.front())
 					{
 						if (mOther.empty()==false)
@@ -271,10 +248,10 @@ void CApp::OnLoop()
 				mSpawnCooldown = 12;
 			}
 		
-			Geometry::Vector2d<int> next = Advance( mPos.front(), mDir );
+			Point next = Advance( mPos.front(), mDir );
 			mPos.push_front( next );
 		
-			Geometry::Vector2d<int> other = Other(next,mDir);
+			Point other = Other(next,mDir);
 		
 			if (mOther.empty() || other!=mOther.front())
 				mOther.push_front( other );

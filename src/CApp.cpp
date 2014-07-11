@@ -31,7 +31,8 @@ void one_iter()
 }
 
 //------------------------------------------------------------------------------
-int CApp::OnExecute() {
+int CApp::OnExecute(int fps) 
+{
     if(OnInit() == false) {
         return -1;
     }
@@ -39,7 +40,7 @@ int CApp::OnExecute() {
 	emApp = this;
 	
 #ifdef EMSCRIPTEN
-	int fps=24;
+	
 	emscripten_set_main_loop(one_iter, fps, 1);
 #else
     while(Running) {
@@ -50,13 +51,6 @@ int CApp::OnExecute() {
     OnCleanup();
 
     return 0;
-}
-
-//==============================================================================
-int main(int argc, char* argv[]) {
-    CApp theApp;
-
-    return theApp.OnExecute();
 }
 
 //==============================================================================

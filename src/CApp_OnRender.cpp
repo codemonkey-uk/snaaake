@@ -3,6 +3,7 @@
 
 #include "shape.h"
 #include "geometry_constants.h"
+#include "font.h"
 
 #include <algorithm>
 
@@ -75,6 +76,27 @@ class TriangleBatcher
 		int mTransformUniform;
 		int mColourUniform;
 };
+
+void CApp::PrintString( const char* buffer, int h, int v, HAlign align)	
+{
+	using namespace Font;
+	
+	int l=strlen(buffer);
+	int x = h;
+	if (align==Right) x = h - l*4;
+	else if (align==Center) x = h - (l*4)/2;
+	for (int i = 0 ; i!=l; ++i)
+	{
+		x+=Blit(GetGlyph(buffer[i]), x, v, mPixels, mHorizontal, mVertical);
+	}
+}
+
+void CApp::PrintNumber( int num, int h, int v, HAlign align)	
+{
+	char buffer[8];
+	sprintf(buffer,"%i", num);
+	PrintString(buffer, h, v, align);
+}
 
 //==============================================================================
 void CApp::OnRender() 
