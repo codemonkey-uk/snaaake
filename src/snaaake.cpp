@@ -318,7 +318,7 @@ void SnakeApp::OnLoop()
 			{
 				mSpawnCooldown--;
 			}
-			else if (mRNG()%12 == 0)
+			else if (mPendingGrowth==0 && (mRNG()%12)==0)
 			{
 				Spawn(mPos.front(),1);
 				mSpawnCooldown = 12;
