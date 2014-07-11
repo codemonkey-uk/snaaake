@@ -8,9 +8,8 @@
 
 #include "SDL/SDL_opengl.h"
 
-
-///
-// Create a shader object, load the shader source, and // compile the shader.
+//
+// Create a shader object, load the shader source, and compile the shader.
 //
 GLuint LoadShader(const char *shaderSrc, GLenum type) 
 {
@@ -106,34 +105,9 @@ int Init()
    return programObject;
 }
 
-void CApp::Reset() 
-{
-	mPos.erase(mPos.begin(), mPos.end());
-	mOther.erase(mOther.begin(), mOther.end());
-	
-	Geometry::Vector2d<int> pos = { mHorizontal/2, mVertical/2 };
-	mPos.push_back(pos);
-	
-	std::fill(mPixels, mPixels+(mHorizontal*mVertical),0);
-	*GetPx(pos) = 1;
-
-	Spawn(pos,2);
-	Spawn(pos,2);
-		
-	mPendingGrowth = 1;
-	mSpawnCooldown = 12;
-	mDir[0] = 0;
-	mDir[1] = 0;
-	
-	mScore = 0;
-	mDiedOnFrame = 0;
-}
-
 //==============================================================================
 bool CApp::OnInit() 
-{
- 	printf("Snake.\nControls: WASD or Arrow Keys.\nSpace to Pause.\n");
- 	
+{	
 	mHorizontal=84;
 	mVertical=48;
 
@@ -141,10 +115,7 @@ bool CApp::OnInit()
 	mHeight=6*mVertical;
 
 	mPixels=new int[mHorizontal*mVertical];
-		
-	Reset();
-    
-    mHighScore=0;
+
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {

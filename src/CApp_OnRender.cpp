@@ -6,6 +6,7 @@
 #include "font.h"
 
 #include <algorithm>
+#include <stdio.h>
 
 class TriangleBatcher
 {

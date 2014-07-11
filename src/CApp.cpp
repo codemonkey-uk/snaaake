@@ -8,16 +8,28 @@
 
 //==============================================================================
 CApp::CApp()
-	// set up in ::Init
-	: mDir( Geometry::uninitialised )
-	, mPendingRemove( Geometry::uninitialised )
-	, mPaused(false)
 {
     Surf_Display = NULL;
-
     Running = true;
 }
 
+//==============================================================================
+void CApp::OnEvent(SDL_Event* Event) 
+{
+    if(Event->type == SDL_QUIT) 
+    {
+        Running = false;
+    }
+}
+
+//==============================================================================
+void CApp::OnCleanup() 
+{
+    SDL_FreeSurface(Surf_Display);
+    SDL_Quit();
+}
+
+//==============================================================================
 static CApp* emApp;
 void one_iter()
 {
@@ -30,7 +42,7 @@ void one_iter()
 	emApp->OnRender();
 }
 
-//------------------------------------------------------------------------------
+//==============================================================================
 int CApp::OnExecute(int fps) 
 {
     if(OnInit() == false) {
@@ -40,7 +52,6 @@ int CApp::OnExecute(int fps)
 	emApp = this;
 	
 #ifdef EMSCRIPTEN
-	
 	emscripten_set_main_loop(one_iter, fps, 1);
 #else
     while(Running) {
@@ -53,4 +64,3 @@ int CApp::OnExecute(int fps)
     return 0;
 }
 
-//==============================================================================

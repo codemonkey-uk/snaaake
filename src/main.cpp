@@ -1,8 +1,8 @@
-#include "CApp.h"
+#include "snaaake.h"
 
 int main(int argc, char* argv[]) 
 {
-    CApp theApp;
+    SnakeApp theApp;
 
     return theApp.OnExecute(24);
 }

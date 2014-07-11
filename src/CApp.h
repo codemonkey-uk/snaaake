@@ -1,18 +1,14 @@
 //==============================================================================
 // SDL Tutorial 1
 //==============================================================================
-#ifndef _CAPP_H_
-    #define _CAPP_H_
+#ifndef CAPP_H_INCLUDED
+#define CAPP_H_INCLUDED
 
 #include <SDL.h>
 #include <SDL/SDL_opengl.h>
 
 #include "vector2d.h"
 #include "quad.h"
-#include "InputLatch.h"
-
-#include <deque>
-#include <random>
 		
 //==============================================================================
 class CApp {
@@ -33,6 +29,12 @@ class CApp {
 		void PrintString( const char* buffer, int h, int v, HAlign align);
 		void PrintNumber( int num, int h, int v, HAlign align);
 
+		void Clear(int c) {
+			std::fill(mPixels, mPixels+(mHorizontal*mVertical), c);
+		}
+		void ClearRows(int first, int last, int c) {
+			std::fill(mPixels+(mHorizontal*first), mPixels+(mHorizontal*last), c);
+		}
     private:
         bool            Running;
 
@@ -42,46 +44,13 @@ class CApp {
 		GLuint mProgramObject;
 		
 		int mWidth, mHeight;
-		int mHorizontal, mVertical;
 		
 		int* mPixels;
 		Entropy::GFX::Quad* mQuads;
-				
-		// gameplay
-		
-		int mLoopCount;
-		int mDiedOnFrame;
 
-		InputLatch mInputLatch;
-		
-		int mPaused;
-		int mPendingGrowth;
-		int mSpawnCooldown;
-		Point mDir;
-		std::deque< Point > mEvents;
-
-		std::deque< Point > mPos;
-		std::deque< Point > mOther;
-		Point mPendingRemove;
-		std::mt19937 mRNG;
-		int mScore;
-		int mHighScore;
-				
-		bool FreeRect(Point p, Point s);
-		Point SpawnPoint(Point exclude);
-		void Spawn(Point e, int i);
-		int Consume( Point::BaseType pos );
-		void Reset();
-		// returns true if the snake lives on, false is death
-		bool Occupy( Point pos );
-		Point Other( Point pos, Point dir);
-		void AdvanceTail();
-		Point RemoveSpawn(int c, Point near);
-		Point Wrap(const Point::BaseType& p)const;
-		Point Advance(
-			const Point& p,
-			const Point::BaseType& d);
-			
+	protected:
+		int mHorizontal, mVertical;
+	
 	public:
         void OnRender();
         void OnCleanup();
@@ -93,10 +62,10 @@ class CApp {
     public:
         virtual bool OnInit();
         virtual void OnEvent(SDL_Event* Event);
-        virtual void OnLoop();
+        virtual void OnLoop()=0;
 
 };
 
 //==============================================================================
 
-#endif
+#endif //CAPP_H_INCLUDED
