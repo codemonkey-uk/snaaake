@@ -112,7 +112,10 @@ bool CApp::Occupy( Geometry::Vector2d<int> pos )
 	}
 }
 
-Geometry::Vector2d<int> CApp::Other(Geometry::Vector2d<int> pos, Geometry::Vector2d<int> dir)
+Geometry::Vector2d<int> CApp::Other(
+	Geometry::Vector2d<int> pos, 
+	Geometry::Vector2d<int> dir
+)
 {
 	Geometry::Vector2d<int> other = pos;
 	
@@ -184,8 +187,6 @@ Geometry::Vector2d<int> CApp::Advance(
 //==============================================================================
 void CApp::OnLoop() 
 {
-	static int deadFrame = 0;
-
 	mLoopCount++;
 	
 	mScore=std::max(static_cast<int>(mPos.size())-1,mScore);
@@ -212,10 +213,8 @@ void CApp::OnLoop()
 	else
 	{
 		PrintString( "SNAAAKE", mHorizontal/2, mVertical-2, Center );		
-		static Geometry::VectorN<int,2> latchDir {0,0};
-		static int latch = 0;
-		if (latch) latch--;
-		if (!mEvents.empty() && (latch==0 || mEvents.front()!=latchDir)) 
+		mInputLatch.Update();
+		if (!mEvents.empty() && !mInputLatch.IsLocked(mEvents.front())) 
 		{
 			// a change in direction, not reversing direction
 			if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
@@ -254,13 +253,12 @@ void CApp::OnLoop()
 					
 					AdvanceTail();
 				}
-				latchDir=-oldDir;
-				latch=2;
+				mInputLatch.Lock(2, -oldDir);
 			}
 			mEvents.pop_front();
 		}
 	
-		if (mDir.LengthSquare()>0 && !deadFrame)
+		if (mDir.LengthSquare()>0 && !mDiedOnFrame)
 		{
 			// constantly spawn bad spots
 			if (mSpawnCooldown>0)
@@ -283,7 +281,7 @@ void CApp::OnLoop()
 		
 			if (!Occupy(next) || !Occupy(other))
 			{
-				deadFrame = mLoopCount;
+				mDiedOnFrame = mLoopCount;
 				mDir = {0,0};
 			}
 
@@ -300,12 +298,11 @@ void CApp::OnLoop()
 				AdvanceTail();
 			}		
 		}
-		else if (deadFrame) 
+		else if (mDiedOnFrame) 
 		{
-			if (mLoopCount >= deadFrame+16)
+			if (mLoopCount >= mDiedOnFrame+16)
 			{
 				Reset();
-				deadFrame = 0;
 			}
 			else 
 			{

@@ -9,10 +9,11 @@
 
 #include "vector2d.h"
 #include "quad.h"
+#include "InputLatch.h"
 
 #include <deque>
 #include <random>
-
+		
 //==============================================================================
 class CApp {
     private:
@@ -26,7 +27,11 @@ class CApp {
 		int* mPixels;
 		Entropy::GFX::Quad* mQuads;
 		
+		// gameplay
 		int mLoopCount;
+		int mDiedOnFrame;
+
+		InputLatch mInputLatch;
 		
 		int mPaused;
 		int mPendingGrowth;
