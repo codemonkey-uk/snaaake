@@ -33,8 +33,9 @@ class SnakeApp : public CApp
 		int mHighScore;
 						
 		bool FreeRect(Point p, Point s);
-		Point SpawnPoint(Point exclude);
-		void Spawn(Point e, int i);
+		int SpawnDistance(Point r);
+		Point SpawnPoint();
+		void Spawn(int i);
 		int Consume( Point::BaseType pos );
 		void Reset();
 		// returns true if the snake lives on, false is death

@@ -26,8 +26,8 @@ void SnakeApp::Reset()
 	Clear(0);
 	*GetPx(pos) = 1;
 
-	Spawn(pos,2);
-	Spawn(pos,2);
+	Spawn(2);
+	Spawn(2);
 		
 	mPendingGrowth = 1;
 	mSpawnCooldown = 12;
@@ -94,19 +94,32 @@ bool SnakeApp::FreeRect(Point p, Point s)
 	return true;
 }
 
-CApp::Point SnakeApp::SpawnPoint(Point exclude)
+int SnakeApp::SpawnDistance(Point p)
 {
-	const int s=3;
+	// spawns are 3x3 and p is on the 0,0,
+	// so measure distance from centre of spawn
+	p += {1,1};
+	int r = p.ManhattenDistance(mPos.front());
+	if (mOther.empty()==false)
+		r = std::min(r, p.ManhattenDistance(mOther.front()));
+	return r;
+}
+
+CApp::Point SnakeApp::SpawnPoint()
+{
+	// 3x3 spawns, plus 1px space around
+	const int s=3+2;
 	Point result( Geometry::uninitialised );
 	do{
 		result = { mRNG()%(mHorizontal-s), 1 + mRNG()%(mVertical-(s+8)) };
-	}while( !FreeRect( result, {s,s} ) || result.DistanceSquare(exclude)<=(8+s) );
+	}while( !FreeRect( result, {s,s} ) || SpawnDistance(result)<=(16+s) );
+	result += {1,1};
 	return result;
 }
 
-void SnakeApp::Spawn(Point e, int i)
+void SnakeApp::Spawn(int i)
 {
-	Point p = SpawnPoint(e);
+	Point p = SpawnPoint();
 	if (i==2)
 	{
 		*GetPx(p+Point(1,0))=i;
@@ -153,7 +166,7 @@ bool SnakeApp::Occupy( Point pos )
 	{
 		if (*p==2)
 		{
-			Spawn(mPos.front(),2);
+			Spawn(2);
 			mPendingGrowth += Consume(pos) * 2;
 			mSpawnCooldown = 12;
 			mPendingRemove = mPos.front();
@@ -205,7 +218,7 @@ CApp::Point SnakeApp::RemoveSpawn(int c, Point near)
     			{
 					if (std::find(mOther.begin(), mOther.end(), p)==mOther.end())
 					{
-						if (first || near.Distance(p)<near.Distance(best))
+						if (first || near.DistanceSquare(p)<near.DistanceSquare(best))
 						{
 							best=p;
 							first=false;
@@ -320,7 +333,7 @@ void SnakeApp::OnLoop()
 			}
 			else if (mPendingGrowth==0 && (mRNG()%12)==0)
 			{
-				Spawn(mPos.front(),1);
+				Spawn(1);
 				mSpawnCooldown = 12;
 			}
 		
