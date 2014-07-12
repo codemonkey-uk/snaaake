@@ -54,8 +54,15 @@ int CApp::OnExecute(int fps)
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop(one_iter, fps, 1);
 #else
+	double t = clock();
+	double dt = static_cast<double>(CLOCKS_PER_SEC) / fps;
     while(Running) {
+
 		one_iter();
+		t += dt;
+				
+		// busy waiting is bad, and I feel bad
+    	while (t > clock());
     }
 #endif
 

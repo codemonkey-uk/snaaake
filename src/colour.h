@@ -11,7 +11,12 @@
 #define COLOUR_H_INCLUDED
 
 // #include <OpenGLES/ES1/gl.h>
+
+#ifdef EMSCRIPTEN
 #include <GL/glfw.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 
 namespace Entropy 
 {

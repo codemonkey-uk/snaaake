@@ -15,3 +15,6 @@
 # Emscripten generated files
 *.js
 *.html
+
+# OSX
+SNAAAKE

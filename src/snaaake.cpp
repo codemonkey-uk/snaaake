@@ -76,6 +76,8 @@ void SnakeApp::OnEvent(SDL_Event* Event)
 			case SDLK_SPACE:
 				mPaused = !mPaused;
 				break;
+			default:
+				break;
 		}
     }	
 }
@@ -111,7 +113,9 @@ CApp::Point SnakeApp::SpawnPoint()
 	const int s=3+2;
 	Point result( Geometry::uninitialised );
 	do{
-		result = { mRNG()%(mHorizontal-s), 1 + mRNG()%(mVertical-(s+8)) };
+		int x = mRNG()%(mHorizontal-s);
+		int y = 1 + mRNG()%(mVertical-(s+8));
+		result = { x, y };
 	}while( !FreeRect( result, {s,s} ) || SpawnDistance(result)<=(16+s) );
 	result += {1,1};
 	return result;

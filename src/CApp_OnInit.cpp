@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <algorithm>
+
+#ifdef EMSCRIPTEN
 #include <emscripten/emscripten.h>
+#endif
 
 #include "SDL/SDL_opengl.h"
 
@@ -48,6 +51,10 @@ GLuint LoadShader(const char *shaderSrc, GLenum type)
 int Init()
 {
 	const char* vShaderStr =
+#ifndef EMSCRIPTEN
+		"#version 120\n"
+		"#define  mediump\n"
+#endif
 		"attribute vec4 vPosition;\n"
 		"uniform mat4 transform;\n"
 		"uniform mediump vec4 colour;\n"
@@ -58,9 +65,14 @@ int Init()
 		"  gl_Position = transform*vPosition;\n"
 		"}\n";
 
+
 	const char* fShaderStr =
+#ifdef EMSCRIPTEN
 		"precision mediump float;\n"
-		"varying mediump vec4 colourOut;\n"
+#else
+		"#version 120\n"
+#endif
+		"varying vec4 colourOut;\n"
 		"void main()"
 		"{"
 		" gl_FragColor = colourOut; " 
@@ -73,6 +85,9 @@ int Init()
 	
 	vertexShader = LoadShader(vShaderStr, GL_VERTEX_SHADER); 
 	fragmentShader = LoadShader(fShaderStr, GL_FRAGMENT_SHADER);
+	
+	if (vertexShader==0 || fragmentShader==0)
+		return 0;
 	
 	// Create the program object 
 	programObject = glCreateProgram();
@@ -129,6 +144,10 @@ bool CApp::OnInit()
     }
 
 	mProgramObject = Init();
+	if (mProgramObject==0)
+	{
+		return false;
+	}
 
 	const int hs=mHorizontal/2;
 	const float rx=0.75f/hs;
