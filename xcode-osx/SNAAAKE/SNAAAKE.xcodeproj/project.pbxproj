@@ -1,0 +1,635 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D31F0CCC1972BDE500B80BCC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31F0CCB1972BDE500B80BCC /* Cocoa.framework */; };
+		D31F0CD61972BDE500B80BCC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CD41972BDE500B80BCC /* InfoPlist.strings */; };
+		D31F0CDC1972BDE500B80BCC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CDA1972BDE500B80BCC /* Credits.rtf */; };
+		D31F0CDF1972BDE500B80BCC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D31F0CDE1972BDE500B80BCC /* AppDelegate.m */; };
+		D31F0CE21972BDE500B80BCC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CE01972BDE500B80BCC /* MainMenu.xib */; };
+		D31F0CE41972BDE500B80BCC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CE31972BDE500B80BCC /* Images.xcassets */; };
+		D31F0CEB1972BDE500B80BCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31F0CEA1972BDE500B80BCC /* XCTest.framework */; };
+		D31F0CEC1972BDE500B80BCC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31F0CCB1972BDE500B80BCC /* Cocoa.framework */; };
+		D31F0CF41972BDE500B80BCC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CF21972BDE500B80BCC /* InfoPlist.strings */; };
+		D31F0CF61972BDE500B80BCC /* SNAAAKETests.m in Sources */ = {isa = PBXBuildFile; fileRef = D31F0CF51972BDE500B80BCC /* SNAAAKETests.m */; };
+		D31F0D001972BEA200B80BCC /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31F0CFF1972BEA200B80BCC /* SDL.framework */; };
+		D31F0D031972BECE00B80BCC /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D021972BECE00B80BCC /* SDLMain.m */; };
+		D31F0D1B1972BF3D00B80BCC /* CApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D051972BF3D00B80BCC /* CApp.cpp */; };
+		D31F0D1C1972BF3D00B80BCC /* CApp_OnInit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D071972BF3D00B80BCC /* CApp_OnInit.cpp */; };
+		D31F0D1D1972BF3D00B80BCC /* CApp_OnRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D081972BF3D00B80BCC /* CApp_OnRender.cpp */; };
+		D31F0D1E1972BF3D00B80BCC /* colour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D091972BF3D00B80BCC /* colour.cpp */; };
+		D31F0D1F1972BF3D00B80BCC /* font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D0B1972BF3D00B80BCC /* font.cpp */; };
+		D31F0D201972BF3D00B80BCC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D0D1972BF3D00B80BCC /* index.html */; };
+		D31F0D211972BF3D00B80BCC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D0F1972BF3D00B80BCC /* main.cpp */; };
+		D31F0D221972BF3D00B80BCC /* quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D101972BF3D00B80BCC /* quad.cpp */; };
+		D31F0D231972BF3D00B80BCC /* ring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D121972BF3D00B80BCC /* ring.cpp */; };
+		D31F0D241972BF3D00B80BCC /* shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D141972BF3D00B80BCC /* shape.cpp */; };
+		D31F0D251972BF3D00B80BCC /* snaaake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D161972BF3D00B80BCC /* snaaake.cpp */; };
+		D31F0D261972BF3D00B80BCC /* star.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D181972BF3D00B80BCC /* star.cpp */; };
+		D31F0D3D1972BF6300B80BCC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D281972BF6300B80BCC /* .gitignore */; };
+		D31F0D3E1972BF6300B80BCC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D301972BF6300B80BCC /* LICENSE */; };
+		D31F0D3F1972BF6300B80BCC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D341972BF6300B80BCC /* README.md */; };
+		D31F0D411972C0AB00B80BCC /* SDL.framework in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CFF1972BEA200B80BCC /* SDL.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D31F0CED1972BDE500B80BCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D31F0CC01972BDE500B80BCC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D31F0CC71972BDE500B80BCC;
+			remoteInfo = SNAAAKE;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D31F0CC81972BDE500B80BCC /* SNAAAKE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNAAAKE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31F0CCB1972BDE500B80BCC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D31F0CCE1972BDE500B80BCC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D31F0CCF1972BDE500B80BCC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D31F0CD01972BDE500B80BCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D31F0CD31972BDE500B80BCC /* SNAAAKE-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SNAAAKE-Info.plist"; sourceTree = "<group>"; };
+		D31F0CD51972BDE500B80BCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D31F0CD91972BDE500B80BCC /* SNAAAKE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SNAAAKE-Prefix.pch"; sourceTree = "<group>"; };
+		D31F0CDB1972BDE500B80BCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		D31F0CDD1972BDE500B80BCC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D31F0CDE1972BDE500B80BCC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D31F0CE11972BDE500B80BCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D31F0CE31972BDE500B80BCC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D31F0CE91972BDE500B80BCC /* SNAAAKETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNAAAKETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31F0CEA1972BDE500B80BCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D31F0CF11972BDE500B80BCC /* SNAAAKETests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SNAAAKETests-Info.plist"; sourceTree = "<group>"; };
+		D31F0CF31972BDE500B80BCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D31F0CF51972BDE500B80BCC /* SNAAAKETests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNAAAKETests.m; sourceTree = "<group>"; };
+		D31F0CFF1972BEA200B80BCC /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL.framework; sourceTree = "<group>"; };
+		D31F0D011972BECE00B80BCC /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		D31F0D021972BECE00B80BCC /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
+		D31F0D051972BF3D00B80BCC /* CApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CApp.cpp; sourceTree = "<group>"; };
+		D31F0D061972BF3D00B80BCC /* CApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CApp.h; sourceTree = "<group>"; };
+		D31F0D071972BF3D00B80BCC /* CApp_OnInit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CApp_OnInit.cpp; sourceTree = "<group>"; };
+		D31F0D081972BF3D00B80BCC /* CApp_OnRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CApp_OnRender.cpp; sourceTree = "<group>"; };
+		D31F0D091972BF3D00B80BCC /* colour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colour.cpp; sourceTree = "<group>"; };
+		D31F0D0A1972BF3D00B80BCC /* colour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colour.h; sourceTree = "<group>"; };
+		D31F0D0B1972BF3D00B80BCC /* font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = font.cpp; sourceTree = "<group>"; };
+		D31F0D0C1972BF3D00B80BCC /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = font.h; sourceTree = "<group>"; };
+		D31F0D0D1972BF3D00B80BCC /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		D31F0D0E1972BF3D00B80BCC /* InputLatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputLatch.h; sourceTree = "<group>"; };
+		D31F0D0F1972BF3D00B80BCC /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D31F0D101972BF3D00B80BCC /* quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quad.cpp; sourceTree = "<group>"; };
+		D31F0D111972BF3D00B80BCC /* quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quad.h; sourceTree = "<group>"; };
+		D31F0D121972BF3D00B80BCC /* ring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ring.cpp; sourceTree = "<group>"; };
+		D31F0D131972BF3D00B80BCC /* ring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ring.h; sourceTree = "<group>"; };
+		D31F0D141972BF3D00B80BCC /* shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shape.cpp; sourceTree = "<group>"; };
+		D31F0D151972BF3D00B80BCC /* shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shape.h; sourceTree = "<group>"; };
+		D31F0D161972BF3D00B80BCC /* snaaake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = snaaake.cpp; sourceTree = "<group>"; };
+		D31F0D171972BF3D00B80BCC /* snaaake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snaaake.h; sourceTree = "<group>"; };
+		D31F0D181972BF3D00B80BCC /* star.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = star.cpp; sourceTree = "<group>"; };
+		D31F0D191972BF3D00B80BCC /* star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = star.h; sourceTree = "<group>"; };
+		D31F0D281972BF6300B80BCC /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D31F0D291972BF6300B80BCC /* aabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
+		D31F0D2A1972BF6300B80BCC /* aabb2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb2d.h; sourceTree = "<group>"; };
+		D31F0D2B1972BF6300B80BCC /* aabb3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb3d.h; sourceTree = "<group>"; };
+		D31F0D2C1972BF6300B80BCC /* aabb_fn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb_fn.h; sourceTree = "<group>"; };
+		D31F0D2D1972BF6300B80BCC /* base_maths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base_maths.h; sourceTree = "<group>"; };
+		D31F0D2E1972BF6300B80BCC /* geometry_constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometry_constants.h; sourceTree = "<group>"; };
+		D31F0D2F1972BF6300B80BCC /* geometry_uninitialised.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometry_uninitialised.h; sourceTree = "<group>"; };
+		D31F0D301972BF6300B80BCC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D31F0D311972BF6300B80BCC /* matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix4.h; sourceTree = "<group>"; };
+		D31F0D321972BF6300B80BCC /* matrixn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrixn.h; sourceTree = "<group>"; };
+		D31F0D331972BF6300B80BCC /* matrixnm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrixnm.h; sourceTree = "<group>"; };
+		D31F0D341972BF6300B80BCC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D31F0D371972BF6300B80BCC /* triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle.h; sourceTree = "<group>"; };
+		D31F0D381972BF6300B80BCC /* triangle2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle2d.h; sourceTree = "<group>"; };
+		D31F0D391972BF6300B80BCC /* triangle3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triangle3d.h; sourceTree = "<group>"; };
+		D31F0D3A1972BF6300B80BCC /* vector2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2d.h; sourceTree = "<group>"; };
+		D31F0D3B1972BF6300B80BCC /* vector3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3d.h; sourceTree = "<group>"; };
+		D31F0D3C1972BF6300B80BCC /* vectorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorn.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D31F0CC51972BDE500B80BCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31F0D001972BEA200B80BCC /* SDL.framework in Frameworks */,
+				D31F0CCC1972BDE500B80BCC /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31F0CE61972BDE500B80BCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31F0CEC1972BDE500B80BCC /* Cocoa.framework in Frameworks */,
+				D31F0CEB1972BDE500B80BCC /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D31F0CBF1972BDE500B80BCC = {
+			isa = PBXGroup;
+			children = (
+				D31F0D271972BF6300B80BCC /* geometry */,
+				D31F0D041972BF3D00B80BCC /* src */,
+				D31F0CD11972BDE500B80BCC /* SNAAAKE */,
+				D31F0CEF1972BDE500B80BCC /* SNAAAKETests */,
+				D31F0CCA1972BDE500B80BCC /* Frameworks */,
+				D31F0CC91972BDE500B80BCC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D31F0CC91972BDE500B80BCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0CC81972BDE500B80BCC /* SNAAAKE.app */,
+				D31F0CE91972BDE500B80BCC /* SNAAAKETests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D31F0CCA1972BDE500B80BCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0CFF1972BEA200B80BCC /* SDL.framework */,
+				D31F0CCB1972BDE500B80BCC /* Cocoa.framework */,
+				D31F0CEA1972BDE500B80BCC /* XCTest.framework */,
+				D31F0CCD1972BDE500B80BCC /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D31F0CCD1972BDE500B80BCC /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0CCE1972BDE500B80BCC /* AppKit.framework */,
+				D31F0CCF1972BDE500B80BCC /* CoreData.framework */,
+				D31F0CD01972BDE500B80BCC /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D31F0CD11972BDE500B80BCC /* SNAAAKE */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0D011972BECE00B80BCC /* SDLMain.h */,
+				D31F0D021972BECE00B80BCC /* SDLMain.m */,
+				D31F0CDD1972BDE500B80BCC /* AppDelegate.h */,
+				D31F0CDE1972BDE500B80BCC /* AppDelegate.m */,
+				D31F0CE01972BDE500B80BCC /* MainMenu.xib */,
+				D31F0CE31972BDE500B80BCC /* Images.xcassets */,
+				D31F0CD21972BDE500B80BCC /* Supporting Files */,
+			);
+			path = SNAAAKE;
+			sourceTree = "<group>";
+		};
+		D31F0CD21972BDE500B80BCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0CD31972BDE500B80BCC /* SNAAAKE-Info.plist */,
+				D31F0CD41972BDE500B80BCC /* InfoPlist.strings */,
+				D31F0CD91972BDE500B80BCC /* SNAAAKE-Prefix.pch */,
+				D31F0CDA1972BDE500B80BCC /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D31F0CEF1972BDE500B80BCC /* SNAAAKETests */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0CF51972BDE500B80BCC /* SNAAAKETests.m */,
+				D31F0CF01972BDE500B80BCC /* Supporting Files */,
+			);
+			path = SNAAAKETests;
+			sourceTree = "<group>";
+		};
+		D31F0CF01972BDE500B80BCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0CF11972BDE500B80BCC /* SNAAAKETests-Info.plist */,
+				D31F0CF21972BDE500B80BCC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D31F0D041972BF3D00B80BCC /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0D051972BF3D00B80BCC /* CApp.cpp */,
+				D31F0D061972BF3D00B80BCC /* CApp.h */,
+				D31F0D071972BF3D00B80BCC /* CApp_OnInit.cpp */,
+				D31F0D081972BF3D00B80BCC /* CApp_OnRender.cpp */,
+				D31F0D091972BF3D00B80BCC /* colour.cpp */,
+				D31F0D0A1972BF3D00B80BCC /* colour.h */,
+				D31F0D0B1972BF3D00B80BCC /* font.cpp */,
+				D31F0D0C1972BF3D00B80BCC /* font.h */,
+				D31F0D0D1972BF3D00B80BCC /* index.html */,
+				D31F0D0E1972BF3D00B80BCC /* InputLatch.h */,
+				D31F0D0F1972BF3D00B80BCC /* main.cpp */,
+				D31F0D101972BF3D00B80BCC /* quad.cpp */,
+				D31F0D111972BF3D00B80BCC /* quad.h */,
+				D31F0D121972BF3D00B80BCC /* ring.cpp */,
+				D31F0D131972BF3D00B80BCC /* ring.h */,
+				D31F0D141972BF3D00B80BCC /* shape.cpp */,
+				D31F0D151972BF3D00B80BCC /* shape.h */,
+				D31F0D161972BF3D00B80BCC /* snaaake.cpp */,
+				D31F0D171972BF3D00B80BCC /* snaaake.h */,
+				D31F0D181972BF3D00B80BCC /* star.cpp */,
+				D31F0D191972BF3D00B80BCC /* star.h */,
+				D31F0D1A1972BF3D00B80BCC /* xcode-osx */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = "<group>";
+		};
+		D31F0D1A1972BF3D00B80BCC /* xcode-osx */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "xcode-osx";
+			sourceTree = "<group>";
+		};
+		D31F0D271972BF6300B80BCC /* geometry */ = {
+			isa = PBXGroup;
+			children = (
+				D31F0D281972BF6300B80BCC /* .gitignore */,
+				D31F0D291972BF6300B80BCC /* aabb.h */,
+				D31F0D2A1972BF6300B80BCC /* aabb2d.h */,
+				D31F0D2B1972BF6300B80BCC /* aabb3d.h */,
+				D31F0D2C1972BF6300B80BCC /* aabb_fn.h */,
+				D31F0D2D1972BF6300B80BCC /* base_maths.h */,
+				D31F0D2E1972BF6300B80BCC /* geometry_constants.h */,
+				D31F0D2F1972BF6300B80BCC /* geometry_uninitialised.h */,
+				D31F0D301972BF6300B80BCC /* LICENSE */,
+				D31F0D311972BF6300B80BCC /* matrix4.h */,
+				D31F0D321972BF6300B80BCC /* matrixn.h */,
+				D31F0D331972BF6300B80BCC /* matrixnm.h */,
+				D31F0D341972BF6300B80BCC /* README.md */,
+				D31F0D371972BF6300B80BCC /* triangle.h */,
+				D31F0D381972BF6300B80BCC /* triangle2d.h */,
+				D31F0D391972BF6300B80BCC /* triangle3d.h */,
+				D31F0D3A1972BF6300B80BCC /* vector2d.h */,
+				D31F0D3B1972BF6300B80BCC /* vector3d.h */,
+				D31F0D3C1972BF6300B80BCC /* vectorn.h */,
+			);
+			name = geometry;
+			path = ../../libs/geometry;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D31F0CC71972BDE500B80BCC /* SNAAAKE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31F0CF91972BDE500B80BCC /* Build configuration list for PBXNativeTarget "SNAAAKE" */;
+			buildPhases = (
+				D31F0CC41972BDE500B80BCC /* Sources */,
+				D31F0CC51972BDE500B80BCC /* Frameworks */,
+				D31F0CC61972BDE500B80BCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SNAAAKE;
+			productName = SNAAAKE;
+			productReference = D31F0CC81972BDE500B80BCC /* SNAAAKE.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D31F0CE81972BDE500B80BCC /* SNAAAKETests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31F0CFC1972BDE500B80BCC /* Build configuration list for PBXNativeTarget "SNAAAKETests" */;
+			buildPhases = (
+				D31F0CE51972BDE500B80BCC /* Sources */,
+				D31F0CE61972BDE500B80BCC /* Frameworks */,
+				D31F0CE71972BDE500B80BCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D31F0CEE1972BDE500B80BCC /* PBXTargetDependency */,
+			);
+			name = SNAAAKETests;
+			productName = SNAAAKETests;
+			productReference = D31F0CE91972BDE500B80BCC /* SNAAAKETests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D31F0CC01972BDE500B80BCC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Thaddaeus Frogley";
+				TargetAttributes = {
+					D31F0CE81972BDE500B80BCC = {
+						TestTargetID = D31F0CC71972BDE500B80BCC;
+					};
+				};
+			};
+			buildConfigurationList = D31F0CC31972BDE500B80BCC /* Build configuration list for PBXProject "SNAAAKE" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D31F0CBF1972BDE500B80BCC;
+			productRefGroup = D31F0CC91972BDE500B80BCC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D31F0CC71972BDE500B80BCC /* SNAAAKE */,
+				D31F0CE81972BDE500B80BCC /* SNAAAKETests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D31F0CC61972BDE500B80BCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31F0D411972C0AB00B80BCC /* SDL.framework in Resources */,
+				D31F0D201972BF3D00B80BCC /* index.html in Resources */,
+				D31F0CD61972BDE500B80BCC /* InfoPlist.strings in Resources */,
+				D31F0CE41972BDE500B80BCC /* Images.xcassets in Resources */,
+				D31F0D3E1972BF6300B80BCC /* LICENSE in Resources */,
+				D31F0CDC1972BDE500B80BCC /* Credits.rtf in Resources */,
+				D31F0D3D1972BF6300B80BCC /* .gitignore in Resources */,
+				D31F0D3F1972BF6300B80BCC /* README.md in Resources */,
+				D31F0CE21972BDE500B80BCC /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31F0CE71972BDE500B80BCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31F0CF41972BDE500B80BCC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D31F0CC41972BDE500B80BCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31F0D1F1972BF3D00B80BCC /* font.cpp in Sources */,
+				D31F0D031972BECE00B80BCC /* SDLMain.m in Sources */,
+				D31F0D211972BF3D00B80BCC /* main.cpp in Sources */,
+				D31F0D1B1972BF3D00B80BCC /* CApp.cpp in Sources */,
+				D31F0D1C1972BF3D00B80BCC /* CApp_OnInit.cpp in Sources */,
+				D31F0CDF1972BDE500B80BCC /* AppDelegate.m in Sources */,
+				D31F0D1D1972BF3D00B80BCC /* CApp_OnRender.cpp in Sources */,
+				D31F0D261972BF3D00B80BCC /* star.cpp in Sources */,
+				D31F0D241972BF3D00B80BCC /* shape.cpp in Sources */,
+				D31F0D231972BF3D00B80BCC /* ring.cpp in Sources */,
+				D31F0D221972BF3D00B80BCC /* quad.cpp in Sources */,
+				D31F0D251972BF3D00B80BCC /* snaaake.cpp in Sources */,
+				D31F0D1E1972BF3D00B80BCC /* colour.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31F0CE51972BDE500B80BCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31F0CF61972BDE500B80BCC /* SNAAAKETests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D31F0CEE1972BDE500B80BCC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D31F0CC71972BDE500B80BCC /* SNAAAKE */;
+			targetProxy = D31F0CED1972BDE500B80BCC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D31F0CD41972BDE500B80BCC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D31F0CD51972BDE500B80BCC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D31F0CDA1972BDE500B80BCC /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D31F0CDB1972BDE500B80BCC /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		D31F0CE01972BDE500B80BCC /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D31F0CE11972BDE500B80BCC /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		D31F0CF21972BDE500B80BCC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D31F0CF31972BDE500B80BCC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D31F0CF71972BDE500B80BCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D31F0CF81972BDE500B80BCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D31F0CFA1972BDE500B80BCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SNAAAKE/SNAAAKE-Prefix.pch";
+				INFOPLIST_FILE = "SNAAAKE/SNAAAKE-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Resources";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D31F0CFB1972BDE500B80BCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SNAAAKE/SNAAAKE-Prefix.pch";
+				INFOPLIST_FILE = "SNAAAKE/SNAAAKE-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Resources";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D31F0CFD1972BDE500B80BCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SNAAAKE.app/Contents/MacOS/SNAAAKE";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SNAAAKE/SNAAAKE-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SNAAAKETests/SNAAAKETests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		D31F0CFE1972BDE500B80BCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SNAAAKE.app/Contents/MacOS/SNAAAKE";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SNAAAKE/SNAAAKE-Prefix.pch";
+				INFOPLIST_FILE = "SNAAAKETests/SNAAAKETests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D31F0CC31972BDE500B80BCC /* Build configuration list for PBXProject "SNAAAKE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31F0CF71972BDE500B80BCC /* Debug */,
+				D31F0CF81972BDE500B80BCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D31F0CF91972BDE500B80BCC /* Build configuration list for PBXNativeTarget "SNAAAKE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31F0CFA1972BDE500B80BCC /* Debug */,
+				D31F0CFB1972BDE500B80BCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D31F0CFC1972BDE500B80BCC /* Build configuration list for PBXNativeTarget "SNAAAKETests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31F0CFD1972BDE500B80BCC /* Debug */,
+				D31F0CFE1972BDE500B80BCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D31F0CC01972BDE500B80BCC /* Project object */;
+}

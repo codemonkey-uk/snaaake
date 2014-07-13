@@ -4,7 +4,7 @@
 #ifndef CAPP_H_INCLUDED
 #define CAPP_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 
 #include "vector2d.h"
