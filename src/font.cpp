@@ -144,7 +144,58 @@ namespace Font
 			"X X ",
 			"    ",
 		};	
-				
+
+		Glyph w = {
+			"X   X ",
+			"X   X ",
+			"X X X ",
+			"X X X ",
+			" X X  ",
+			"      ",
+		};	
+					
+		Glyph up = {
+			" X  ",
+			"XXX ",
+			" X  ",
+			" X  ",
+			" X  ",
+			"    ",
+		};	
+		Glyph down = {
+			" X  ",
+			" X  ",
+			" X  ",
+			"XXX ",
+			" X  ",
+			"    ",
+		};	
+		Glyph left = {
+			"      ",
+			" X    ",
+			"XXXXX ",
+			" X    ",
+			"      ",
+			"      "
+		};	
+		Glyph right = {
+			"      ",
+			"   X  ",
+			"XXXXX ",
+			"   X  ",
+			"      ",
+			"      "
+		};
+		
+		Glyph space = {
+			"    ",
+			"    ",
+			"    ",
+			"    ",
+			"    ",
+			"    ",
+		};
+										
 		// paused
 		std::map< int, Glyph* > fontMap = {
 			{ 'P', &p },
@@ -156,6 +207,8 @@ namespace Font
 			
 			{ 'N', &n },
 			{ 'K', &k },
+            
+            { 'W', &w },
 						
 			{ '0', &GlyphData::nums[0] },
 			{ '1', &GlyphData::nums[1] },
@@ -166,7 +219,19 @@ namespace Font
 			{ '6', &GlyphData::nums[6] },
 			{ '7', &GlyphData::nums[7] },
 			{ '8', &GlyphData::nums[8] },
-			{ '9', &GlyphData::nums[9] },			
+			{ '9', &GlyphData::nums[9] },
+			
+			{ ' ', &space },
+
+			{ '<', &left },
+			{ '>', &right },
+			{ '^', &up },
+			{ '|', &down },
+			
+			{ 2190, &left },
+			{ 2192, &right },
+			{ 2191, &up },
+			{ 2193, &down },
 		};
 	}
 

@@ -82,7 +82,7 @@ void CApp::PrintString( const char* buffer, int h, int v, HAlign align)
 {
 	using namespace Font;
 	
-	int l=strlen(buffer);
+	int l=static_cast<int>(strlen(buffer));
 	int x = h;
 	if (align==Right) x = h - l*4;
 	else if (align==Center) x = h - (l*4)/2;

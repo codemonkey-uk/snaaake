@@ -15,19 +15,30 @@ SnakeApp::SnakeApp()
 {
 }
 
+static CApp::Point sa( Geometry::uninitialised ),sb( Geometry::uninitialised );
+
 void SnakeApp::Reset() 
 {
 	mPos.erase(mPos.begin(), mPos.end());
 	mOther.erase(mOther.begin(), mOther.end());
 	
-	Geometry::Vector2d<int> pos = { mHorizontal/2, mVertical/2 };
+	Geometry::Vector2d<int> pos = { mHorizontal/2, (mVertical-8)/2 };
 	mPos.push_back(pos);
 	
 	Clear(0);
 	*GetPx(pos) = 1;
 
-	Spawn(2);
-	Spawn(2);
+	PrintString( "W^", mHorizontal/2, 3*(mVertical-8)/4 +2, Center );
+	PrintString( "|S", mHorizontal/2, 1*(mVertical-8)/4 +2, Center );
+
+	PrintString( "A<", 1*mHorizontal/4, (mVertical-8)/2 +2, Right );
+	PrintString( ">D", 3*mHorizontal/4, (mVertical-8)/2 +2, Left );
+	
+	sa = SpawnPoint();		
+	Spawn(sa, 2);
+	
+	sb = SpawnPoint();
+	Spawn(sb, 2);
 		
 	mPendingGrowth = 1;
 	mSpawnCooldown = 12;
@@ -40,7 +51,7 @@ void SnakeApp::Reset()
 
 bool SnakeApp::OnInit()
 {
- 	printf("Snake.\nControls: WASD or Arrow Keys.\nSpace to Pause.\n");
+ 	printf("SNAAAKE by @codemonkey_uk\nControls: WASD or Arrow Keys.\nSpace to Pause.\n");
     bool result = Base::OnInit();
     if (result)
     {
@@ -82,7 +93,7 @@ void SnakeApp::OnEvent(SDL_Event* Event)
     }	
 }
 
-bool SnakeApp::FreeRect(Point p, Point s)
+bool SnakeApp::FreeRect(Point p, Point s)const
 {
 	Point d(Geometry::uninitialised);
 	for (d[0]=0;d[0]!=s[0];++d[0])
@@ -96,7 +107,7 @@ bool SnakeApp::FreeRect(Point p, Point s)
 	return true;
 }
 
-int SnakeApp::SpawnDistance(Point p)
+int SnakeApp::SpawnDistance(Point p)const
 {
 	// spawns are 3x3 and p is on the 0,0,
 	// so measure distance from centre of spawn
@@ -123,7 +134,11 @@ CApp::Point SnakeApp::SpawnPoint()
 
 void SnakeApp::Spawn(int i)
 {
-	Point p = SpawnPoint();
+	Spawn( SpawnPoint(), i );
+}
+
+void SnakeApp::Spawn(const Point& p, int i)
+{
 	if (i==2)
 	{
 		*GetPx(p+Point(1,0))=i;
@@ -185,7 +200,7 @@ bool SnakeApp::Occupy( Point pos )
 CApp::Point SnakeApp::Other(
 	Point pos, 
 	Point dir
-)
+) const
 {
 	Point other = pos;
 	
@@ -248,7 +263,7 @@ CApp::Point SnakeApp::Wrap(const Point::BaseType& _p)const
 
 CApp::Point SnakeApp::Advance(
 	const Point& p,
-	const Point::BaseType& d)
+	const Point::BaseType& d) const
 {
 	Point next( p + d );
 	return Wrap(next);
@@ -258,31 +273,17 @@ CApp::Point SnakeApp::Advance(
 void SnakeApp::OnLoop() 
 {
 	mLoopCount++;
-	
-	mScore=std::max(static_cast<int>(mPos.size())-1,mScore);
-	
+		
 	// clear score area
 	ClearRows(mVertical-7, mVertical, 0);
-	// score area horizontal
-	ClearRows(mVertical-8, mVertical-7, 1);
-	// bottom border horizontal
-	ClearRows(0, 1, 1);
-
-	mHighScore=std::max(mScore, mHighScore);
-
-	PrintNumber( mScore, 1, mVertical-2, Left );
-	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );
 	
 	if (mPaused)
 	{
 		// all game input events are dropped while paused
-		if (!mEvents.empty()) mEvents.pop_front();
-		// on screen message during pause
-		PrintString( "PAUSED", mHorizontal/2, mVertical-2, Center );		
+		if (!mEvents.empty()) mEvents.pop_front();	
 	}
 	else
 	{
-		PrintString( "SNAAAKE", mHorizontal/2, mVertical-2, Center );		
 		mInputLatch.Update();
 		if (!mEvents.empty() && !mInputLatch.IsLocked(mEvents.front())) 
 		{
@@ -323,6 +324,16 @@ void SnakeApp::OnLoop()
 					
 					AdvanceTail();
 				}
+				
+				// game start!
+				if (oldDir.LengthSquare()==0) 
+				{
+					// clear instructions & redrawn spawns
+					Clear(0);
+					Spawn(sa, 2);
+					Spawn(sb, 2);
+				}
+				
 				mInputLatch.Lock(2, -oldDir);
 			}
 			mEvents.pop_front();
@@ -382,5 +393,24 @@ void SnakeApp::OnLoop()
 					*GetPx( mOther[i] ) = mLoopCount%2;
 			}
 		}
+		else
+		{
+            // pre-game insrructions in screen
+		}
 	}
+	
+	mScore=std::max(static_cast<int>(mPos.size())-1,mScore);
+
+	// score area horizontal
+	ClearRows(mVertical-8, mVertical-7, 1);
+	// bottom border horizontal
+	ClearRows(0, 1, 1);
+
+	mHighScore=std::max(mScore, mHighScore);
+
+	PrintNumber( mScore, 1, mVertical-2, Left );
+	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );	
+	
+	// on screen message during pause
+	PrintString( mPaused ? "PAUSED" : "SNAAAKE", mHorizontal/2, mVertical-2, Center );		
 }

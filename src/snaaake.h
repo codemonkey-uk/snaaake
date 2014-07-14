@@ -32,21 +32,22 @@ class SnakeApp : public CApp
 		int mScore;
 		int mHighScore;
 						
-		bool FreeRect(Point p, Point s);
-		int SpawnDistance(Point r);
+		bool FreeRect(Point p, Point s)const;
+		int SpawnDistance(Point r)const;
 		Point SpawnPoint();
 		void Spawn(int i);
-		int Consume( Point::BaseType pos );
+        void Spawn(const Point& p, int i);
+		int Consume(Point::BaseType pos);
 		void Reset();
 		// returns true if the snake lives on, false is death
 		bool Occupy( Point pos );
-		Point Other( Point pos, Point dir);
+		Point Other( Point pos, Point dir)const;
 		void AdvanceTail();
 		Point RemoveSpawn(int c, Point near);
 		Point Wrap(const Point::BaseType& p)const;
 		Point Advance(
 			const Point& p,
-			const Point::BaseType& d);
+			const Point::BaseType& d)const;
 		
     public:
         SnakeApp();
