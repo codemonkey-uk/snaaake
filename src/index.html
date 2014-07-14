@@ -111,7 +111,7 @@
       
       #header {
       	text-align: center;
-		padding: 20px; margin-left: auto; margin-right: auto; display: block;
+		padding-top: 20px; margin-left: auto; margin-right: auto; display: block;
       	font-family: 'Lucida Console', Monaco, monospace;
       	font-size: xx-large;
       }
@@ -121,7 +121,10 @@
   <body>
     <!-- <img id='emscripten_logo' src="emscripten_cropped_logo.jpg" width=296 height=78> -->
 	<div id='header'>SNAAAKE</div>
-	
+	<div class="emscripten" style="padding-bottom: 12px">
+    <tt>Download: [<a href="SNAAAKE.app.zip">OS X</a>]</tt>
+	</div>
+
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
     </div>
@@ -208,7 +211,7 @@
       Module.setStatus('Downloading...');
     </script>
     <script async type="text/javascript" src="snaaake.js"></script>
-    
+    	
 	<div id="share" style="display: table; width: 310px; margin: 0 auto; vertical-align:text-top;">	
 	
 		<div style="height: 20px; width: 110px; display: inline-block;">
