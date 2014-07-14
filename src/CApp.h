@@ -36,8 +36,6 @@ class CApp {
 			std::fill(mPixels+(mHorizontal*first), mPixels+(mHorizontal*last), c);
 		}
     private:
-        bool            Running;
-
 		// rendering / pixel access
 		
         SDL_Surface*    Surf_Display;
@@ -49,6 +47,7 @@ class CApp {
 		Entropy::GFX::Quad* mQuads;
 
 	protected:
+        bool Running;
 		int mHorizontal, mVertical;
 	
 	public:
