@@ -4,6 +4,8 @@
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
+#else
+#include <unistd.h>
 #endif
 
 //==============================================================================
@@ -54,15 +56,20 @@ int CApp::OnExecute(int fps)
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop(one_iter, fps, 1);
 #else
-	double t = clock();
-	double dt = static_cast<double>(CLOCKS_PER_SEC) / fps;
-    while(Running) {
-
+	
+	const double frame_time = static_cast<double>(CLOCKS_PER_SEC) / fps;
+    while(Running)
+    {
+        double t1 = clock();
+        
 		one_iter();
-		t += dt;
-				
-		// busy waiting is bad, and I feel bad
-    	while (t > clock());
+        
+        int t_left = t1-clock();
+        if (t_left<frame_time)
+        {
+            double ms = 1000 * (frame_time-t_left) / static_cast<double>(CLOCKS_PER_SEC);
+            usleep( 1000*ms );
+        }
     }
 #endif
 
