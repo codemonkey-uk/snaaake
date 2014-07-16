@@ -293,6 +293,24 @@ CApp::Point SnakeApp::Advance(
 	return Wrap(next);
 }
 
+const char * GetMsg(int score)
+{
+	if (score>=10 && score<21)
+		return "YES";
+	else if (score>=41 && score<61)
+		return "KEEP GOING";
+    else if (score>=81 && score<101)
+		return "GOOD";
+    else if (score>=181 && score<241)
+		return "GREAT";
+    else if (score>=281 && score<341)
+		return "BRILLIANT";
+    else if (score>=381)
+        return "AMAZING";
+    
+	return "SNAAAKE";
+}
+
 //==============================================================================
 void SnakeApp::OnLoop() 
 {
@@ -436,5 +454,5 @@ void SnakeApp::OnLoop()
 	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );	
 	
 	// on screen message during pause
-	PrintString( mPaused ? "PAUSED" : "SNAAAKE", mHorizontal/2, mVertical-2, Center );		
+	PrintString( mPaused ? "PAUSED" : GetMsg(mScore), mHorizontal/2, mVertical-2, Center );		
 }

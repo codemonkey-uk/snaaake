@@ -98,8 +98,17 @@ namespace Font
 			"X X ",
 			"X X ",
 			"    ",
-		};	
-	
+		};
+        
+		Glyph c = {
+			"XXX ",
+			"X   ",
+			"X   ",
+			"X   ",
+			"XXX ",
+			"    ",
+		};
+        
 		Glyph u = {
 			"X X ",
 			"X X ",
@@ -109,6 +118,15 @@ namespace Font
 			"    ",
 		};	
 
+        Glyph h = {
+			"X X ",
+			"X X ",
+			"XXX ",
+			"X X ",
+			"X X ",
+			"    ",
+		};
+        
 		Glyph e = {
 			"XXX ",
 			"X   ",
@@ -116,8 +134,17 @@ namespace Font
 			"X   ",
 			"XXX ",
 			"    ",
-		};	
-		
+		};
+        
+		Glyph f = {
+			"XXX ",
+			"X   ",
+			"XXX ",
+			"X   ",
+			"X   ",
+			"    ",
+		};
+        
 		Glyph d = {
 			"XX  ",
 			"X X ",
@@ -135,7 +162,14 @@ namespace Font
 			"X X ",
 			"    ",
 		};	
-
+		Glyph r = {
+			"XXX ",
+			"X X ",
+			"XX  ",
+			"X X ",
+			"X X ",
+			"    ",
+		};
 		Glyph k = {
 			"X X ",
 			"XX  ",
@@ -152,8 +186,58 @@ namespace Font
 			"X X X ",
 			" X X  ",
 			"      ",
-		};	
-					
+        };
+		Glyph m = {
+			" X X  ",
+			"X X X ",
+			"X X X ",
+			"X   X ",
+			"X   X ",
+			"      ",
+        };
+        Glyph i = {
+			"XXX ",
+			" X  ",
+			" X  ",
+			" X  ",
+			"XXX ",
+			"    ",
+		};
+        Glyph t = {
+			"XXX ",
+			" X  ",
+			" X  ",
+			" X  ",
+			" X  ",
+			"    ",
+		};
+        Glyph l = {
+			"X   ",
+			"X   ",
+			"X   ",
+			"X   ",
+			"XXX ",
+			"    ",
+		};
+
+        Glyph g = {
+            "XXX ",
+            "X   ",
+            "X X ",
+            "X X ",
+            "XXX ",
+            "    ",
+        };
+        
+        Glyph z = {
+            "XXX ",
+            "  X ",
+            " X  ",
+            "X   ",
+            "XXX ",
+            "    ",
+        };
+        
 		Glyph up = {
 			" X  ",
 			"XXX ",
@@ -198,17 +282,33 @@ namespace Font
 										
 		// paused
 		std::map< int, Glyph* > fontMap = {
-			{ 'P', &p },
 			{ 'A', &a },
-			{ 'U', &u },
-			{ 'S', &nums[5] },
-			{ 'E', &e },
+            { 'B', &GlyphData::nums[8] },
+            { 'C', &GlyphData::nums[8] },
 			{ 'D', &d },
-			
-			{ 'N', &n },
+			{ 'E', &e },
+			{ 'F', &f },
+			{ 'G', &g },
+            { 'H', &h },
+            { 'I', &i },
+            // J
 			{ 'K', &k },
-            
+            { 'L', &l },
+			{ 'M', &m },
+			{ 'N', &n },
+            { 'O', &GlyphData::nums[0] },
+			{ 'P', &p },
+            // Q
+            { 'R', &r },
+			{ 'S', &nums[5] },
+            { 'T', &t },
+            { 'U', &u },
+            // V
             { 'W', &w },
+            // X
+            { 'Y', &GlyphData::nums[4] },
+            { 'Z', &z },
+            // Z
 						
 			{ '0', &GlyphData::nums[0] },
 			{ '1', &GlyphData::nums[1] },
