@@ -34,6 +34,7 @@
 		D31F0D3E1972BF6300B80BCC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D301972BF6300B80BCC /* LICENSE */; };
 		D31F0D3F1972BF6300B80BCC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D341972BF6300B80BCC /* README.md */; };
 		D31F0D411972C0AB00B80BCC /* SDL.framework in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CFF1972BEA200B80BCC /* SDL.framework */; };
+		D3E3F12F1976B9C5003D96D5 /* trianglebatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,8 @@
 		D31F0D3A1972BF6300B80BCC /* vector2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2d.h; sourceTree = "<group>"; };
 		D31F0D3B1972BF6300B80BCC /* vector3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3d.h; sourceTree = "<group>"; };
 		D31F0D3C1972BF6300B80BCC /* vectorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorn.h; sourceTree = "<group>"; };
+		D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trianglebatcher.cpp; sourceTree = "<group>"; };
+		D3E3F12E1976B9C5003D96D5 /* trianglebatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trianglebatcher.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +221,8 @@
 		D31F0D041972BF3D00B80BCC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */,
+				D3E3F12E1976B9C5003D96D5 /* trianglebatcher.h */,
 				D31F0D051972BF3D00B80BCC /* CApp.cpp */,
 				D31F0D061972BF3D00B80BCC /* CApp.h */,
 				D31F0D071972BF3D00B80BCC /* CApp_OnInit.cpp */,
@@ -392,6 +397,7 @@
 				D31F0D241972BF3D00B80BCC /* shape.cpp in Sources */,
 				D31F0D231972BF3D00B80BCC /* ring.cpp in Sources */,
 				D31F0D221972BF3D00B80BCC /* quad.cpp in Sources */,
+				D3E3F12F1976B9C5003D96D5 /* trianglebatcher.cpp in Sources */,
 				D31F0D251972BF3D00B80BCC /* snaaake.cpp in Sources */,
 				D31F0D1E1972BF3D00B80BCC /* colour.cpp in Sources */,
 			);
