@@ -12,16 +12,14 @@
 
 #include "shape.h"
 
-namespace Entropy {
-
-    namespace GFX {
-
-        class Ring : public Shape
-        {
-            public:
-                Ring(GLuint program, int sides, float thickness);
-        };
-    }
+namespace GFX
+{
+    class Ring : public Shape
+    {
+        public:
+            Ring(GLuint program, int sides, float thickness);
+    };
 }
+
 
 #endif

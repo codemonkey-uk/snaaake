@@ -12,16 +12,14 @@
 
 #include "shape.h"
 
-namespace Entropy {
-
-    namespace GFX {
-
-        class Star : public Shape
-        {
-            public:
-                Star(GLuint program, int points, float thickness);                
-        };
-    }
+namespace GFX
+{
+    class Star : public Shape
+    {
+        public:
+            Star(GLuint program, int points, float thickness);                
+    };
 }
+
 
 #endif

@@ -16,10 +16,10 @@ class TriangleBatcher
         
         void AddTriangles(const GLfloat* verts, int tc);
         
-        void Flush(const Entropy::GFX::Colour& col);
+        void Flush(const GFX::Colour& col);
 		void Flush(
 			const Geometry::MatrixN<float,4>& matrix, 
-			const Entropy::GFX::Colour& col);
+			const GFX::Colour& col);
 		
 	private:
 		static const GLenum mMode = GL_TRIANGLES;

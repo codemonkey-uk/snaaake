@@ -10,19 +10,16 @@
 
 #include "shape.h"
 
-namespace Entropy {
-
-    namespace GFX {
-
-        class Quad : public Shape
-        {
-            public:
-                Quad(GLuint program, float w, float h); 
-                const GLfloat* GetVerts() const {
-                	return mVertArray;
-                }
-        };
-    }
+namespace GFX
+{
+    class Quad : public Shape
+    {
+        public:
+            Quad(GLuint program, float w, float h); 
+            const GLfloat* GetVerts() const {
+                return mVertArray;
+            }
+    };
 }
 
 #endif

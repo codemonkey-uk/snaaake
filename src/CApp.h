@@ -21,7 +21,7 @@ class CApp {
 		inline const int * GetPx( const Point::BaseType& p ) const {
 			return (mPixels + p[0] + p[1]*mHorizontal);
 		}
-		inline Entropy::GFX::Quad* GetQx( const Point::BaseType& p ) {
+		inline GFX::Quad* GetQx( const Point::BaseType& p ) {
 			return (mQuads + p[0] + p[1]*mHorizontal);
 		}
 
@@ -44,7 +44,7 @@ class CApp {
 		int mWidth, mHeight;
 		
 		int* mPixels;
-		Entropy::GFX::Quad* mQuads;
+		GFX::Quad* mQuads;
 
 	protected:
         bool Running;

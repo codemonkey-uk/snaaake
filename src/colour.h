@@ -18,39 +18,36 @@
 #include <OpenGL/gl.h>
 #endif
 
-namespace Entropy 
+namespace GFX
 {
-    namespace GFX
+    class Colour
     {
-        class Colour
-        {
-            public:
-                Colour( GLfloat r, GLfloat g, GLfloat b, GLfloat a=1.0f )
-                    : mR(r)
-                    , mG(g)
-                    , mB(b)
-                    , mA(a)
-                {}
-                    
-                void Draw()const
-                {
-                    glColor4f( mR, mG, mB, mA );
-                }
+        public:
+            Colour( GLfloat r, GLfloat g, GLfloat b, GLfloat a=1.0f )
+                : mR(r)
+                , mG(g)
+                , mB(b)
+                , mA(a)
+            {}
                 
-                void ApplyAlpha()
-                {
-                    mR = mR*mA;
-                    mG = mG*mA;
-                    mB = mB*mA;
-                }
-                
-            //private:
-                GLfloat mR, mG, mB, mA;
-                
-        };
-        
-        extern Colour colours[];
-    }
+            void Draw()const
+            {
+                glColor4f( mR, mG, mB, mA );
+            }
+            
+            void ApplyAlpha()
+            {
+                mR = mR*mA;
+                mG = mG*mA;
+                mB = mB*mA;
+            }
+            
+        //private:
+            GLfloat mR, mG, mB, mA;
+            
+    };
+    
+    extern Colour colours[];
 }
 
 #endif

@@ -39,7 +39,7 @@ void CApp::OnRender()
 	int s=std::max(mWidth,mHeight);
 	glViewport(0, 0, s, s);
 	
-	static const Entropy::GFX::Colour colours[] = {
+	static const GFX::Colour colours[] = {
 		{0.5,0.75,0.5},
 		{0,0.25,0},
 		{0.75,1,0.75}

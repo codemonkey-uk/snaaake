@@ -31,7 +31,7 @@ void TriangleBatcher::AddTriangles(const GLfloat* verts, int tc)
 	}
 }
         
-void TriangleBatcher::Flush(const Entropy::GFX::Colour& col) 
+void TriangleBatcher::Flush(const GFX::Colour& col) 
 {
 	Geometry::MatrixN<float,4> identity;
 	Flush( identity, col );
@@ -39,7 +39,7 @@ void TriangleBatcher::Flush(const Entropy::GFX::Colour& col)
 		
 void TriangleBatcher::Flush(
 	const Geometry::MatrixN<float,4>& matrix, 
-	const Entropy::GFX::Colour& col) 
+	const GFX::Colour& col) 
 {
 	if (mVertCount>0)
 	{			

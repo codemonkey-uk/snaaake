@@ -151,13 +151,13 @@ bool CApp::OnInit()
 
 	const int hs=mHorizontal/2;
 	const float rx=0.75f/hs;
-	mQuads = (Entropy::GFX::Quad*)malloc( sizeof(Entropy::GFX::Quad)*mHorizontal*mVertical );
+	mQuads = (GFX::Quad*)malloc( sizeof(GFX::Quad)*mHorizontal*mVertical );
 	for (int x=0;x!=mHorizontal;x++)
     {
 	    for (int y=0;y!=mVertical;y++)
     	{
-			Entropy::GFX::Quad* pQ = GetQx( {x,y} );
-			new(pQ) Entropy::GFX::Quad(mProgramObject, 0.8f, 0.8f);
+			GFX::Quad* pQ = GetQx( {x,y} );
+			new(pQ) GFX::Quad(mProgramObject, 0.8f, 0.8f);
 			pQ->Pretransform( 
 				Geometry::Vector2d<float>(rx+(x-hs)/float(hs), rx+(y-hs)/float(hs)), 
 				1.f/mHorizontal, 

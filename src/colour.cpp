@@ -9,18 +9,16 @@
 
 #include "colour.h"
 
-namespace Entropy 
+
+namespace GFX
 {
-    namespace GFX
-    {
-        Colour colours[] = {
-            Colour(1,0,0),
-            Colour(0,1,0),
-            Colour(0,0,1),
-            Colour(0,1,1), 
-            Colour(1,1,1),
-            Colour(1,0,1),    
-            Colour(1,1,0)
-        };
-    }
+    Colour colours[] = {
+        Colour(1,0,0),
+        Colour(0,1,0),
+        Colour(0,0,1),
+        Colour(0,1,1), 
+        Colour(1,1,1),
+        Colour(1,0,1),    
+        Colour(1,1,0)
+    };
 }
