@@ -47,6 +47,8 @@ void SnakeApp::Reset()
 	
 	mScore = 0;
 	mDiedOnFrame = 0;
+	
+	mEvents.clear();
 }
 
 bool SnakeApp::OnInit()
@@ -110,7 +112,6 @@ void SnakeApp::OnEvent(SDL_Event* Event)
                 break;
                 
             default:
-                printf("%i\n",Event->key.keysym.sym);
                 break;
         }
     }
@@ -305,10 +306,10 @@ void SnakeApp::OnLoop()
 		// all game input events are dropped while paused
 		if (!mEvents.empty()) mEvents.pop_front();	
 	}
-	else
+	else 
 	{
 		mInputLatch.Update();
-		if (!mEvents.empty() && !mInputLatch.IsLocked(mEvents.front())) 
+		if (!mEvents.empty() && !mInputLatch.IsLocked(mEvents.front()) &&!mDiedOnFrame) 
 		{
 			// a change in direction, not reversing direction
 			if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
