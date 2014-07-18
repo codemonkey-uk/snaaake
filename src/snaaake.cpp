@@ -28,11 +28,11 @@ void SnakeApp::Reset()
 	Clear(0);
 	*GetPx(pos) = 1;
 
-	PrintString( "W^", mHorizontal/2, 3*(mVertical-8)/4 +2, Center );
-	PrintString( "|S", mHorizontal/2, 1*(mVertical-8)/4 +2, Center );
-
-	PrintString( "A<", 1*mHorizontal/4, (mVertical-8)/2 +2, Right );
-	PrintString( ">D", 3*mHorizontal/4, (mVertical-8)/2 +2, Left );
+	PrintString( "W", mHorizontal/2 -2, 3*(mVertical-8)/4 +7, Left );
+	PrintString( "\n^", mHorizontal/2 -1, 3*(mVertical-8)/4 +7, Left );
+	PrintString( "|\nS", mHorizontal/2 -1, 1*(mVertical-8)/4 +4, Left );
+	PrintString( "A<", mHorizontal/2 -6, (mVertical-8)/2 +2, Right );
+	PrintString( ">D", mHorizontal/2 +6, (mVertical-8)/2 +2, Left );
 	
 	sa = SpawnPoint();		
 	Spawn(sa, 2);

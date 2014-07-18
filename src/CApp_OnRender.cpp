@@ -19,7 +19,15 @@ void CApp::PrintString( const char* buffer, int h, int v, HAlign align)
 	else if (align==Center) x = h - (l*4)/2;
 	for (int i = 0 ; i!=l; ++i)
 	{
-		x+=Blit(GetGlyph(buffer[i]), x, v, mPixels, mHorizontal, mVertical);
+		if (buffer[i]=='\n')
+		{
+			v -= 7;
+			x = h;
+		}
+		else
+		{
+			x+=Blit(GetGlyph(buffer[i]), x, v, mPixels, mHorizontal, mVertical);
+		}
 	}
 }
 
