@@ -28,9 +28,8 @@ void SnakeApp::Reset()
 	Clear(0);
 	*GetPx(pos) = 1;
 
-	PrintString( "W", mHorizontal/2 -2, 3*(mVertical-8)/4 +7, Left );
-	PrintString( "\n^", mHorizontal/2 -1, 3*(mVertical-8)/4 +7, Left );
-	PrintString( "|\nS", mHorizontal/2 -1, 1*(mVertical-8)/4 +4, Left );
+	PrintString( "W\n^", mHorizontal/2 +1, 3*(mVertical-8)/4 +7, Center );
+	PrintString( "|\nS", mHorizontal/2 +1, 1*(mVertical-8)/4 +4, Center );
 	PrintString( "A<", mHorizontal/2 -6, (mVertical-8)/2 +2, Right );
 	PrintString( ">D", mHorizontal/2 +6, (mVertical-8)/2 +2, Left );
 	

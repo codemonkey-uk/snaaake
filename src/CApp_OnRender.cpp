@@ -9,20 +9,53 @@
 #include <algorithm>
 #include <stdio.h>
 
+// lineWidth
+// == true - return the width of the first line
+// == false - return the width of the widest line
+int StringWidth( const char* s, bool lineWidth=false )
+{
+	using namespace Font;
+	
+	int w=0, lw=0;
+	while(*s)
+	{
+		if (*s=='\n')
+		{
+			if (lineWidth) return lw;
+			lw = 0;
+		}
+		else 
+		{
+			lw += Width( GetGlyph(*s) );
+		}
+		if (lw>w) w = lw;
+		++s;
+	}
+	return w;
+}
+
+int LineStart( const char* buffer, int h, CApp::HAlign align)	
+{
+	int w = StringWidth(buffer, true);
+	if (align==CApp::Right) 
+		return h - w;
+	else if (align==CApp::Center) 
+		return h - w/2;
+	else return h;
+}
+
 void CApp::PrintString( const char* buffer, int h, int v, HAlign align)	
 {
 	using namespace Font;
 	
 	int l=static_cast<int>(strlen(buffer));
-	int x = h;
-	if (align==Right) x = h - l*4;
-	else if (align==Center) x = h - (l*4)/2;
+	int x = LineStart(buffer, h, align);
 	for (int i = 0 ; i!=l; ++i)
 	{
 		if (buffer[i]=='\n')
 		{
 			v -= 7;
-			x = h;
+			x = LineStart(buffer+i+1, h, align);
 		}
 		else
 		{

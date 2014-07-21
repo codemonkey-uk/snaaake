@@ -364,4 +364,21 @@ namespace Font
 		}
 		return mw;
 	}
+	
+	int Width(const Glyph& g)
+	{
+		int mw=0;
+		for (int l=0;l!=6;++l)
+		{
+			const char* c = g[l];
+			int w = 0;
+			while(*c) 
+			{
+				c++;
+				w++;
+			}
+			if (w>mw) mw=w;
+		}
+		return mw;
+	}
 }

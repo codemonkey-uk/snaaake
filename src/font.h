@@ -9,6 +9,7 @@ namespace Font
 	int Blit(const Glyph& g, int x, int y, int* pixels, int w, int h);
 	const Glyph& GetGlyph(int i);
 	const Glyph& GetDigit(int i);
+	int Width(const Glyph& g);
 }
 
 #endif // FONT_H_INCLUDED
