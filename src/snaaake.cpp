@@ -64,8 +64,6 @@ bool SnakeApp::OnInit()
 
 void SnakeApp::OnEvent(SDL_Event* Event)
 {
-    static bool meta = false;
-    
 	Base::OnEvent(Event);
 	if (Event->type==SDL_KEYDOWN)
     {
@@ -90,29 +88,9 @@ void SnakeApp::OnEvent(SDL_Event* Event)
 			case SDLK_SPACE:
 				mPaused = !mPaused;
 				break;
-            case SDLK_q:
-                if (meta)
-                    Running = false;
-                break;
-            case SDLK_LMETA:
-            case SDLK_RMETA:
-                meta = true;
-                break;
 			default:
 				break;
 		}
-    }
-	else if (Event->type==SDL_KEYUP)
-    {
-        switch (Event->key.keysym.sym) {
-            case SDLK_LMETA:
-            case SDLK_RMETA:
-                meta = false;
-                break;
-                
-            default:
-                break;
-        }
     }
 }
 
@@ -260,7 +238,7 @@ CApp::Point SnakeApp::RemoveSpawn(int c, Point near)
     			{
 					if (std::find(mOther.begin(), mOther.end(), p)==mOther.end())
 					{
-						if (first || near.DistanceSquare(p)<near.DistanceSquare(best))
+						if (first || near.ManhattenDistance(p)<near.ManhattenDistance(best))
 						{
 							best=p;
 							first=false;

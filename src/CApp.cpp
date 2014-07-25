@@ -18,10 +18,43 @@ CApp::CApp()
 //==============================================================================
 void CApp::OnEvent(SDL_Event* Event) 
 {
-    if(Event->type == SDL_QUIT) 
+    static bool meta = false;
+
+    if(Event->type == SDL_QUIT)
     {
         Running = false;
     }
+    
+    // Handle Apple-Q to quit for OS X
+    if (Event->type==SDL_KEYDOWN)
+    {
+        switch (Event->key.keysym.sym)
+    	{
+            case SDLK_LMETA:
+            case SDLK_RMETA:
+                meta = true;
+                break;
+            case SDLK_q:
+                if (meta)
+                    Running = false;
+                break;
+            default:
+                break;
+        }
+    }
+    else if (Event->type==SDL_KEYUP)
+    {
+        switch (Event->key.keysym.sym) {
+            case SDLK_LMETA:
+            case SDLK_RMETA:
+                meta = false;
+                break;
+                
+            default:
+                break;
+        }
+    }
+
 }
 
 //==============================================================================
