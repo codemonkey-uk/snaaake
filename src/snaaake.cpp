@@ -31,7 +31,7 @@ void SnakeApp::Reset()
 
 	PrintString( "W\n^", mHorizontal/2 +1, 3*(mVertical-8)/4 +7, Center );
 	PrintString( "|\nS", mHorizontal/2 +1, 1*(mVertical-8)/4 +4, Center );
-	PrintString( "A<", mHorizontal/2 -6, (mVertical-8)/2 +2, Right );
+	PrintString( "A<", mHorizontal/2 -4, (mVertical-8)/2 +2, Right );
 	PrintString( ">D", mHorizontal/2 +6, (mVertical-8)/2 +2, Left );
 	
 	sa = SpawnPoint();		
