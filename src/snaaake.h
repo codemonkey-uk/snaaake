@@ -15,8 +15,9 @@ class SnakeApp : public CApp
 	private:
 		int mLoopCount;
 		int mDiedOnFrame;
-
-		int mPaused;
+        int mLastKeyDown;
+    
+		bool mPaused, mAttract;
 		int mPendingGrowth;
 		int mSpawnCooldown;
 		Point mDir;
@@ -55,6 +56,7 @@ class SnakeApp : public CApp
         inline Point GetDir() const {return mDir;}
         inline Point GetHead() const {return mPos.front();}
         inline bool Alive() const {return mDiedOnFrame==0;}
+        inline int IdleFrames() const {return mLoopCount-mLastKeyDown;}
     
     public:
         virtual bool OnInit();

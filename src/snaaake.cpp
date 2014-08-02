@@ -12,8 +12,7 @@ SnakeApp::SnakeApp()
 	: mDir( Geometry::uninitialised )
 	, mPendingRemove( Geometry::uninitialised )
 	, mPaused(false)
-    // , mSnakeController(new SnakePlayerController())
-    , mSnakeController(new SnakeAIController())
+    , mSnakeController(new SnakePlayerController())
 {
 }
 
@@ -49,7 +48,11 @@ void SnakeApp::Reset()
 	mScore = 0;
 	mDiedOnFrame = 0;
 	
-	mSnakeController->Reset();
+    mAttract = false;
+    if (mSnakeController) delete mSnakeController;
+    mSnakeController = new SnakePlayerController();
+    
+    mLastKeyDown = mLoopCount;
 }
 
 bool SnakeApp::OnInit()
@@ -72,12 +75,14 @@ void SnakeApp::OnEvent(SDL_Event* Event)
     
 	if (Event->type==SDL_KEYDOWN)
     {
+        mLastKeyDown = mLoopCount;
     	switch (Event->key.keysym.sym)
     	{
 			case SDLK_SPACE:
 				mPaused = !mPaused;
 				break;
 			default:
+                if (mAttract) Reset();
 				break;
 		}
     }
@@ -259,8 +264,11 @@ CApp::Point SnakeApp::Advance(
 	return Wrap(next);
 }
 
-const char * GetMsg(int score)
+const char * GetMsg(bool paused, bool demo, int score)
 {
+    if (paused)
+        return "PAUSED";
+        
 	if (score>=10 && score<21)
 		return "YES";
 	else if (score>=41 && score<61)
@@ -273,6 +281,9 @@ const char * GetMsg(int score)
 		return "BRILLIANT";
     else if (score>=381)
         return "AMAZING";
+    
+    if (demo)
+        return "DEMO";
     
 	return "SNAAAKE";
 }
@@ -398,6 +409,12 @@ void SnakeApp::OnLoop()
 		else
 		{
             // pre-game insrructions in screen
+            if (!mPaused && IdleFrames()>=24*10)
+            {
+                delete mSnakeController;
+                mSnakeController = new SnakeAIController();
+                mAttract = true;
+            }
 		}
 	}
 	
@@ -414,5 +431,5 @@ void SnakeApp::OnLoop()
 	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );	
 	
 	// on screen message during pause
-	PrintString( mPaused ? "PAUSED" : GetMsg(mScore), mHorizontal/2, mVertical-2, Center );		
+    PrintString( GetMsg(mPaused, mAttract, mScore), mHorizontal/2, mVertical-2, Center );
 }

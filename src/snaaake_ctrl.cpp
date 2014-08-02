@@ -121,7 +121,6 @@ void SnakeAIController::Update(const SnakeApp* pApp)
         for (int d=1;d!=4;++d)
             if (score[d]-2>score[b]) b=d;
         
-        printf("%i, %i, %i, %i\n", score[0],score[1],score[2],score[3]);
         if (mDir!=directions[b])
         {
             mDir = directions[b];
