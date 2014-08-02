@@ -9,7 +9,7 @@
 #include "snaaake_ctrl.h"
 #include "snaaake.h"
 
-// class SnakeController
+// class SnakePlayerController
 
 // for input handling forwarded from the app
 // TODO: should be registered with app as input observer
@@ -72,3 +72,71 @@ void SnakePlayerController::Reset()
 {
     mEvents.clear();
 }
+
+// ---
+
+// class SnakePlayerController
+
+// for input handling forwarded from the app
+// TODO: should be registered with app as input observer
+void SnakeAIController::OnEvent(SDL_Event* Event)
+{
+    // TODO: End AI game when players interact
+}
+
+void SnakeAIController::Update(const SnakeApp* pApp)
+{
+    static int mCD = 0;
+    if (pApp->Alive() && mCD-- <= 0)
+    {
+        const CApp::Point directions[] = { {1,0},{-1,0},{0,1},{0,-1} };
+        int score[] = {0,0,0,0};
+        
+        CApp::Point start = pApp->GetHead();
+        const CApp::Point cDir = pApp->GetDir();
+        for (int d=0;d!=4;++d)
+        {
+            CApp::Point p = start;
+
+            // turning logic:
+            if (directions[d]!=cDir)
+            {
+                if (directions[d][1]==1 || directions[d][0]==1)
+                    p = pApp->Advance(p, directions[d]);
+                if (cDir[1]==1 || cDir[0]==1)
+					p = pApp->Advance( p, -cDir );
+            }
+            
+            CApp::Point o(Geometry::uninitialised);
+            do {
+                p = pApp->Advance(p, directions[d]);
+                o = pApp->Other(p, directions[d]);
+                score[d]++;
+            }while (*pApp->GetPx(p)==0 && *pApp->GetPx(o)==0);
+
+            if (*pApp->GetPx(p)==2 || *pApp->GetPx(o)==2)
+                score[d] = INT32_MAX-score[d];
+        }
+        int b=0;
+        for (int d=1;d!=4;++d)
+            if (score[d]-2>score[b]) b=d;
+        
+        printf("%i, %i, %i, %i\n", score[0],score[1],score[2],score[3]);
+        if (mDir!=directions[b])
+        {
+            mDir = directions[b];
+            mCD = 2;
+        }
+    }
+}
+
+CApp::Point SnakeAIController::GetDirection(CApp::Point dir)
+{
+    return mDir;
+}
+
+void SnakeAIController::Reset()
+{
+    // Nothing to do
+}
+

@@ -39,17 +39,22 @@ class SnakeApp : public CApp
 		void Reset();
 		// returns true if the snake lives on, false is death
 		bool Occupy( Point pos );
-		Point Other( Point pos, Point dir)const;
 		void AdvanceTail();
 		Point RemoveSpawn(int c, Point near);
 		Point Wrap(const Point::BaseType& p)const;
-		Point Advance(
-			const Point& p,
-			const Point::BaseType& d)const;
 		
     public:
         SnakeApp();
         inline bool GamePaused() const { return mPaused; }
+    
+		Point Other( Point pos, Point dir)const;    
+        Point Advance(
+            const Point& p,
+            const Point::BaseType& d)const;
+    
+        inline Point GetDir() const {return mDir;}
+        inline Point GetHead() const {return mPos.front();}
+        inline bool Alive() const {return mDiedOnFrame==0;}
     
     public:
         virtual bool OnInit();

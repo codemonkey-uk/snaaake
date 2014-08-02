@@ -43,4 +43,20 @@ private:
     std::deque< CApp::Point > mEvents;
 };
 
+class SnakeAIController : public SnakeController
+{
+public:
+    SnakeAIController() : mDir(0,0) {}
+    // for input handling forwarded from the app
+    // TODO: should be registered with app as input observer
+    void OnEvent(SDL_Event* Event);
+    CApp::Point GetDirection(CApp::Point currentDirection);
+    void Reset();
+    void Update(const SnakeApp* pApp);
+    
+private:
+    CApp::Point mDir;
+};
+
+
 #endif //SNAAAKE_snaaake_ctrl_h

@@ -12,7 +12,8 @@ SnakeApp::SnakeApp()
 	: mDir( Geometry::uninitialised )
 	, mPendingRemove( Geometry::uninitialised )
 	, mPaused(false)
-    , mSnakeController(new SnakePlayerController())
+    // , mSnakeController(new SnakePlayerController())
+    , mSnakeController(new SnakeAIController())
 {
 }
 
