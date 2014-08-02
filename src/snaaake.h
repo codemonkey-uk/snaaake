@@ -2,7 +2,7 @@
 #define SNAAAKE_H_INCLUDED
 
 #include "CApp.h"
-#include "InputLatch.h"
+#include "snaaake_ctrl.h"
 
 #include <deque>
 #include <random>
@@ -11,27 +11,25 @@ class SnakeApp : public CApp
 {
 	public:
 		typedef CApp Base;
-		// gameplay
-	private:
 
+	private:
 		int mLoopCount;
 		int mDiedOnFrame;
 
-		InputLatch mInputLatch;
-		
 		int mPaused;
 		int mPendingGrowth;
 		int mSpawnCooldown;
 		Point mDir;
-		std::deque< Point > mEvents;
-
+		
 		std::deque< Point > mPos;
 		std::deque< Point > mOther;
 		Point mPendingRemove;
 		std::mt19937 mRNG;
 		int mScore;
 		int mHighScore;
-						
+    
+        SnakeController* mSnakeController;
+				
 		bool FreeRect(Point p, Point s)const;
 		int SpawnDistance(Point r)const;
 		Point SpawnPoint();
@@ -51,7 +49,8 @@ class SnakeApp : public CApp
 		
     public:
         SnakeApp();
-
+        inline bool GamePaused() const { return mPaused; }
+    
     public:
         virtual bool OnInit();
         virtual void OnEvent(SDL_Event* Event);

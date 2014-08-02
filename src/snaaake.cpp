@@ -12,6 +12,7 @@ SnakeApp::SnakeApp()
 	: mDir( Geometry::uninitialised )
 	, mPendingRemove( Geometry::uninitialised )
 	, mPaused(false)
+    , mSnakeController(new SnakePlayerController())
 {
 }
 
@@ -47,7 +48,7 @@ void SnakeApp::Reset()
 	mScore = 0;
 	mDiedOnFrame = 0;
 	
-	mEvents.clear();
+	mSnakeController->Reset();
 }
 
 bool SnakeApp::OnInit()
@@ -65,26 +66,13 @@ bool SnakeApp::OnInit()
 void SnakeApp::OnEvent(SDL_Event* Event)
 {
 	Base::OnEvent(Event);
+    
+    mSnakeController->OnEvent(Event);
+    
 	if (Event->type==SDL_KEYDOWN)
     {
     	switch (Event->key.keysym.sym)
     	{
-    		case SDLK_a:
-    		case SDLK_LEFT:
-		    	mEvents.push_back({-1,0});
-				break;
-			case SDLK_d:
-    		case SDLK_RIGHT:
-		    	mEvents.push_back({1,0});
-				break;
-			case SDLK_w:
-    		case SDLK_UP:
-		    	mEvents.push_back({0,1});
-		    	break;
-			case SDLK_s:
-    		case SDLK_DOWN:
-		    	mEvents.push_back({0,-1});
-				break;
 			case SDLK_SPACE:
 				mPaused = !mPaused;
 				break;
@@ -296,21 +284,18 @@ void SnakeApp::OnLoop()
 	// clear score area
 	ClearRows(mVertical-7, mVertical, 0);
 	
-	if (mPaused)
-	{
-		// all game input events are dropped while paused
-		if (!mEvents.empty()) mEvents.pop_front();	
-	}
-	else 
-	{
-		mInputLatch.Update();
-		if (!mEvents.empty() && !mInputLatch.IsLocked(mEvents.front()) &&!mDiedOnFrame) 
+    mSnakeController->Update(this);
+    
+	if (mPaused==false)
+    {
+		if (!mDiedOnFrame)
 		{
+            auto newDir = mSnakeController->GetDirection(mDir);
 			// a change in direction, not reversing direction
-			if (mEvents.front()!=-mDir && mEvents.front()!=mDir)
+			if (newDir!=-mDir && newDir!=mDir)
 			{
 				auto oldDir = mDir;
-				mDir = mEvents.front();
+				mDir = newDir;
 			
 				// step over thickness
 				if (mDir[1]==1 || mDir[0]==1) 
@@ -352,10 +337,7 @@ void SnakeApp::OnLoop()
 					Spawn(sa, 2);
 					Spawn(sb, 2);
 				}
-				
-				mInputLatch.Lock(2, -oldDir);
 			}
-			mEvents.pop_front();
 		}
 	
 		if (mDir.LengthSquare()>0 && !mDiedOnFrame)
