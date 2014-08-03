@@ -425,7 +425,7 @@ void SnakeApp::OnLoop()
 	// bottom border horizontal
 	ClearRows(0, 1, 1);
 
-	mHighScore=std::max(mScore, mHighScore);
+	if (mAttract==false) mHighScore=std::max(mScore, mHighScore);
 
 	PrintNumber( mScore, 1, mVertical-2, Left );
 	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );	
