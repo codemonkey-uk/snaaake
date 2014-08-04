@@ -9,6 +9,8 @@
 #include "snaaake_ctrl.h"
 #include "snaaake.h"
 
+#include <algorithm>
+
 // class SnakePlayerController
 
 // for input handling forwarded from the app
@@ -77,19 +79,43 @@ void SnakePlayerController::Reset()
 
 // class SnakePlayerController
 
-// for input handling forwarded from the app
-// TODO: should be registered with app as input observer
 void SnakeAIController::OnEvent(SDL_Event* Event)
 {
-    // TODO: End AI game when players interact
+    // Nothing to do:
+    // App will end AI game when player interacts
+}
+
+const CApp::Point directions[] = { {1,0},{-1,0},{0,1},{0,-1} };
+
+int SnakeAIController::Score(CApp::Point p, int d, const SnakeApp* pApp)const
+{
+    int score = 1;
+    int collides = 0;
+    
+    CApp::Point o(Geometry::uninitialised);
+    do {
+        p = pApp->Advance(p, directions[d]);
+        o = pApp->Other(p, directions[d]);
+        score++;
+        
+        collides = *pApp->GetPx(p);
+        collides = std::max(collides, *pApp->GetPx(o));
+
+    }while (collides==0);
+    
+    if (collides==2)
+    {
+        score = INT16_MAX-score;
+    }
+    
+    return score;
 }
 
 void SnakeAIController::Update(const SnakeApp* pApp)
 {
-    static int mCD = 0;
-    if (pApp->Alive() && mCD-- <= 0)
+    static int mCD = 2;
+    if (pApp->Alive())
     {
-        const CApp::Point directions[] = { {1,0},{-1,0},{0,1},{0,-1} };
         int score[] = {0,0,0,0};
         
         CApp::Point start = pApp->GetHead();
@@ -107,31 +133,30 @@ void SnakeAIController::Update(const SnakeApp* pApp)
 					p = pApp->Advance( p, -cDir );
             }
             
-            CApp::Point o(Geometry::uninitialised);
-            do {
-                p = pApp->Advance(p, directions[d]);
-                o = pApp->Other(p, directions[d]);
-                score[d]++;
-            }while (*pApp->GetPx(p)==0 && *pApp->GetPx(o)==0);
-
-            if (*pApp->GetPx(p)==2 || *pApp->GetPx(o)==2)
-                score[d] = INT32_MAX-score[d];
+            score[d] = Score(p, d, pApp);
         }
+        
         int b=0;
         for (int d=1;d!=4;++d)
-            if (score[d]-2>score[b]) b=d;
+            if (score[d]>score[b]) b=d;
         
-        if (mDir!=directions[b])
+        if (mDir!=b && score[mDir] < score[b]-score[mDir] )
         {
-            mDir = directions[b];
-            mCD = 2;
+            if ((mRNG()%mCD)==0)
+            {
+                mDir = b;
+                if (mCD<4) mCD += 2;
+                else mCD += 12;
+            }
         }
     }
+    
+    if (mCD>2) mCD--;
 }
 
 CApp::Point SnakeAIController::GetDirection(CApp::Point dir)
 {
-    return mDir;
+    return directions[mDir];
 }
 
 void SnakeAIController::Reset()

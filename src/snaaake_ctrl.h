@@ -13,6 +13,7 @@
 #include "InputLatch.h"
 
 #include <deque>
+#include <random>
 
 class SnakeApp;
 
@@ -46,7 +47,7 @@ private:
 class SnakeAIController : public SnakeController
 {
 public:
-    SnakeAIController() : mDir(0,0) {}
+    SnakeAIController() : mDir(0) {}
     // for input handling forwarded from the app
     // TODO: should be registered with app as input observer
     void OnEvent(SDL_Event* Event);
@@ -55,7 +56,9 @@ public:
     void Update(const SnakeApp* pApp);
     
 private:
-    CApp::Point mDir;
+    std::mt19937 mRNG;
+    int mDir;
+    int Score(CApp::Point p, int d, const SnakeApp* pApp)const;
 };
 
 
