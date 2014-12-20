@@ -3,21 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
+
     <title>SNAAAKE</title>
     <meta name="title" content="SNAAAKE" />
     <meta property="og:title" content="SNAAAKE" />
 
     <link rel="image_src" href="snaaake.png">
     <meta property="og:image" content="http://thad.frogley.info/snaaake/snaaake.png" />
-    
+
 	<meta name="description" content="A playable version of the video game classic Snake for HTML5/WebGL compatable browsers." />
 	<meta property="og:description" content="A playable version of the video game classic Snake for HTML5/WebGL compatable browsers." />
-	
+
 	<meta property="og:url" content="http://thad.frogley.info/snaaake/" />
 
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-	
+
     <style>
       body {
         font-family: arial;
@@ -26,7 +26,7 @@
       }
 
       .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
-      div.emscripten { text-align: center; }      
+      div.emscripten { text-align: center; }
       div.emscripten_border { border: 0px none; }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
       canvas.emscripten { border: 0px none; }
@@ -54,7 +54,7 @@
         border-right: 5px solid rgb(235, 235, 235);
         border-bottom: 5px solid rgb(235, 235, 235);
         border-top: 5px solid rgb(120, 120, 120);
-        
+
         border-radius: 100%;
         background-color: rgb(189, 215, 46);
       }
@@ -92,7 +92,7 @@
 
       #controls {
         display: block;
-        margin-left: auto; margin-right: auto; 
+        margin-left: auto; margin-right: auto;
         padding: 20px;
         text-align: center;
       }
@@ -110,43 +110,48 @@
         overflow:hidden;
         font-size: 12px;
       }
-      
+
       #header {
       	text-align: center;
 		padding-top: 20px; margin-left: auto; margin-right: auto; display: block;
       	font-family: 'Lucida Console', Monaco, monospace;
       	font-size: xx-large;
       }
-      
+
     </style>
   </head>
   <body>
     <!-- <img id='emscripten_logo' src="emscripten_cropped_logo.jpg" width=296 height=78> -->
 	<div id='header'>SNAAAKE</div>
 	<div class="emscripten" style="padding-bottom: 12px">
-    <tt>Download: [<a href="SNAAAKE.app.zip">OS X</a>]</tt>
+	<tt>With music by <a href="http://alexdhay.wordpress.com/">Alex D Hay</a></tt>.<br>
+    <tt>Download: [<a href="SNAAAKE.app.zip">OS X</a>] | Play [<a href="http://thad.frogley.info/caaave">CAAAVE</a>]</tt>
 	</div>
 
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
     </div>
-	
-    <div class="emscripten_border">        
+
+    <div class="emscripten_border">
 
 	  <div class="emscripten">
       <div class="spinner" id='spinner'></div>
       <div class="emscripten" id="status">Downloading...</div>
       </div>
-   
+
       <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-      
-	  <textarea id="output" rows="8"></textarea>               
+
+	  <textarea id="output" rows="8"></textarea>
     </div>
-    
+
+    <audio autoplay loop>
+      <source src="snaaake.mp3" type="audio/mpeg">
+    </audio>
+
 	<span id='controls' class="emscripten">
 	  <span><input type="checkbox" id="resize">Resize canvas</span>
 	  <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
-	  <span><input type="button" value="Fullscreen" onclick="Module.requestFullScreen(document.getElementById('pointerLock').checked, 
+	  <span><input type="button" value="Fullscreen" onclick="Module.requestFullScreen(document.getElementById('pointerLock').checked,
 																				document.getElementById('resize').checked)"></span>
 	</span>
 
@@ -197,7 +202,7 @@
             progressElement.value = null;
             progressElement.max = null;
             progressElement.hidden = true;
-            if (!text) { 
+            if (!text) {
               spinnerElement.style.display = 'none';
               statusElement.style.display = 'none';
             }
@@ -213,25 +218,25 @@
       Module.setStatus('Downloading...');
     </script>
     <script async type="text/javascript" src="snaaake.js"></script>
-    	
-	<div id="share" style="display: table; width: 310px; margin: 0 auto; vertical-align:text-top;">	
-	
+
+	<div id="share" style="display: table; width: 310px; margin: 0 auto; vertical-align:text-top;">
+
 		<div style="height: 20px; width: 110px; display: inline-block;">
-			<a name="fb_share"></a> 
-			<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" 
-					type="text/javascript"> 
+			<a name="fb_share"></a>
+			<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share"
+					type="text/javascript">
 			</script>
 		</div>
-		
+
 		<div id='tweet' style="display: inline-block; vertical-align: bottom;">
 			<a href="http://twitter.com/share" class="twitter-share-button" data-count="verticle" data-via="codemonkey_uk">Tweet</a>
 			<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		</div>
-		
+
 		<div style="display: inline-block; vertical-align: bottom;">
 		<!-- Place this tag where you want the +1 button to render -->
 		<div class="g-plusone" data-size="medium"></div>
-		
+
 		<!-- Place this render call where appropriate -->
 		<script type="text/javascript">
 		  (function() {
@@ -242,7 +247,7 @@
 		</script>
 		</div>
 	</div>
-	
+
 	<div class="emscripten">
 	<script src="http://coinwidget.com/widget/coin.js"></script>
 	<script>
@@ -260,7 +265,7 @@
 	});
 	</script>
 	</div>
-	
+
     <hr>
     <div class="emscripten">
     <iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=codemonkeyuk-21&o=2&p=26&l=ur1&category=pcvideogames&banner=1EZH10GZG35XXVXEHQ02&f=ifr" width="468" height="60" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>

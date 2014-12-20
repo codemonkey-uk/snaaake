@@ -1,3 +1,6 @@
 [submodule "libs/geometry"]
 	path = libs/geometry
 	url = https://github.com/codemonkey-uk/geometry.git
+[submodule "libs/SeamlessLoop.git"]
+	path = libs/SeamlessLoop.git
+	url = https://github.com/Hivenfour/SeamlessLoop.git
