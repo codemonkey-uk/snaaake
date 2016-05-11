@@ -18,12 +18,9 @@
 #include "matrixn.h"
 #include "vectorn.h"
 #include "colour.h"
-#include "aabb2d.h"
 
 namespace GFX
 {
-    typedef Geometry::AxisAlignedBoundingBox2d< GLfloat > AABB;
-
     class Shape
     {
         public:

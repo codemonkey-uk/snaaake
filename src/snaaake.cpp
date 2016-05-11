@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern "C" int GetLocalHighScore();
+extern "C" void SetLocalHighScore(int d);
+
 SnakeApp::SnakeApp()
 	// set up in ::Init
 	: mDir( Geometry::uninitialised )
@@ -62,7 +65,7 @@ bool SnakeApp::OnInit()
     if (result)
     {
     	Reset();
-	    mHighScore=0;
+        mHighScore=GetLocalHighScore();
     }
     return result;
 }
@@ -425,7 +428,14 @@ void SnakeApp::OnLoop()
 	// bottom border horizontal
 	ClearRows(0, 1, 1);
 
-	if (mAttract==false) mHighScore=std::max(mScore, mHighScore);
+	if (mAttract==false)
+    {
+        if (mScore > mHighScore)
+        {
+            mHighScore=mScore;
+            SetLocalHighScore(mHighScore);
+        }
+    }
 
 	PrintNumber( mScore, 1, mVertical-2, Left );
 	PrintNumber( mHighScore, mHorizontal, mVertical-2, Right );	

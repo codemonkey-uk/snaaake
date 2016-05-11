@@ -144,11 +144,12 @@
 	  <textarea id="output" rows="8"></textarea>
     </div>
 
-    <audio autoplay loop>
+    <audio autoplay loop id='music_loop'>
       <source src="snaaake.mp3" type="audio/mpeg">
     </audio>
 
 	<span id='controls' class="emscripten">
+	  <span><input type="checkbox" id="mute" onclick="Module.OnMute(document.getElementById('mute').checked)">Mute</span>	
 	  <span><input type="checkbox" id="resize">Resize canvas</span>
 	  <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
 	  <span><input type="button" value="Fullscreen" onclick="Module.requestFullScreen(document.getElementById('pointerLock').checked,
@@ -213,7 +214,31 @@
         monitorRunDependencies: function(left) {
           this.totalDependencies = Math.max(this.totalDependencies, left);
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-        }
+        },
+
+		setCookie: function(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			var expires = "expires="+d.toUTCString();
+			document.cookie = cname + "=" + cvalue + "; " + expires;
+		},
+		
+		OnMute: function(mute) {
+		    var v = (mute) ? 0 : 1;
+		    var a = document.getElementById("music_loop");
+		    a.volume = v;
+		},
+
+		getCookie: function(cname) {
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1);
+				if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+			}
+			return "";
+		}
       };
       Module.setStatus('Downloading...');
     </script>
@@ -266,9 +291,9 @@
 	</script>
 	</div>
 
-    <hr>
-    <div class="emscripten">
-    <iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=codemonkeyuk-21&o=2&p=26&l=ur1&category=pcvideogames&banner=1EZH10GZG35XXVXEHQ02&f=ifr" width="468" height="60" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+	<hr>
+	<div class="emscripten">
+	<iframe src="http://rcm-eu.amazon-adsystem.com/e/cm?t=codemonkeyuk-21&o=2&p=26&l=ur1&category=pcvideogames&banner=1EZH10GZG35XXVXEHQ02&f=ifr" width="468" height="60" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
 	</div>
   </body>
 </html>

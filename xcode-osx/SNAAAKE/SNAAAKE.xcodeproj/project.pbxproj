@@ -27,14 +27,13 @@
 		D31F0D201972BF3D00B80BCC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D0D1972BF3D00B80BCC /* index.html */; };
 		D31F0D211972BF3D00B80BCC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D0F1972BF3D00B80BCC /* main.cpp */; };
 		D31F0D221972BF3D00B80BCC /* quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D101972BF3D00B80BCC /* quad.cpp */; };
-		D31F0D231972BF3D00B80BCC /* ring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D121972BF3D00B80BCC /* ring.cpp */; };
 		D31F0D241972BF3D00B80BCC /* shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D141972BF3D00B80BCC /* shape.cpp */; };
 		D31F0D251972BF3D00B80BCC /* snaaake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D161972BF3D00B80BCC /* snaaake.cpp */; };
-		D31F0D261972BF3D00B80BCC /* star.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31F0D181972BF3D00B80BCC /* star.cpp */; };
 		D31F0D3D1972BF6300B80BCC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D281972BF6300B80BCC /* .gitignore */; };
 		D31F0D3E1972BF6300B80BCC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D301972BF6300B80BCC /* LICENSE */; };
 		D31F0D3F1972BF6300B80BCC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D341972BF6300B80BCC /* README.md */; };
 		D31F0D411972C0AB00B80BCC /* SDL.framework in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CFF1972BEA200B80BCC /* SDL.framework */; };
+		D353DA2D1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = D353DA2C1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m */; };
 		D3E3F12F1976B9C5003D96D5 /* trianglebatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */; };
 /* End PBXBuildFile section */
 
@@ -84,14 +83,10 @@
 		D31F0D0F1972BF3D00B80BCC /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D31F0D101972BF3D00B80BCC /* quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quad.cpp; sourceTree = "<group>"; };
 		D31F0D111972BF3D00B80BCC /* quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quad.h; sourceTree = "<group>"; };
-		D31F0D121972BF3D00B80BCC /* ring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ring.cpp; sourceTree = "<group>"; };
-		D31F0D131972BF3D00B80BCC /* ring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ring.h; sourceTree = "<group>"; };
 		D31F0D141972BF3D00B80BCC /* shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shape.cpp; sourceTree = "<group>"; };
 		D31F0D151972BF3D00B80BCC /* shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shape.h; sourceTree = "<group>"; };
 		D31F0D161972BF3D00B80BCC /* snaaake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = snaaake.cpp; sourceTree = "<group>"; };
 		D31F0D171972BF3D00B80BCC /* snaaake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snaaake.h; sourceTree = "<group>"; };
-		D31F0D181972BF3D00B80BCC /* star.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = star.cpp; sourceTree = "<group>"; };
-		D31F0D191972BF3D00B80BCC /* star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = star.h; sourceTree = "<group>"; };
 		D31F0D281972BF6300B80BCC /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D31F0D291972BF6300B80BCC /* aabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
 		D31F0D2A1972BF6300B80BCC /* aabb2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aabb2d.h; sourceTree = "<group>"; };
@@ -111,6 +106,8 @@
 		D31F0D3A1972BF6300B80BCC /* vector2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2d.h; sourceTree = "<group>"; };
 		D31F0D3B1972BF6300B80BCC /* vector3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3d.h; sourceTree = "<group>"; };
 		D31F0D3C1972BF6300B80BCC /* vectorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorn.h; sourceTree = "<group>"; };
+		D353DA2B1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
+		D353DA2C1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trianglebatcher.cpp; sourceTree = "<group>"; };
 		D3E3F12E1976B9C5003D96D5 /* trianglebatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trianglebatcher.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +179,8 @@
 		D31F0CD11972BDE500B80BCC /* SNAAAKE */ = {
 			isa = PBXGroup;
 			children = (
+				D353DA2B1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.h */,
+				D353DA2C1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m */,
 				D31F0D011972BECE00B80BCC /* SDLMain.h */,
 				D31F0D021972BECE00B80BCC /* SDLMain.m */,
 				D31F0CDD1972BDE500B80BCC /* AppDelegate.h */,
@@ -239,16 +238,12 @@
 				D31F0D0F1972BF3D00B80BCC /* main.cpp */,
 				D31F0D101972BF3D00B80BCC /* quad.cpp */,
 				D31F0D111972BF3D00B80BCC /* quad.h */,
-				D31F0D121972BF3D00B80BCC /* ring.cpp */,
-				D31F0D131972BF3D00B80BCC /* ring.h */,
 				D31F0D141972BF3D00B80BCC /* shape.cpp */,
 				D31F0D151972BF3D00B80BCC /* shape.h */,
 				D31F0D161972BF3D00B80BCC /* snaaake.cpp */,
 				D306DC361982D49700C459FC /* snaaake_ctrl.h */,
 				D306DC371982D51E00C459FC /* snaaake_ctrl.cpp */,
 				D31F0D171972BF3D00B80BCC /* snaaake.h */,
-				D31F0D181972BF3D00B80BCC /* star.cpp */,
-				D31F0D191972BF3D00B80BCC /* star.h */,
 				D31F0D1A1972BF3D00B80BCC /* xcode-osx */,
 			);
 			name = src;
@@ -398,12 +393,11 @@
 				D31F0D1C1972BF3D00B80BCC /* CApp_OnInit.cpp in Sources */,
 				D31F0CDF1972BDE500B80BCC /* AppDelegate.m in Sources */,
 				D31F0D1D1972BF3D00B80BCC /* CApp_OnRender.cpp in Sources */,
-				D31F0D261972BF3D00B80BCC /* star.cpp in Sources */,
 				D31F0D241972BF3D00B80BCC /* shape.cpp in Sources */,
-				D31F0D231972BF3D00B80BCC /* ring.cpp in Sources */,
 				D31F0D221972BF3D00B80BCC /* quad.cpp in Sources */,
 				D3E3F12F1976B9C5003D96D5 /* trianglebatcher.cpp in Sources */,
 				D31F0D251972BF3D00B80BCC /* snaaake.cpp in Sources */,
+				D353DA2D1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m in Sources */,
 				D306DC381982D51E00C459FC /* snaaake_ctrl.cpp in Sources */,
 				D31F0D1E1972BF3D00B80BCC /* colour.cpp in Sources */,
 			);
