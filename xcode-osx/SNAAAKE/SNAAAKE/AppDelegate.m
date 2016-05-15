@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "NSFileManager+DirectoryLocations.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <CoreAudio/CoreAudio.h>
+
 // simple OS X platforms hooks for funcitonality that uses cookies in the browser build
 
 int GetLocalHighScore()
@@ -28,12 +31,24 @@ void SetLocalHighScore(int d)
     [noteDataString writeToFile:appFile atomically:YES];
 }
 
+static AVAudioPlayer * Audio = 0;
+
+void PlayMusic()
+{
+    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource: @"snaaake" ofType: @"mp3"];
+    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
+    Audio = [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error: nil];
+    
+    [Audio setNumberOfLoops:-1];
+    [Audio play];
+}
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+    PlayMusic();
 }
 
 @end

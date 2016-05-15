@@ -34,6 +34,7 @@
 		D31F0D3F1972BF6300B80BCC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D31F0D341972BF6300B80BCC /* README.md */; };
 		D31F0D411972C0AB00B80BCC /* SDL.framework in Resources */ = {isa = PBXBuildFile; fileRef = D31F0CFF1972BEA200B80BCC /* SDL.framework */; };
 		D353DA2D1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = D353DA2C1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m */; };
+		D353DA2F1CE910DA0032D494 /* snaaake.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D353DA2E1CE910DA0032D494 /* snaaake.mp3 */; };
 		D3E3F12F1976B9C5003D96D5 /* trianglebatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		D31F0D3C1972BF6300B80BCC /* vectorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorn.h; sourceTree = "<group>"; };
 		D353DA2B1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		D353DA2C1CE3D8B30032D494 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
+		D353DA2E1CE910DA0032D494 /* snaaake.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = snaaake.mp3; path = ../../../res/snaaake.mp3; sourceTree = "<group>"; };
 		D3E3F12D1976B9C5003D96D5 /* trianglebatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trianglebatcher.cpp; sourceTree = "<group>"; };
 		D3E3F12E1976B9C5003D96D5 /* trianglebatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trianglebatcher.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,6 +196,7 @@
 		D31F0CD21972BDE500B80BCC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D353DA2E1CE910DA0032D494 /* snaaake.mp3 */,
 				D31F0CD31972BDE500B80BCC /* SNAAAKE-Info.plist */,
 				D31F0CD41972BDE500B80BCC /* InfoPlist.strings */,
 				D31F0CD91972BDE500B80BCC /* SNAAAKE-Prefix.pch */,
@@ -361,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D31F0D411972C0AB00B80BCC /* SDL.framework in Resources */,
+				D353DA2F1CE910DA0032D494 /* snaaake.mp3 in Resources */,
 				D31F0D201972BF3D00B80BCC /* index.html in Resources */,
 				D31F0CD61972BDE500B80BCC /* InfoPlist.strings in Resources */,
 				D31F0CE41972BDE500B80BCC /* Images.xcassets in Resources */,
